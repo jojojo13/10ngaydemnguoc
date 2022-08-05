@@ -1,0 +1,117 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "@fullcalendar/common/main.css";
+// @import "@fullcalendar/daygrid/main.css";
+@font-face {
+  font-family: "Poppins";
+  src: url("assets/DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf");
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  overflow: hidden;
+  font-family: "Poppins";
+}
+.ngx-pagination .current {
+  background-color: #354ea0 !important;
+}
+.swal2-popup {
+  font-size: 14px !important;
+  font-family: "Poppins";
+}
+.mat-checkbox-input {
+  width: 100%;
+  height: 100%;
+}
+.mat-form-field-wrapper {
+  width: 90px !important;
+}
+.mat-form-field{
+  display: initial !important;
+
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper{
+  margin: auto !important;
+  text-align: center !important;
+}
+// .mat-form-field-infix{
+//   input{
+//     &::placeholder{
+//       font-family: "Poppins" !important;
+//       font-size: 14px !important;
+//       color: red !important;
+//       text-align: center !important;
+//     }
+//   }
+// }
+// input.mat-input-element{
+//   &::placeholder{
+//     font-family: "Poppins" !important;
+//     font-size: 14px !important;
+//     color: red !important;
+//     text-align: center !important;
+//   }
+// }
+.avatar-container{
+  margin-left: 0 !important;
+}
+.custom{
+  .mat-form-field-flex {
+    background-color: #fff !important;
+    padding-top: 0px !important;
+    .mat-form-field-infix {
+      padding-bottom: 9px !important;
+      margin: 0 auto !important;
+      text-align: center;
+    }
+    
+  }
+  .mat-form-field-wrapper{
+    width: 130px !important;
+    margin: 0 auto !important;
+  }
+ 
+}
+.mat-datepicker-actions{
+  button{
+    border-radius: 5px !important;
+    border: none !important;
+    padding: 5px 8px !important;
+    margin: 0 3px !important;
+    color: #fff !important;
+    &:nth-of-type(2){
+      background-color: #354ea0 !important;
+    }
+    &:first-of-type{
+      background-color: #ccc9c9 !important;
+    }
+  }
+}
+.interview{
+  color:blue !important;
+  font-size: 12px !important;
+}
+.fc-toolbar-chunk{
+  h2{
+    margin-left: 30px !important  ;
+    margin-top: 30px !important;
+    font-family: 'Poppins' !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+  }
+}
+.fc-header-toolbar{
+  margin-bottom: 0 !important;
+}
+// .confirm {
+//   min-height: 300px !important;
+// }

@@ -1,0 +1,22 @@
+<div class="action">
+  <ng-container *ngIf="user">
+    <ng-container *ngIf="user.rule == 2">
+      <app-submit-btn
+        [action]="submitAction"
+        [request]="request"
+      ></app-submit-btn>
+
+      <app-cancel-btn
+        [action]="cancelAction"
+        [request]="request"
+      ></app-cancel-btn>
+    </ng-container>
+    <ng-container *ngIf="user.rule == 1">
+      <app-edit-btn [action]="approveAction" [request]="request"></app-edit-btn>
+      <app-reject-btn
+        [action]="rejectAction"
+        [request]="request"
+      ></app-reject-btn>
+    </ng-container>
+  </ng-container>
+</div>

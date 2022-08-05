@@ -1,0 +1,172 @@
+<div class="content">
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <div class="content-heading">
+    <h5>View candidates</h5>
+    <div class="d-flex justify-content-between">
+      <app-back-btn [route]="route"></app-back-btn>
+      <div class="list" style="display: flex">
+        <app-matching-btn></app-matching-btn>
+        <div class="content" (click)="addNewCandidate()">
+          <p><i class="far fa-plus circle-icon"></i>Add new</p>
+        </div>
+        <div class="content" (click)="editCandidate()">
+          <p><i class="fa fa-pencil"></i>Edit</p>
+        </div>
+        <div class="content" (click)="deleteCandidate()">
+          <p><i class="fa fa-trash"></i>Delete</p>
+        </div>
+        <div class="content" (click)="active()">
+          <p><i class="far fa-check"></i>Active</p>
+        </div>
+        <div class="content" (click)="deactive()">
+          <p><i class="fa fa-ban"></i>Deactive</p>
+        </div>
+        <div *ngIf="role && role == 1" class="content" (click)="exportExcel()">
+          <p><i class="fa fa-download"></i>Export Excel</p>
+        </div>
+      </div>
+    </div>
+    <div class="content-middle">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>YOB</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>Lastest position</th>
+            <th>Description</th>
+            <th>Language</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr [formGroup]="candidateForm">
+            <td></td>
+            <td></td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="name"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="yob"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="phone"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="email"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="location"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="position"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="exp"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Filter"
+                  formControlName="languages"
+                />
+              </mat-form-field>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="listCandidate">
+          <tr
+            (dblclick)="navigateToView(candidate)"
+            *ngFor="
+              let candidate of listCandidate
+                | paginate
+                  : {
+                      itemsPerPage: itemsPerPage,
+                      currentPage: page,
+                      totalItems: totalItems
+                    }
+            "
+          >
+            <td>
+              <input
+                type="checkbox"
+                (change)="selectedChange(candidate, $event)"
+              />
+            </td>
+            <td>{{ candidate.code }}</td>
+            <td>{{ candidate.name }}</td>
+            <td>{{ candidate.yob }}</td>
+            <td>{{ candidate.phoneNumber }}</td>
+            <td class="px-2">{{ candidate.email }}</td>
+            <td class="px-2">{{ candidate.location }}</td>
+            <td>{{ candidate.lastestPosition }}</td>
+            <td>{{ candidate.experience }}</td>
+            <td>{{ candidate.language }}</td>
+            <td [ngClass]="{'draft':candidate.statusId==0,'active':candidate.statusId==1}">{{ candidate.statusName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-container *ngIf="listCandidate">
+      <pagination-controls
+        class="pagi"
+        (pageChange)="gty((page = $event))"
+      ></pagination-controls>
+    </ng-container>
+  </div>
+</div>

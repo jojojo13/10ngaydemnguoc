@@ -1,0 +1,15 @@
+.content{
+    margin-right: 30px;
+    margin-top: 10px;
+    p{  
+        cursor: pointer;
+        i{
+            color: black;
+            transform: rotate(-45deg);
+        }
+        color: #001EF6;
+    }
+    input[type="file"]{
+        display: none;
+    }
+}

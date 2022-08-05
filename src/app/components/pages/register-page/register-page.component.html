@@ -1,0 +1,53 @@
+<div class="contain">
+  <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+    <div class="mb-3">
+      <label for="name" class="form-label">Your name</label>
+      <input formControlName="name" type="text" class="form-control" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('name')?.hasError('required') &&
+          registerForm.get('name')?.touched
+        "
+        >Name is required</small
+      >
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail" class="form-label">Email address</label>
+      <input formControlName="email" type="text" class="form-control" />
+      <div class="form-text">
+        We'll never share your email with anyone else.
+      </div>
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('email')?.hasError('required') &&
+          registerForm.get('email')?.touched
+        "
+        >Email is required</small
+      >
+      <small
+      class="text-danger"
+      *ngIf="
+        registerForm.get('email')?.hasError('email') &&
+        registerForm.get('email')?.touched
+      "
+      >Email invalid</small
+    >
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Avatar Link</label>
+      <input type="text" formControlName="avatar_url" class="form-control" />
+      <small
+        class="text-danger"
+        *ngIf="
+          registerForm.get('avatar_url')?.hasError('required') &&
+          registerForm.get('avatar_url')?.touched
+        "
+        >Avatar is required</small
+      >
+    </div>
+    <small *ngIf="msg!=''" class="text-danger">{{msg}}<br></small> 
+    <button type="submit" [disabled]='registerForm.invalid' class="btn btn-primary mt-3">Submit</button>
+  </form>
+</div>

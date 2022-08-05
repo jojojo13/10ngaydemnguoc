@@ -1,0 +1,118 @@
+
+<div class="application">
+  <div class="application-heading">
+    <div class="application-heading-img">
+      <ngx-avatar class="img" size="100" [name]="'letter'"></ngx-avatar>
+    </div>
+    <div class="application-heading-contact">
+      <p class="">Hoang Ngoc Minh</p>
+      <p>0988232322</p>
+      <p>sadsad@gmail.com</p>
+    </div>
+    <div class="application-heading-social">
+      <div class="application-heading-social-item">
+        <p>Request:</p>
+        <span target="_blank"> NodeJS dev </span>
+      </div>
+      <div class="application-heading-social-item">
+        <p>Project:</p>
+        <span target="_blank"> ERP Solutions </span>
+      </div>
+      <div class="application-heading-social-item">
+        <p class=>Department:</p>
+        <span target="_blank"> Hoang Dao Thuy </span>
+      </div>
+    </div>
+    <div class="application-heading-stages">
+          <p>Stages of candidate:</p>
+          <span class="text-success">CV passed</span>
+          <div class="application-heading-stages-box">
+            <div class="application-heading-stages-box-item"[ngClass]="{'isnow':stepNow==1,passed:stepNow>1,notyet:stepNow<1}" >
+                <span>1</span>
+            </div>
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==2,passed:stepNow>2,notyet:stepNow<2}">
+                <span>2</span>
+            </div>
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==3,passed:stepNow>3,notyet:stepNow<3}">
+                <span>3</span>
+            </div>
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==4,passed:stepNow>4,notyet:stepNow<4}">
+                <span>4</span>
+            </div>
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==5,passed:stepNow>5,notyet:stepNow<5}">
+                <span>5</span>
+            </div>
+          </div>
+    </div>
+  </div>
+  <div>
+  </div>
+  <div class="application-middle">
+    <div class="application-middle-step">
+        <h6 class="application-middle-step__ttl">Stages of Hoang Ngoc Minh</h6>
+        <div class="content">
+            <div class="content-list">
+                <div class="content-list-item" #step1 [ngClass]="{'highlight':index==1,passed:stepNow>1,notyet:stepNow<1}" (click)="chooseStep(1,step1)" >
+                    <h6 class="content-list-item__ttl" >Stage 1</h6>
+                    <p lass="content-list-item__stl">CV</p>
+                  </div>
+                <div class="content-list-item" #step2 [ngClass]="{'highlight':index==2,passed:stepNow>2,notyet:stepNow<2}" (click)="chooseStep(2,step2)">
+                    <h6 class="content-list-item__ttl">Stage 2</h6>
+                    <p lass="content-list-item__stl">Interview</p>
+                </div>
+                <div class="content-list-item" #step3 [ngClass]="{'highlight':index==3,passed:stepNow>3,notyet:stepNow<3}" (click)="chooseStep(3,step3)">
+                    <h6 class="content-list-item__ttl">Stage 3</h6>
+                    <p lass="content-list-item__stl">Offer</p>
+                </div>
+                <div class="content-list-item" #step4 [ngClass]="{'highlight':index==4,passed:stepNow>4,notyet:stepNow<4}" (click)="chooseStep(4,step4)">
+                    <h6 class="content-list-item__ttl">Stage 4</h6>
+                    <p lass="content-list-item__stl">Onboard</p>
+                </div>
+                <div class="content-list-item" #step5 [ngClass]="{'highlight':index==5,passed:stepNow>5,notyet:stepNow<5}" (click)="chooseStep(5,step5)">
+                    <h6 class="content-list-item__ttl">Stage 5</h6>
+                    <p lass="content-list-item__stl">Contract</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="index==2">
+  <full-calendar  [options]="calendarOptions"></full-calendar>
+  <swal   class="confirm"
+  #datePicker
+  title="Add event"
+  width="500px"
+  tabindex="100"
+  [showCancelButton]="true"
+  [showConfirmButton]="true">
+    <div  *swalPortal="swalTargets.content">
+<form action="" [formGroup]="addEventForm">
+    <div class="form-group">
+      <label for="">Title: </label>
+      <input type="text">
+    </div>
+    <div class="form-group">
+      <label for="">Start Date: </label>
+      <input type="date" disable [min]="" formControlName="startDate">
+    </div>
+    <div class="form-group">
+      <label for="">Start Time: </label>
+      <input type="time" formControlName="startTime">
+    </div>
+    <div class="form-group">
+      <label for="">End Date: </label>
+      <input type="text">
+    </div>
+    <div class="form-group">
+      <label for="">End Time: </label>
+      <input type="text">
+    </div>
+  </form>
+    </div>
+  
+
+</swal>
+</ng-container>
+
+<h6 class="cv" *ngIf="index==1">Candidate's CV is passed</h6>

@@ -1,0 +1,18 @@
+<div class="content" (click)="popupRequest()">
+  <p><i class="fa fa-plug"></i>Matching request</p>
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+</div>
+<swal
+  class="confirm"
+  #requestPicker
+  title="Choose request"
+  width="1150px"
+  tabindex="100"
+  
+>
+  <div *swalPortal="swalTargets.content">
+    <!-- <app-confirm-matching></app-confirm-matching> -->
+    <app-grid></app-grid>
+  </div>
+</swal>
+<div class="overlay"></div>

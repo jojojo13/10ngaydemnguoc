@@ -1,0 +1,50 @@
+.content {
+  width: 100%;
+  height: 600px;
+  padding: 9px 30px 30px 9px;
+  &-show {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.wrapper {
+  width: 75%;
+  height: 100%;
+}
+p {
+  cursor: pointer;
+  width: 200px;
+//   margin-left: 30px;
+  font-size: 16px;
+  font-weight: 900;
+  i {
+    color: black;
+    transform: rotate(-45deg);
+  }
+  color: #001ef6;
+}
+input[type="file"] {
+  display: none;
+}
+.null {
+  position: absolute;
+}
+.right {
+  width: 20%;
+  height: 100%;
+//   background-color: #FBF8F8;
+}
+.attach{
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    font-family: 'Poppins';
+    text-align: center;
+    background-color: #4456F4;
+    
+}

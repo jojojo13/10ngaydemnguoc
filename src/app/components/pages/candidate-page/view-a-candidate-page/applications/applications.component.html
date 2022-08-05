@@ -1,0 +1,40 @@
+<div class="list">
+  <table>
+    <caption>
+      Candidate's applications
+    </caption>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Other skill(optional)</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>Quantity</th>
+        <th>Created on</th>
+        <th>Deadline</th>
+        <th>HR in charge</th>
+      </tr>
+    </thead>
+
+    <tbody style="position: relative">
+      <ng-container *ngIf="listRequest">
+        <tr
+          (click)="navigateToView(request)"
+          *ngFor="let request of listRequest"
+        >
+          <td id="code-col" level="1">{{ request.code }}</td>
+          <td>{{ request.name }}</td>
+          <td>{{ request.otherSkillname }}</td>
+          <td>{{ request.department }}</td>
+          <td>{{ request.position }}</td>
+          <td>{{ request.quantity }}</td>
+          <td>{{ request.createdOnString }}</td>
+          <td>{{ request.deadlineString }}</td>
+          <td>{{ request.hrInchange }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+

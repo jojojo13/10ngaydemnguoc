@@ -1,0 +1,157 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../../../../assets/DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf");
+}
+.content {
+  padding-bottom: 40px;
+  &-heading {
+    h5 {
+      font-style: normal;
+      font-family: "Poppins";
+      font-weight: 900;
+      font-size: 18px;
+      margin-left: 9px;
+      margin-bottom: 10px;
+    }
+  }
+}
+table {
+  width: 100%;
+  font-size: 14px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: "Poppins";
+  border: 1px solid rgb(202, 202, 202);
+  thead {
+    tr {
+      &:first-of-type {
+        border: none;
+        th {
+          &:first-of-type {
+            width: 20px;
+          }
+          &:nth-child(4) {
+            width: 80px;
+          }
+          &:nth-child(2) {
+            width: 60px;
+          }
+          &:last-of-type {
+            width: 60px;
+          }
+        }
+      }
+    }
+  }
+  tbody {
+    &:nth-of-type(2) {
+      tr {
+        &:hover {
+          background-color: #b8e9ff;
+        }
+      }
+    }
+  }
+  tr {
+    border-top: 1px solid rgb(202, 202, 202);
+    border-bottom: 1px solid rgb(202, 202, 202);
+
+    th {
+      width: 100px;
+      text-align: center;
+      height: 60px;
+
+      &:first-of-type {
+        width: 40px;
+      }
+      // &:nth-of-type(2) {
+      //   width: 60px;
+      // }
+    }
+    td {
+      vertical-align: middle;
+      text-align: center;
+      height: 60px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      &:nth-of-type(5),
+      :nth-of-type(6) {
+        padding: 0 15px;
+      }
+      i {
+        cursor: pointer;
+        &:active {
+          cursor: wait;
+        }
+      }
+    }
+  }
+}
+.selected {
+  background-color: #b8e9ff;
+}
+.content {
+  cursor: pointer;
+  margin: 0 5px;
+  // margin-right: 30px;
+
+  i {
+    // background-color: #0D99FF;
+    border-radius: 50%;
+    padding: 3px 5px;
+    margin-right: 5px;
+  }
+  p {
+    margin-right: 30px;
+  }
+}
+.list {
+  .content {
+    &:last-child {
+      p {
+        margin-right: 0;
+      }
+    }
+    &:hover {
+      transform: scale(1.2);
+      font-weight: 600;
+    }
+    transition: transform 0.2s;
+  }
+}
+.draft {
+  color: #eb5757;
+  font-weight: 600;
+}
+.active {
+  color: #36ca68;
+  font-weight: 600;
+}
+.fa-plus {
+  // background-color: #2ECC71;
+}
+.fa-pencil {
+  color: #354ea0;
+}
+.fa-ban {
+  color: #eb5757;
+}
+.fa-trash {
+  color: #eb5757;
+}
+.fa-check {
+  color: #36ca68;
+}
+.fa-download {
+  color: #00321c;
+}
+.pagi {
+  position: absolute;
+  right: 20px;
+}

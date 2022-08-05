@@ -1,0 +1,25 @@
+<div class="content">
+  <div class="content-left">
+    <h2><a routerLink="/">CP SUM22</a></h2>
+  </div>
+  <div class="content-right">
+    <div class="content-right-box">
+      <ngx-avatar size="45" [name]="letter"></ngx-avatar>
+    </div>
+    <h5>
+      <p style="font-size: 12px">{{ user.positionName }}</p>
+      {{ user.name }}
+    </h5>
+    <p><i (click)="toggleDropdown()" class="fal fa-angle-down"></i></p>
+  </div>
+  <div class="content-dropdown" #dropdown>
+    <ul class="content-dropdown-list">
+      <li (click)="profile()">
+        <i class="fa fa-user" aria-hidden="true"></i> <span>Profile</span>
+      </li>
+      <li (click)="logOut()">
+        <i class="fa fa-sign-out" aria-hidden="true"></i> <span> Log out</span>
+      </li>
+    </ul>
+  </div>
+</div>

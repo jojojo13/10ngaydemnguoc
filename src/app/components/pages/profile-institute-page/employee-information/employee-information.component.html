@@ -1,0 +1,32 @@
+<div class="content">
+  <div class="content-heading">
+    <h5>View Profile information</h5>
+
+
+    <ng-container *ngIf="action != 'notMenu' ">
+      <app-back-btn [route]="route"></app-back-btn>
+    </ng-container>
+
+    <div class="navigation">
+      <div class="navigation-item"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: false }"
+           routerLink="info"
+           [queryParams]="{ id: id }">
+        <h6>General Information</h6>
+        <div class="indicator"></div>
+      </div>
+      <div class="navigation-item"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: false }"
+           routerLink="contract"
+           [queryParams]="{ id: id }">
+        <h6>Contract</h6>
+        <div class="indicator"></div>
+      </div>
+    </div>
+  </div>
+  <div class="content-render">
+    <router-outlet></router-outlet>
+  </div>
+</div>

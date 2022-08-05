@@ -1,0 +1,29 @@
+.content {
+    cursor: pointer;
+    margin: 0 5px;
+  i {
+    color: #36CA68;
+    border-radius: 50%;
+    padding: 3px 5px;
+    margin-right: 5px;
+  }
+  &:hover {
+    transform: scale(1.2);
+    font-weight: 600;
+  }
+  transition: transform 0.2s;
+}
+
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+}  

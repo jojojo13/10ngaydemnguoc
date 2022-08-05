@@ -1,0 +1,120 @@
+<div class="content">
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <div class="content-heading">
+    <h5>View employees</h5>
+    <div class="d-flex justify-content-between" [formGroup]="popupForm">
+      <app-back-btn [route]="route"></app-back-btn>
+      <div style="display:flex">
+        <input type="text" readonly id=" department" placeholder="Department" class="form-control" formControlName="dep" style="width:300px;"/>
+        <p  (click)="showPopUp()" class="poppup">&nbsp;Choose&nbsp;&nbsp;&nbsp;</p>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="content-middle">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Employee ID</th>
+          <th>Name</th>
+          <th>Orgnization</th>
+          <th>Title</th>
+          <th>Position</th>
+          <th>Join date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr [formGroup]="employeeForm">
+          <td></td>
+          <td>
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     placeholder="Filter"
+                     formControlName="code" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     placeholder="Filter"
+                     formControlName="name" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     placeholder="Filter"
+                     formControlName="orgName" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     placeholder="Filter"
+                     formControlName="title" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     placeholder="Filter"
+                     formControlName="position" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput
+                     type="date"
+                     formControlName="joinDate" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput
+                     type="text"
+                     placeholder="Filter"
+                     formControlName="status" />
+            </mat-form-field>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="listemployee">
+        <tr (dblclick)="navigateToView(candidate)"
+            *ngFor="
+            let candidate of listemployee
+              | paginate
+                : {
+                    itemsPerPage: itemsPerPage,
+                    currentPage: page,
+                    totalItems: totalItems
+                  }
+          ">
+          <td><input type="checkbox"/></td>
+          <td>{{ candidate.code }}</td>
+          <td>{{ candidate.fullName }}</td>
+          <td>{{ candidate.orgnizationName }}</td>
+          <td>{{ candidate.titleName }}</td>
+          <td class="px-2">{{ candidate.positionName }}</td>
+          <td class="px-2">{{ candidate.joinDate }}</td>
+          <td>{{ candidate.statusName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-container *ngIf="listemployee">
+    <pagination-controls class="pagi"
+                         (pageChange)="gty((page = $event))"></pagination-controls>
+  </ng-container>
+</div>
+<swal #orgPicker title="Choose department" width="500px" tabindex="100">
+  <div *swalPortal="swalTargets.content">
+    <app-pop-up-organizations (department)="getDataFromPopup($event)"></app-pop-up-organizations>
+  </div>
+</swal>

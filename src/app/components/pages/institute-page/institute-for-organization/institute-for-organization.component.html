@@ -1,0 +1,211 @@
+<h5>Institute Orgnization</h5>
+<app-back-btn [route]="route"></app-back-btn>
+<div class="content">
+  <form
+    novalidate
+    (ngSubmit)="onSubmit()"
+    [formGroup]="orgForm"
+    class="form"
+    action=""
+  >
+    <div class="left">
+      <div class="form-group">
+        <label for="requestID">Parent Orgnization</label>
+        <input type="text" class="form-control" formControlName="parentName" />
+      </div>
+      <div class="form-group">
+        <label for="name">Orgnization name <span>*</span></label>
+        <input type="text" class="form-control" formControlName="name" />
+        <small
+          class="text-danger"
+          *ngIf="
+            orgForm.get('name')?.hasError('required') &&
+            orgForm.get('name')?.touched
+          "
+          >Please input name</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Email</label>
+        <input type="email" class="form-control" formControlName="email" />
+      </div>
+      <div class="form-group">
+        <label for="name">Number business</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="numberBusiness"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Nation</label>
+        <select
+          name="nations"
+          formControlName="nations"
+          (change)="renderProvince($event)"
+        >
+          <option [ngValue]="0"></option>
+          <option *ngFor="let nation of nationList" [ngValue]="nation.id">
+            {{ nation.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">District</label>
+        <select
+          name="districts"
+          formControlName="districts"
+          (change)="renderWard($event)"
+        >
+          <option [ngValue]="0"></option>
+          <option
+            [selected]="district.id == orgForm.controls['districts'].value"
+            *ngFor="let district of districtList"
+            [ngValue]="district.id"
+          >
+            {{ district.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Effect Date<span>*</span></label>
+        <input
+          type="date"
+          [min]="today"
+          class="form-control"
+          formControlName="effectdate"
+        />
+        <small
+          class="text-danger"
+          *ngIf="
+            orgForm.get('effectdate')?.hasError('required') &&
+            orgForm.get('effectdate')?.touched
+          "
+          >Please input effect date</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Manager</label>
+        <input type="text" class="form-control" formControlName="manager" />
+        <p
+          style="margin-top: 10px; margin-right: 25px"
+          (click)="showPopUp()"
+          class="poppup"
+        >
+          Choose
+        </p>
+      </div>
+      <div class="form-group">
+        <label></label>
+        <label for="name" style="bottom: -70px">
+          <button
+            type="button"
+            (click)="onSubmit()"
+            [disabled]="!orgForm.valid"
+            class="form-buttons-items form-buttons-items--send"
+          >
+            Save
+          </button>
+        </label>
+        <label for="name" style="bottom: -70px">
+          <button
+            type="button"
+            class="form-buttons-items form-buttons-items--clear"
+          >
+            Clear all
+          </button>
+        </label>
+      </div>
+    </div>
+    <div class="left">
+      <div class="form-group">
+        <label for="requestID">Orgnization Code<span>*</span></label>
+        <input type="text" class="form-control" formControlName="orgCode" />
+      </div>
+      <div class="form-group">
+        <label for="name">Fax</label>
+        <input type="text" class="form-control" formControlName="fax" />
+      </div>
+      <div class="form-group">
+        <label for="name">Phone number</label>
+        <input type="text" class="form-control" formControlName="phone" />
+      </div>
+      <div class="form-group">
+        <label for="name">Address<span>*</span></label>
+        <input type="text" class="form-control" formControlName="address" />
+        <small
+          class="text-danger"
+          *ngIf="
+            orgForm.get('address')?.hasError('required') &&
+            orgForm.get('address')?.touched
+          "
+          >Please input address</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Province</label>
+        <select
+          name="provinces"
+          formControlName="provinces"
+          (change)="renderDistrict($event)"
+        >
+          <option [ngValue]="0"></option>
+          <option
+            [selected]="province.id == orgForm.controls['provinces'].value"
+            *ngFor="let province of provinceList"
+            [ngValue]="province.id"
+          >
+            {{ province.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Ward</label>
+        <select name="wards" formControlName="wards">
+          <option [ngValue]="0"></option>
+          <option
+            [selected]="ward.id == orgForm.controls['wards'].value"
+            *ngFor="let ward of wardList"
+            [ngValue]="ward.id"
+          >
+            {{ ward.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Dissolution Date(if have)</label>
+        <input
+          type="date"
+          [min]="today"
+          class="form-control"
+          formControlName="dissdate"
+        />
+      </div>
+    </div>
+    <div class="left">
+      <div class="form-group">
+        <label for="name">Notes</label>
+        <textarea
+          class="form-control"
+          placeholder="Notes"
+          rows="6"
+          formControlName="notes"
+        ></textarea>
+      </div>
+      <div class="form-group"></div>
+    </div>
+  </form>
+</div>
+<swal #orgPicker title="Choose employee" width="1100px" tabindex="100">
+  <div *swalPortal="swalTargets.content" class="popup-content">
+    <app-pop-up-organizations
+      (department)="getDataFromPopup($event)"
+      class="org"
+    ></app-pop-up-organizations>
+    <app-popup-employee
+      class="emp"
+      (emp)="getEmp($event)"
+      [dep]="department"
+    ></app-popup-employee>
+  </div>
+</swal>

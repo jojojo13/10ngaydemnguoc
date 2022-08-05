@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../../../../../assets/DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf");
+}
+
+.content {
+  &-top {
+    h5 {
+      font-family: "Poppins";
+      font-style: normal;
+      font-weight: 900;
+      font-size: 18px;
+      margin-left: 9px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &-middle {
+    position: relative;
+
+    &-heading {
+      display: flex;
+      align-items: center;
+      height: 35px;
+      width: 100%;
+      background-color: #d6d5f9;
+      padding: 0 9px;
+      justify-content: space-between;
+      margin-bottom: 14px;
+
+      i {
+        margin-right: 10px;
+      }
+
+      p {
+        font-family: "Poppins";
+        font-style: normal;
+        font-weight: 300;
+        font-size: 13px;
+      }
+
+      &__ttl {
+        display: flex;
+      }
+    }
+
+    &-form {
+      display: flex;
+    }
+  }
+
+  &-ending {
+    margin-left: 60px;
+    padding-bottom: 30px;
+
+    h5 {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.btn {
+  position: absolute;
+  left: 930px;
+  top: 280px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.custom {
+  justify-content: space-between;
+}
+
+.submitted {
+  text-align: center;
+  background-color: #668a62;
+  border-radius: 10px;
+  color: #fff;
+
+  padding: 0;
+  width: 91px;
+  height: 22px;
+}
+
+.approved {
+  text-align: center;
+  background-color: #36ca68;
+  border-radius: 10px;
+  color: #fff;
+  padding: 0;
+  width: 91px;
+  height: 22px;
+}
+
+.cancel {
+  text-align: center;
+  background-color: #ffaa01;
+  border-radius: 10px;
+  color: #fff;
+  padding: 0;
+  width: 91px;
+  height: 22px;
+}
+
+.reject {
+  text-align: center;
+  background-color: #eb4962;
+  border-radius: 10px;
+  color: #fff;
+  padding: 0;
+  width: 91px;
+  height: 22px;
+}
+
+.draft {
+  background-color: #4057f9;
+  border-radius: 10px;
+  color: #fff;
+  padding: 0;
+  width: 91px;
+  text-align: center;
+  height: 22px;
+}
+
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.history {
+  width: 180px;
+}
+

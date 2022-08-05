@@ -1,0 +1,65 @@
+<div class="content">
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <div class="content-top">
+    <h5>Recruitment request</h5>
+    <div class="d-flex custom">
+      <app-back-btn [route]="route"></app-back-btn>
+      <app-action-list [request]="request"></app-action-list>
+    </div>
+  </div>
+  <div class="content-middle">
+    <div class="content-middle-heading">
+      <div class="content-middle-heading__ttl">
+        <i class="fal fa-user"></i>
+        <p>1. Request Information</p>
+      </div>
+      <p
+        *ngIf="request"
+        [ngClass]="{
+          draft: request.statusID === 1,
+          submitted: request.statusID === 2,
+          cancel: request.statusID === 3,
+          approved: request.statusID === 4,
+          reject: request.statusID === 5 || 0
+        }"
+      >
+        {{ request.status | lowercase }}
+      </p>
+    </div>
+    <div class="content-middle-form">
+      <app-form-request (req)="getReq($event)"></app-form-request>
+      <div class="history">
+        <app-history [req]="request"></app-history>
+        <ng-container *ngIf="user && user.rule == 1">
+          <app-hr-inchange [req]="request"></app-hr-inchange>
+        </ng-container>
+        <app-candidate-in-request></app-candidate-in-request>
+      </div>
+    </div>
+    <div class="content-middle-heading">
+      <div class="content-middle-heading__ttl">
+        <i class="fal fa-user"></i>
+
+        <p>2. Comment</p>
+      </div>
+    </div>
+  </div>
+  <div class="content-ending">
+    <p *ngIf="request">{{ request.comment }}</p>
+    <br>
+    <ng-container *ngIf="user && request">
+      <ng-container *ngIf="user.rule == 1">
+        <textarea
+          [(ngModel)]="commentString"
+          class="form-control"
+          placeholder="Notes"
+          rows="4"
+          >{{ requestService.selectedRequest.comment }}</textarea
+        >
+        <br>
+        <button type="button" (click)="uploadComment()">Send Note</button>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="overlay"></div>
+</div>

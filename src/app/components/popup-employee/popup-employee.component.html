@@ -1,0 +1,45 @@
+<div class="popup">
+  <h5>{{ message }}</h5>
+
+  <div *ngIf="listEmp" class="popup-content">
+    <table>
+      <caption>
+        Emmployees table
+      </caption>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Organization</th>
+          <th>Position</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          [ngClass]="{ 'is-selected': selectedIndex == i }"
+          *ngFor="
+            let i = index;
+            let emp;
+            of: listEmp
+              | paginate
+                : {
+                    itemsPerPage: itemsPerPage,
+                    currentPage: page,
+                    totalItems: totalItems
+                  }
+          "
+          (click)="chooseEmp(emp, i)"
+        >
+          <td>{{ emp.fullName }}</td>
+          <td>{{ emp.orgnizationName }}</td>
+          <td>{{ emp.positionName }}</td>
+          <td>{{ emp.statusName }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+    class="pagi"
+    (pageChange)="gty((page = $event))"
+  ></pagination-controls>
+  </div>
+</div>

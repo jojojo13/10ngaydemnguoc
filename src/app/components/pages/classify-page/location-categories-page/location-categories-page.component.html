@@ -1,0 +1,49 @@
+<div class="content">
+  <div class="content-heading">
+    <h5>Location category</h5>
+    <app-back-btn [route]="route"></app-back-btn>
+  </div>
+  <div class="navigate-bar">
+    <div class="navigate-bar-list">
+      <div class="navigate-bar-list-item"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: false }"
+           routerLink="nations"
+           [queryParams]="{ index: 1, size: 15 }">
+        <p>
+          <a class="navigate-bar-list-item-link">Nations</a>
+        </p>
+      </div>
+      <div class="navigate-bar-list-item"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: false }"
+           routerLink="provinces"
+           [queryParams]="{ index: 1, size: 15 }">
+        <p>
+          <a class="navigate-bar-list-item-link">Provinces</a>
+        </p>
+      </div>
+      <div class="navigate-bar-list-item"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: false }"
+           routerLink="districts"
+           [queryParams]="{ index: 1, size: 15 }">
+        <p>
+          <a class="navigate-bar-list-item-link">Districts</a>
+        </p>
+      </div>
+      <div class="navigate-bar-list-item"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: false }"
+           routerLink="wards"
+           [queryParams]="{ index: 1, size: 15 }">
+        <p>
+          <a class="navigate-bar-list-item-link">Wards</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="content-renderer">
+    <router-outlet></router-outlet>
+  </div>
+</div>

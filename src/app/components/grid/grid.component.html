@@ -1,0 +1,192 @@
+<app-loader [isLoaded]="isLoaded"></app-loader>
+
+<ng-container>
+  <table #containList>
+    <thead>
+      <tr>
+        <th></th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Other skill(optional)</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>Quantity</th>
+        <th>Created on</th>
+        <th>Deadline</th>
+        <th>HR in charge</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="filter-row" [formGroup]="filterForm">
+        <td></td>
+        <td></td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Filter"
+              formControlName="name"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Filter"
+              formControlName="otherSkill"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Filter"
+              formControlName="department"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Filter"
+              formControlName="positionName"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Filter"
+              formControlName="quantity"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="fill" class="example-form-field custom">
+            <mat-label>Choose a date</mat-label>
+            <input type="date" matInput formControlName="createOn" />
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <!-- <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions class="cus-btn">
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker> -->
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field appearance="fill" class="example-form-field custom">
+            <mat-label>Choose a date</mat-label>
+            <input type="date" matInput formControlName="deadLine" />
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <!-- <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker1>
+              <mat-datepicker-actions class="cus-btn">
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker> -->
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Filter"
+              formControlName="hrInchange"
+            />
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              placeholder="Filter"
+              formControlName="status"
+            />
+          </mat-form-field>
+        </td>
+      </tr>
+    </tbody>
+    <ng-container>
+      <tbody *ngIf="requestList">
+        <ng-container
+          *ngFor="
+            let request of requestList
+              | paginate
+                : {
+                    id: 'some_id',
+                    itemsPerPage: itemsPerPage,
+                    currentPage: page,
+                    totalItems: totalItems
+                  }
+          "
+        >
+          <tr
+            #clicked
+            level="1"
+            (dblclick)="navigateEdit(request)"
+            (click)="getSelectedRQ(request, clicked)"
+          >
+            <td level="1">
+              <input
+                type="checkbox"
+                (change)="selectedChange(request, $event)"
+                [value]="request.id"
+              />
+            </td>
+            <td id="code-col" level="1">{{ request.code }}</td>
+            <td level="1">{{ request.name }}</td>
+            <td level="1">{{ request.otherSkillname }}</td>
+            <td level="1">{{ request.department }}</td>
+            <td level="1">{{ request.position }}</td>
+            <td level="1">{{ request.quantity }}</td>
+            <td level="1">{{ request.createdOnString }}</td>
+            <td level="1">{{ request.deadlineString }}</td>
+            <td level="1">{{ request.hrInchange }}</td>
+            <td level="1">
+              <p
+                [ngClass]="{
+                  draft: request.statusID === 1,
+                  submitted: request.statusID === 2,
+                  cancel: request.statusID === 3,
+                  approved: request.statusID === 4,
+                  reject: request.statusID === 5 || 0
+                }"
+              >
+                {{ request.status | lowercase }}
+              </p>
+            </td>
+            <td>
+              <i
+                (click)="toggleChildren(clicked, request.id, $event)"
+                class="fas fa-angle-down"
+              ></i>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </ng-container>
+  </table>
+  <ng-container *ngIf="requestList">
+    <pagination-controls
+      id="some_id"
+      class="pagi"
+      (pageChange)="gty((page = $event))"
+    ></pagination-controls>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,33 @@
+<div class="content">
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <div class="content-show" *ngIf="isLoaded == true">
+    <h5 class="null" *ngIf="!pdfSrc">Candidate's CV is not uploaded !</h5>
+    <div class="wrapper">
+      <iframe *ngIf="pdfSrc" [src]="pdfSrc" width="100%" height="100%" safe>
+      </iframe>
+    </div>
+
+    <div class="right">
+      <p class="attach" (click)="fileInput.click()">Attach CV</p>
+
+      <input
+        #fileInput
+        id="fileInput"
+        type="file"
+        (change)="selectFile($event)"
+      />
+      <div *ngIf="fileUpLoad && percentage != 100" class="progress mt-2">
+        <div
+          class="progress-bar progress-bar-info"
+          role="progressbar"
+          attr.aria-valuenow="{{ percentage }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [ngStyle]="{ width: percentage + '%' }"
+        >
+          {{ percentage }}%
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

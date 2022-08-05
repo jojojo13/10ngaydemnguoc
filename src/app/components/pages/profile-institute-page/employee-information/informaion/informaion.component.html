@@ -1,0 +1,355 @@
+<div class="content">
+  <form novalidate
+        (ngSubmit)="onSubmit()"
+        [formGroup]="orgForm"
+        class="form"
+        action="">
+    <div class="left">
+      <div>
+        <div style="text-align:center; margin-top:20px;">
+          <div>
+            <label>
+              <img [src]="url" *ngIf="url" style="width:240px; height:240px; border-radius:100%;" />
+              <input type="file" (change)="selectFile($event)" style="display:none">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="left">
+      <div class="form-group">
+        <h5 style="color:blue;">General information</h5>
+      </div>
+
+      <div class="form-group">
+        <label for="requestID">Join date <span>*</span></label>
+        <input type="date" class="form-control" formControlName="joinDate" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('joinDate')?.hasError('required')">Join date must not empty</small>
+      </div>
+      <div class="form-group">
+        <label for="requestID">Employee ID <span>*</span></label>
+        <input type="text" class="form-control" formControlName="empid" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('empid')?.hasError('required')">Employee ID not empty</small>
+      </div>
+      <div class="form-group">
+        <label for="name">First name <span>*</span></label>
+        <input type="text" class="form-control" formControlName="empfirst" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('empfirst')?.hasError('required')">Please input first name</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Gender<span>*</span></label>
+        <select name="gender" formControlName="gender">
+          <option [ngValue]="1">Male</option>
+          <option [ngValue]="2">Female</option>
+          <option [ngValue]="3">N/A</option>
+        </select>
+        <small class="text-danger"
+               *ngIf="orgForm.get('gender')?.hasError('required')">Please choose gender</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Email</label>
+        <input type="text" class="form-control" formControlName="email" />
+      </div>
+      <div class="form-group">
+        <label for="name">Nationality</label>
+        <select name="quoctich" formControlName="quoctich">
+          <option [ngValue]="0"></option>
+          <option *ngFor="let nation of nationList" [ngValue]="nation.id">
+            {{ nation.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Permanent residence</label>
+        <input type="text" class="form-control" formControlName="hokhau" />
+      </div>
+      <div class="form-group">
+        <label for="name">Residence district</label>
+        <select name="resDistrict" formControlName="resDistrict" (change)="renderResWard($event)">
+          <option [ngValue]="0"></option>
+          <option [selected]="district.id==orgForm.controls['resDistrict'].value" *ngFor="let district of districtResList" [ngValue]="district.id">
+            {{ district.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Address<span>*</span></label>
+        <input type="text" class="form-control" formControlName="noio" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('noio')?.hasError('required')">Please input nơi ở</small>
+      </div>
+      <div class="form-group">
+        <label for="name">District <span>*</span></label>
+        <select name="noiDistrict" formControlName="noiDistrict" (change)="renderWard($event)">
+          <option [selected]="district.id==orgForm.controls['noiDistrict'].value" *ngFor="let district of districtList" [ngValue]="district.id">
+            {{ district.name }}
+          </option>
+        </select>
+        <small class="text-danger"
+               *ngIf="orgForm.get('noiDistrict')?.hasError('required')">Please choose district</small>
+      </div>
+
+
+      <div class="form-group">
+        <h5 style="color:blue;">Education information</h5>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Learning level</label>
+        <select name="llvel" formControlName="llvel">
+          <option [ngValue]="0"></option>
+          <option *ngFor="let learn of learLevel" [ngValue]="learn.id">
+            {{ learn.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Deegree</label>
+        <input type="text" class="form-control" formControlName="deegree" />
+      </div>
+      <div class="form-group">
+        <label for="name">Language 1</label>
+        <select name="language1" formControlName="language1" (change)="renderSkill1($event)">
+          <option [ngValue]="0"></option>
+          <option [selected]="language.id==orgForm.controls['language1'].value" *ngFor="let language of languageList" [ngValue]="language.id">
+            {{ language.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Language 2</label>
+        <select name="language2" formControlName="language2" (change)="renderSkill2($event)">
+          <option [ngValue]="0"></option>
+          <option [selected]="language.id==orgForm.controls['language2'].value" *ngFor="let language of languageList" [ngValue]="language.id">
+            {{ language.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label></label>
+        <label for="name" style="bottom:-70px;">
+          <button type="button"
+                  (click)="onSubmit()"
+                  [disabled]="!orgForm.valid"
+                  class="form-buttons-items form-buttons-items--send">
+            Save
+          </button>
+        </label>
+        <label for="name" style="bottom:-70px;">
+          <button type="button"
+                  class="form-buttons-items form-buttons-items--clear">
+            Clear all
+          </button>
+        </label>
+      </div>
+    </div>
+    <div class="left">
+      <div class="form-group">
+      </div>
+      <div class="form-group">
+        <label for="requestID">Out date</label>
+        <input type="date" class="form-control" formControlName="outDate" />
+      </div>
+      <div class="form-group">
+        <label for="requestID">Position</label>
+        <input type="text" class="form-control" formControlName="position" />
+      </div>
+      <div class="form-group">
+        <label for="name">Last name<span>*</span></label>
+        <input type="text" class="form-control" formControlName="empLast" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('empLast')?.hasError('required')">Please input last name</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Date of birth<span>*</span></label>
+        <input type="date" class="form-control" formControlName="dob" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('dob')?.hasError('required')">Please choose date time</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Work email <span>*</span></label>
+        <input type="text" class="form-control" formControlName="workEmail" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('workEmail')?.hasError('required')">Please input email</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Identity card</label>
+        <input type="text" class="form-control" formControlName="cmnd" />
+      </div>
+      <div class="form-group">
+        <label for="name">Residence nation</label>
+        <select name="resNation" formControlName="resNation" (change)="renderResProvince($event)">
+          <option [ngValue]="0"></option>
+          <option [selected]="nation.id==orgForm.controls['resNation'].value" *ngFor="let nation of nationList" [ngValue]="nation.id">
+            {{ nation.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Residence ward</label>
+        <select name="resWard" formControlName="resWard">
+          <option [ngValue]="0"></option>
+          <option [selected]="ward.id==orgForm.controls['resWard'].value" *ngFor="let ward of wardResList" [ngValue]="ward.id">
+            {{ ward.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Nation<span>*</span></label>
+        <select name="noiNation" formControlName="noiNation" (change)="renderProvince($event)">
+          <option [selected]="nation.id==orgForm.controls['noiNation'].value" *ngFor="let nation of nationList" [ngValue]="nation.id">
+            {{ nation.name }}
+          </option>
+        </select>
+        <small class="text-danger"
+               *ngIf="orgForm.get('noiNation')?.hasError('required')">Please choose nation</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Ward <span>*</span></label>
+        <select name="noiWard" formControlName="noiWard">
+          <option [selected]="ward.id==orgForm.controls['noiWard'].value" *ngFor="let ward of wardList" [ngValue]="ward.id">
+            {{ ward.name }}
+          </option>
+        </select>
+        <small class="text-danger"
+               *ngIf="orgForm.get('noiWard')?.hasError('required')">Please choose ward</small>
+      </div>
+      <div class="form-group">
+      </div>
+
+      <div class="form-group">
+        <label for="name">School</label>
+        <input type="text"
+               class="form-control"
+               formControlName="school" />
+      </div>
+      <div class="form-group">
+        <label for="name">Award</label>
+        <input type="text"
+               class="form-control"
+               formControlName="award" />
+      </div>
+      <div class="form-group">
+        <label for="name">Language skill 1</label>
+        <select name="skill1" formControlName="skill1">
+          <option [ngValue]="0"></option>
+          <option [selected]="skill.id==orgForm.controls['skill1'].value" *ngFor="let skill of skillList1" [ngValue]="skill.id">
+            {{ skill.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Language skill 2</label>
+        <select name="skill2" formControlName="skill2">
+          <option [ngValue]="0"></option>
+          <option [selected]="skill.id==orgForm.controls['skill2'].value" *ngFor="let skill of skillList2" [ngValue]="skill.id">
+            {{ skill.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+      </div>
+    </div>
+    <div class="left">
+      <div class="form-group">
+      </div>
+      <div class="form-group">
+        <label for="requestID">Orgnization name<span>*</span></label>
+        <input type="text" class="form-control" formControlName="orgName" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('orgName')?.hasError('required')">Orgnization name not empty</small>
+      </div>
+      <div class="form-group">
+        <label for="requestID">Status<span>*</span></label>
+        <select name="status" formControlName="status">
+          <option [ngValue]="0"></option>
+          <option [selected]="status.id==orgForm.controls['status'].value" *ngFor="let status of statusList" [ngValue]="status.id">
+            {{ status.name }}
+          </option>
+        </select>
+        <small class="text-danger"
+               *ngIf="orgForm.get('status')?.hasError('required')">Please choose status</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Full name<span>*</span></label>
+        <input type="text" class="form-control" formControlName="empFullName" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('empFullName')?.hasError('required')">Please input full name</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Phone number<span>*</span></label>
+        <input type="text" class="form-control" formControlName="phone" />
+        <small class="text-danger"
+               *ngIf="orgForm.get('phone')?.hasError('required')">Please input phone number</small>
+      </div>
+      <div class="form-group">
+        <label for="name">Ethnic</label>
+        <select name="ethnic" formControlName="ethnic">
+          <option [ngValue]="0"></option>
+          <option [selected]="ethnic.id==orgForm.controls['ethnic'].value" *ngFor="let ethnic of ethnicList" [ngValue]="ethnic.id">
+            {{ ethnic.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Issued place</label>
+        <input type="text" class="form-control" formControlName="cmndPlace" />
+      </div>
+      <div class="form-group">
+        <label for="name">Residence province </label>
+        <select name="resProvince" formControlName="resProvince" (change)="renderResDistrict($event)">
+          <option [ngValue]="0"></option>
+          <option [selected]="province.id==orgForm.controls['resProvince'].value" *ngFor="let province of provinceResList" [ngValue]="province.id">
+            {{ province.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+      </div>
+      <div class="form-group">
+        <label for="name">Province <span>*</span></label>
+        <select name="noiProvince" formControlName="noiProvince" (change)="renderDistrict($event)">
+          <option [selected]="province.id==orgForm.controls['noiProvince'].value" *ngFor="let province of provinceList" [ngValue]="province.id">
+            {{ province.name }}
+          </option>
+        </select>
+        <small class="text-danger"
+               *ngIf="orgForm.get('noiProvince')?.hasError('required')">Please choose province</small>
+      </div>
+      <div class="form-group">
+      </div>
+      <div class="form-group">
+      </div>
+      <div class="form-group">
+        <label for="name">Major</label>
+        <input type="text" class="form-control" formControlName="major" />
+      </div>
+      <div class="form-group">
+        <label for="name">InforMatics Level</label>
+        <select name="infl" formControlName="infl">
+          <option [ngValue]="0"></option>
+          <option [selected]="inf.id==orgForm.controls['infl'].value" *ngFor="let inf of informaticList" [ngValue]="inf.id">
+            {{ inf.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Score</label>
+        <input type="number" class="form-control" formControlName="score1" />
+      </div>
+      <div class="form-group">
+        <label for="name">Score</label>
+        <input type="number" class="form-control" formControlName="score2" />
+      </div>
+      <div class="form-group">
+      </div>
+    </div>
+
+  </form>
+</div>
+
+

@@ -1,0 +1,79 @@
+<div class="menu">
+  <h6 class="menu__ttl">Main menu</h6>
+  <div class="menu-list">
+    <div class="menu-list-item">
+      <div
+        class="menu-list-item-parent"
+        #candidate
+        (click)="showDropdown(candidate, 'menu-list-item-request')"
+      >
+        <object
+          data="../../../assets/icons/icons8-user-groups-16.png"
+          width="18px"
+          height="18px"
+        ></object>
+        <p class="menu-list-item-parent__ttl">Recruitment request</p>
+      </div>
+      <div class="menu-list-item-request custom">
+        <ul>
+          <li routerLink="yeucautuyendung" routerLinkActive="is-active">
+            Recruitment request
+          </li>
+          <li  routerLinkActive="is-active" routerLink="ungvien">Candidates</li>
+          <li>Schedule</li>
+          <li>Test result</li>
+          <li>Onboarding</li>
+          <li>Report</li>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-list-item">
+      <div
+        class="menu-list-item-parent"
+        #system
+        (click)="showDropdown(system, 'menu-list-item-system')"
+      >
+        <object
+          data="../../../assets/icons/icons8-user-groups-16.png"
+          width="18px"
+          height="18px"
+        ></object>
+        <p class="menu-list-item-parent__ttl">Classify</p>
+      </div>
+      <div class="menu-list-item-system custom">
+        <ul>
+          <li routerLink="phanloaitochuc" routerLinkActive="is-active">
+            Organization
+          </li>
+          <li routerLink="thietlaptochuc" routerLinkActive="is-active">
+            Institute
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-list-item">
+      <div
+        class="menu-list-item-parent"
+        #profile
+        (click)="showDropdown(profile, 'menu-list-item-profile')"
+      >
+        <object
+          data="../../../assets/icons/icons8-user-groups-16.png"
+          width="18px"
+          height="18px"
+        ></object>
+        <p class="menu-list-item-parent__ttl">Profile</p>
+      </div>
+      <div class="menu-list-item-profile custom">
+        <ul>
+          <li routerLink="danhmuchoso" routerLinkActive="is-active">
+            Profile categories
+          </li>
+          <li routerLink="thietlaphoso" routerLinkActive="is-active">
+            Profile institute
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

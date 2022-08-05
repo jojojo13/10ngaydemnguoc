@@ -1,0 +1,20 @@
+<div class="navigation">
+    <div class="navigation-item"   routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: false }"
+    routerLink="info" [queryParams]="{id:id}">
+        <h6>General Information</h6>
+        <div class="indicator"></div>
+    </div>
+    <div class="navigation-item"   routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: false }"
+    routerLink="cv"  [queryParams]="{id:id}">
+        <h6>CV</h6>
+        <div class="indicator"></div>
+    </div>
+    <div class="navigation-item"   routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: false }"
+    routerLink="applications"  [queryParams]="{id:id}">
+        <h6>Applications</h6>
+        <div class="indicator"></div>
+    </div>
+</div>

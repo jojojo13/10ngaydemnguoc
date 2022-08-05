@@ -1,0 +1,20 @@
+<div class="content">
+    <div class="content-list">
+        <div class="content-list-item" #step1  [ngClass]="{'highlight':index==1}" (click)="chooseStep(1,step1)">
+            <h6 class="content-list-item__ttl" >Step 1</h6>
+            <p lass="content-list-item__stl">Resume and contact</p>
+          </div>
+        <div class="content-list-item" #step2 [ngClass]="{'highlight':index==2}" (click)="chooseStep(2,step2)">
+            <h6 class="content-list-item__ttl">Step 2</h6>
+            <p lass="content-list-item__stl">General Information</p>
+        </div>
+        <div class="content-list-item" #step3 [ngClass]="{'highlight':index==3}" (click)="chooseStep(3,step3)">
+            <h6 class="content-list-item__ttl">Step 3</h6>
+            <p lass="content-list-item__stl">Experience and skills</p>
+        </div>
+        <div class="content-list-item" #step4 [ngClass]="{'highlight':index==4}" (click)="chooseStep(4,step4)">
+            <h6 class="content-list-item__ttl">Step 4</h6>
+            <p lass="content-list-item__stl">Overviews candidate</p>
+        </div>
+    </div>
+</div>

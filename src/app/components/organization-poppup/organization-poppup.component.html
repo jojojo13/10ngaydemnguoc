@@ -1,0 +1,21 @@
+<div class="organization">
+    <p #lv1 (click)="toggleBranch(lv1)">AISOLUTION</p>
+    <div class="organization-branch">
+        <p #lv2 (click)="toggleBranch(lv2)">Phong 1</p>
+        <div class="organization-branch-children 1 isShow">
+            <p>NV cua phong 1</p>
+        </div>
+    </div>
+    <div class="organization-branch ">
+        <p id="23" (click)="toggleBranch(lv2)">Phong 2</p>
+        <div class="organization-branch-children 2 isShow">
+            <p>NV cua phong 2</p>
+        </div>
+    </div>
+    <div class="organization-branch ">
+        <p #lv2 (click)="toggleBranch(lv2)">Phong 3</p>
+        <div class="organization-branch-children 3 isShow">
+            <p>NV cua phong 3</p>
+        </div>
+    </div>
+</div>

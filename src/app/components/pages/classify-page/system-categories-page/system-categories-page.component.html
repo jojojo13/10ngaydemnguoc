@@ -1,0 +1,113 @@
+<div class="content">
+  <h5>Classify Organization</h5>
+  <app-back-btn [route]="route"></app-back-btn>
+  <div class="action">
+    <div class="action-item" (click)="addNewCategory()">
+      <p><i class="far fa-plus circle-icon"></i>Add new</p>
+    </div>
+    <div class="action-item" (click)="deleteCategory()">
+      <p><i class="fa fa-trash"></i>Delete</p>
+    </div>
+    <div class="action-item" (click)="activeCategory()">
+      <p><i class="fa fa-check"></i>Active</p>
+    </div>
+    <div class="action-item" (click)="deactiveCategory()">
+      <p><i class="fa fa-ban"></i>Deactive</p>
+    </div>
+    <div class="action-item" (click)="exportExcel()">
+      <p><i class="fa fa-download"></i>Export Excel</p>
+    </div>
+  </div>
+  <div class="content-middle">
+    <div class="content-middle-category">
+      <div class="content-middle-category-heading">
+        <p>Category</p>
+      </div>
+      <ul class="content-middle-category-list">
+        <li [ngClass]="{ active: selectedIndex === i }"
+            *ngFor="let category of categories; let i = index"
+            (click)="renderData(category.code, i, category.id)">
+          {{ category.name }}
+        </li>
+      </ul>
+    </div>
+    <div class="content-middle-form">
+      <h4>Mode:{{ action }}</h4>
+      <form novalidate
+            [formGroup]="categoryForm"
+            (ngSubmit)="onSubmit()"
+            class="form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" formControlName="name" />
+          <small class="text-danger"
+                 *ngIf="categoryForm.get('name')?.hasError('required')">Please input name</small>
+        </div>
+        <div class="form-group">
+          <label for="code">Code</label>
+          <input type="text" class="form-control" formControlName="code" />
+        </div>
+        <div class="form-group" *ngIf="checkIsLanguage==-1">
+          <label for="code">Language</label>
+          <select name="language" formControlName="languages">
+            <option [selected]="language.id==categoryForm.controls['languages'].value" *ngFor="let language of languageList" [ngValue]="language.id">
+              {{ language.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group"  *ngIf="checkIsLanguage==-1">
+        </div>
+        <div class="form-group">
+          <label for="note">Notes</label>
+          <textarea name="note" rows="4" cols="30" formControlName="note">
+                          At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+                          </textarea>
+        </div>
+      </form>
+      <button #btn [disabled]="disable" (click)="onSubmit()" class="btnSave">
+        Save
+      </button>
+      <div class="content-bottom">
+        <table>
+          <caption>
+            (Click any record to turn on Editting mode)
+          </caption>
+          <thead>
+            <tr>
+              <td></td>
+              <td>Name</td>
+              <td>Code</td>
+              <td>Note</td>
+              <td>Status</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [ngClass]="{ active: selectedIndexInTable === i }"
+                (click)="chooseItem(item, i)"
+                *ngFor="
+                let item of listItemInCategory
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: page,
+                        totalItems: totalItems
+                      };
+                let i = index
+              ">
+              <td>
+                <mat-checkbox (change)="updateAllComplete($event, item.id)">
+                </mat-checkbox>
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.note }}</td>
+              <td>{{ item.statusName }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls class="pagi"
+                             (pageChange)="gty((page = $event))"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

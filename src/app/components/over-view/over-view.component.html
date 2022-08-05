@@ -1,0 +1,128 @@
+<div class="content">
+  <div class="content-profile">
+    <div class="content-profile-heading">
+      <div class="img-box">
+        <ngx-avatar class="img" size="120" [name]="letter"></ngx-avatar>
+      </div>
+      <div class="title">
+        <p>Name: {{ candidate.name }}</p>
+        <p>Phone: {{ candidate.phone }}</p>
+        <p>Email: {{ candidate.email }}</p>
+      </div>
+    </div>
+    <div class="content-profile-middle">
+      <div class="group">
+        <label for="">Gender:</label>
+        <p>{{ candidate.gender.name }}</p>
+      </div>
+      <div class="group">
+        <label for="">Date of birth:</label>
+        <p>{{ candidate.dob }}</p>
+      </div>
+      <div class="group">
+        <label for="">Address:</label>
+        <p *ngIf="candidate.country.id && candidate.city.id">
+          {{ candidate.country.name }}-{{ candidate.city.name }}
+        </p>
+      </div>
+      <div class="group">
+        <label for="">University:</label>
+        <p>{{ candidate.university }}</p>
+      </div>
+      <div class="group">
+        <label for="">Major:</label>
+        <p>{{ candidate.major }}</p>
+      </div>
+      <div class="group">
+        <label for="">Graduation score:</label>
+        <p>{{ candidate.gpa }}</p>
+      </div>
+      <div class="group">
+        <label for="">Graduation date:</label>
+        <p>{{ candidate.graduate }}</p>
+      </div>
+    </div>
+  </div>
+  <div _ngcontent-pxb-c87="" class="content-skill">
+    <div _ngcontent-pxb-c87="" class="language">
+      <div _ngcontent-pxb-c87="" class="language-heading">
+        <h5 _ngcontent-pxb-c87="" class="language-heading__ttl">
+          1. Foreign Language
+        </h5>
+      </div>
+      <div _ngcontent-pxb-c87="" class="language-content">
+        <div
+          _ngcontent-pxb-c87=""
+          class="language-content-item"
+          *ngFor="let skill of list"
+        >
+          <div _ngcontent-pxb-c87="" class="language-content-item-main">
+            <div _ngcontent-pxb-c87="" class="main">
+              <p _ngcontent-pxb-c87="">{{ skill.name }}</p>
+            </div>
+            <div
+              _ngcontent-pxb-c87=""
+              class="language-content-item-main-category"
+            >
+              <div
+                _ngcontent-pxb-c87=""
+                class="main"
+                *ngFor="let skill of skill.listSkill"
+              >
+                <span class="custom">{{ skill.name }}</span>
+                <span>{{ skill.goal }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="language">
+      <div class="language-heading">
+        <h5 class="language-heading__ttl">2. SkillSheets</h5>
+      </div>
+      <div class="language-content">
+        <div
+          class="language-content-item"
+          *ngFor="let skillsheet of listSkillSheet"
+        >
+          <div _ngcontent-yxd-c87="" class="language-content-item-main">
+            <div _ngcontent-yxd-c87="" class="main">
+              <p _ngcontent-yxd-c87="">{{ skillsheet.name }}</p>
+            </div>
+            <div class="language-content-item-main-category">
+              <div class="main" *ngFor="let skillChild of skillsheet.listSkill">
+                <span>{{ skillChild.name }}</span>
+                <span>{{ skillChild.levelName }}</span>
+                <span>{{ skillChild.goal }}</span>
+                <!-- <span disabled [value]="" #input type="text" /> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="language">
+      <div class="language-heading">
+        <h5 class="language-heading__ttl">3. Experience</h5>
+      </div>
+      <div class="language-content">
+        <div class="language-content-item" *ngFor="let exp of listExps">
+          <div _ngcontent-yxd-c87="" class="language-content-item-main">
+            <div _ngcontent-yxd-c87="" class="main">
+              <p _ngcontent-yxd-c87="">{{ exp.name }}</p>
+            </div>
+            <div class="language-content-item-main-category">
+              <div class="main customize" *ngFor="let skillChild of exp.listSkill,let i=index">
+                <h6>{{i+1}}.</h6>
+                <h6>Company/Project: {{ skillChild.firm }}</h6>
+                <h6>Position: {{ skillChild.position }}</h6>
+                <h6>Description: {{ skillChild.time }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

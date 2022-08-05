@@ -1,0 +1,28 @@
+<div class="content">
+  <h5>Candidate</h5>
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <app-back-btn [route]="route"></app-back-btn>
+  <div class="navigation">
+    <div class="navigation-item"  [ngClass]="{active:isTabOne==true}" (click)="changeTab(true)">
+      <h6>General Information</h6>
+      <div class="indicator"></div>
+    </div>
+    <div class="navigation-item" [ngClass]="{active:isTabOne==false}" (click)="changeTab(false)">
+      <h6>Experiences and skills</h6>
+      <div class="indicator"></div>
+    </div>
+  </div>
+  <div class="content-middle">
+    <div class="content-middle-left">
+      <div>
+        <app-edit-candidate-form
+          [step]="step"
+          (candidateName)="getName($event)"
+          (candidate)="getCandidate($event)"
+        >
+        </app-edit-candidate-form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="overlay"></div>

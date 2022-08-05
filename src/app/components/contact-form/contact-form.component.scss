@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../../../assets/DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf");
+}
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+h5 {
+  margin-bottom: 20px;
+ width: 360px;
+}
+.form {
+  &-group {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: center;
+    input {
+      width: 240px;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    label {
+      width: 120px;
+    }
+  }
+}

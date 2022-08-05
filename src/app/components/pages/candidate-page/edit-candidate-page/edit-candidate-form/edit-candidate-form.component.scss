@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  @font-face {
+    font-family: "Poppins";
+    src: url("../../../../../../assets/DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf");
+  }
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  h5 {
+    margin-bottom: 20px;
+    width: 360px;
+  }
+  .form {
+    display: flex;
+    width: 100%;
+
+    .trans{
+        margin: 0 40px;
+    }
+    &-group {
+      display: flex;
+      margin-bottom: 25px;
+      align-items: center;
+      flex-wrap: wrap;
+      input {
+        width: 220px;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+      select {
+        width: 220px;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+      label {
+        width: 200px;
+      }
+    }
+  }
+  .show {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+  .hide {
+    display: none;
+    visibility: collapse;
+    opacity: 0;
+  }
+  .trans{
+    transition: ease 0.5s;
+    
+  }
+  #country,
+  #city {
+    width: 90px;
+  }
+  label[class="city"] {
+    width: 40px !important;
+  }
+  small {
+    display: block;
+  }
+  .skill {
+    width: 100%;
+    align-self: flex-start;
+  }
+  .button-list {
+    display: flex;
+    position: absolute;
+  }
+  .err{
+    position: relative;
+   small{
+    position: absolute;
+    top:36px;
+   }
+  }
+  

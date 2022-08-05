@@ -1,0 +1,20 @@
+<div class="alias" #target>
+  <p>
+    <i class="far fa-plus circle-icon c" (click)="getSkillType(target)"></i>
+  </p>
+  <div class="ad hide">
+    <ol>
+      <div class="loading" *ngIf="isLoaded == false">
+        <div class="loader"></div>
+        <h6>Loading</h6>
+      </div>
+      <li
+        (click)="chooseChildSkill(skill, target)"
+        *ngFor="let skill of childSkills"
+      >
+        {{ skill.name }}
+      </li>
+    </ol>
+    <i (click)="hideList(target)" class="fa fa-times custom"></i>
+  </div>
+</div>

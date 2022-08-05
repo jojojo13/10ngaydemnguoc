@@ -1,0 +1,168 @@
+<div class="content">
+  <h5>Classify Organization</h5>
+  <app-back-btn [route]="route"></app-back-btn>
+  <div class="action">
+    <div class="action-item" (click)="addNewPosition()">
+      <p><i class="far fa-plus circle-icon"></i>Add new</p>
+    </div>
+    <div class="action-item" (click)="deletePosition()">
+      <p><i class="fa fa-trash"></i>Delete</p>
+    </div>
+    <!--<div class="action-item" (click)="activePosition()">
+      <p><i class="fa fa-check"></i>Active</p>
+    </div>
+    <div class="action-item" (click)="deactivePosition()">
+      <p><i class="fa fa-ban"></i>Deactive</p>
+    </div>-->
+    <div class="action-item" (click)="exportExcel()">
+      <p><i class="fa fa-download"></i>Export Excel</p>
+    </div>
+  </div>
+
+  <div class="content-middle">
+    <div class="content-middle-form">
+      <h4>Mode:{{ action }}</h4>
+      <form
+        novalidate
+        [formGroup]="positionForm"
+        (ngSubmit)="onSubmit()"
+        class="form"
+      >
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" formControlName="name" />
+          <small
+            class="text-danger"
+            *ngIf="positionForm.get('name')?.hasError('required')"
+            >Please input name</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="code">Code</label>
+          <input type="text" class="form-control" formControlName="code" />
+        </div>
+        <div class="form-group">
+          <label for="name">Title</label>
+          <select name="titles" formControlName="titles">
+            <option
+              [selected]="title.id == positionForm.controls['titles'].value"
+              *ngFor="let title of titleList"
+              [ngValue]="title.id"
+            >
+              {{ title.name }}
+            </option>
+          </select>
+          <small
+            class="text-danger"
+            *ngIf="positionForm.get('titles')?.hasError('required')"
+            >Please choose title</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="name">Work form</label>
+          <select name="workForms" formControlName="workForms">
+            <option></option>
+            <option
+              [selected]="
+                workForm.id == positionForm.controls['workForms'].value
+              "
+              *ngFor="let workForm of workFormList"
+              [ngValue]="workForm.id"
+            >
+              {{ workForm.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="code">Basic salary</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="basicSalary"
+          />
+          <small
+            class="text-danger"
+            *ngIf="positionForm.get('basicSalary')?.hasError('required')"
+            >Please input salary</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="code">Other skill</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="otherSkill"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="note">Notes</label>
+          <textarea name="note" rows="4" cols="30" formControlName="note">
+          </textarea>
+        </div>
+      </form>
+      <button #btn [disabled]="disable" (click)="onSubmit()" class="btnSave">
+        Save
+      </button>
+      <div class="content-bottom">
+        <table>
+          <caption>
+            (Click any record to turn on Editting mode)
+          </caption>
+          <thead>
+            <tr>
+              <td></td>
+              <td>Name</td>
+              <td>Code</td>
+              <td>Title</td>
+              <td>Work from</td>
+              <td>Basic salary (vnd)</td>
+              <td>Other skill</td>
+              <td>Note</td>
+              <!--<td>Status</td>-->
+              <td style="display: none">id</td>
+              <td style="display: none">TitleID</td>
+              <td style="display: none">WorkFormID</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              [ngClass]="{ active: selectedIndexInTable === i }"
+              (click)="chooseItem(item, i)"
+              *ngFor="
+                let item of positionList
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: page,
+                        totalItems: totalItems
+                      };
+                let i = index
+              "
+            >
+              <td>
+                <mat-checkbox (change)="updateAllComplete($event, item.id)">
+                </mat-checkbox>
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.title }}</td>
+              <td>{{ item.workForm }}</td>
+              <td>{{ item.basicSalary }}</td>
+              <td>{{ item.otherSkill }}</td>
+              <td>{{ item.note }}</td>
+              <!--<td>{{ item.statusName }}</td>-->
+              <td style="display: none">{{ item.titleId }}</td>
+              <td style="display: none">{{ item.workFormID }}</td>
+              <td style="display: none">{{ item.id }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls
+          class="pagi"
+          (pageChange)="gty((page = $event))"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

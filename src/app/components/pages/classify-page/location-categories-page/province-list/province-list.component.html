@@ -1,0 +1,93 @@
+<div class="content">
+  <div class="action">
+    <div class="action-item" (click)="addNewProvince()">
+      <p><i class="far fa-plus circle-icon"></i>Add new</p>
+    </div>
+    <div class="action-item" (click)="deleteProvince()">
+      <p><i class="fa fa-trash"></i>Delete</p>
+    </div>
+    <div class="action-item" (click)="exportExcel()">
+      <p><i class="fa fa-download"></i>Export Excel</p>
+    </div>
+  </div>
+
+  <div class="content-middle">
+    <div class="content-middle-form">
+      <h4>Mode:{{ action }}</h4>
+      <form novalidate [formGroup]="ProvinceForm" (ngSubmit)="onSubmit()" class="form">
+        <div class="form-group">
+          <label for="name">Name<span>*</span></label>
+          <input type="text" class="form-control" formControlName="name" />
+          <small class="text-danger" *ngIf="ProvinceForm.get('name')?.hasError('required')">Please input name</small>
+        </div>
+        <div class="form-group">
+          <label for="name">Nation<span>*</span></label>
+          <select name="nation" formControlName="nation">
+            <option [selected]="nation.id==ProvinceForm.controls['nation'].value" *ngFor="let nation of NationList" [ngValue]="nation.id">
+              {{ nation.name }}
+            </option>
+          </select>
+          <small class="text-danger"
+                 *ngIf="
+            ProvinceForm.get('nation')?.hasError('required') &&
+            ProvinceForm.get('nation')?.touched
+          ">Please choose nation</small>
+        </div>
+        <div class="form-group">
+          <label for="code">Code<span>*</span></label>
+          <input type="text" class="form-control" formControlName="code" />
+        </div>
+        <div class="form-group">
+          <label for="note">Notes</label>
+          <textarea name="note" rows="4" cols="30" formControlName="note">
+         </textarea>
+        </div>
+      </form>
+      <button #btn [disabled]="!ProvinceForm.valid" (click)="onSubmit()" class="btnSave">
+        Save
+      </button>
+      <div class="content-bottom">
+        <table>
+          <caption>
+            (Click any record to turn on Editting mode)
+          </caption>
+          <thead>
+            <tr>
+              <td></td>
+              <td>Name</td>
+              <td>Code</td>
+              <td>Nation Name</td>
+              <td>Note</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [ngClass]="{ active: selectedIndexInTable === i }"
+                (click)="chooseItem(item, i)"
+                *ngFor="
+              let item of ProvinceList
+                | paginate
+                  : {
+                      itemsPerPage: itemsPerPage,
+                      currentPage: page,
+                      totalItems: totalItems
+                    };
+              let i = index
+            ">
+              <td>
+                <mat-checkbox (change)="updateAllComplete($event, item.id)">
+                </mat-checkbox>
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.nationName }}</td>
+              <td>{{ item.note }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls class="pagi"
+                             (pageChange)="gty((page = $event))"></pagination-controls>
+
+      </div>
+    </div>
+  </div>
+</div>

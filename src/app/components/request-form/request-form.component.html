@@ -1,0 +1,205 @@
+<h5>Recruitment Request</h5>
+<app-back-btn [route]="route"></app-back-btn>
+<div class="content">
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <form
+    novalidate
+    (ngSubmit)="onSubmit(2)"
+    [formGroup]="requestForm"
+    class="form"
+    action=""
+  >
+    <div class="left">
+      <div class="form-group">
+        <label for="requestID">Request Code<span>*</span></label>
+        <input type="text" class="form-control" formControlName="requestCode" />
+      </div>
+      <div class="form-group">
+        <label for="name">Name<span>*</span></label>
+        <input type="text" class="form-control" formControlName="name" />
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('name')?.hasError('required')"
+          >Please input name</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Type<span>*</span></label>
+        <select style="font-family: Poppins" name="dep" formControlName="type">
+          <option
+            style="font-family: Poppins"
+            *ngFor="let type of types"
+            [ngValue]="type.id"
+          >
+            {{ type.name }}
+          </option>
+        </select>
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('type')?.hasError('required')"
+          >Please input level</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Department<span>*</span></label>
+        <input
+       
+          id="dep"
+          type="text"
+          class="form-control"
+          formControlName="dep"
+        />
+        <p (click)="showPopUp()" class="poppup">Choose</p>
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('dep')?.value==''"
+          >Please choose department</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Projects<span>*</span></label>
+        <select name="dep" formControlName="projects">
+          <option value="0"></option>
+          <option
+            [selected]="project.id == requestForm.controls['projects'].value"
+            *ngFor="let project of projects"
+            [ngValue]="project.id"
+          >
+            {{ project.name }}
+          </option>
+        </select>
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('projects')?.hasError('required')"
+          >Please choose project</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Position<span>*</span></label>
+        <select name="position" formControlName="position">
+          <option *ngFor="let position of listPosition" [ngValue]="position.id">
+            {{ position.name }}
+          </option>
+        </select>
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('position')?.hasError('required')"
+          >Please choose position</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Quantity<span>*</span></label>
+        <input type="text" class="form-control" formControlName="quantity" />
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('quantity')?.hasError('required')"
+          >Please input quantity</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('quantity')?.hasError('pattern')"
+          >Please input number greater than 0.</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Office</label>
+        <input
+          type="text"
+          class="form-control"
+          [value]=""
+          formControlName="office"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Deadline<span>*</span></label>
+        <input
+          type="date"
+          [min]="today"
+          class="form-control"
+          formControlName="deadline"
+        />
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('deadline')?.hasError('required')"
+          >Please input deadline</small
+        >
+      </div>
+      <div class="form-group">
+        <!--<label for="name">Roadmap</label>
+        <p><a href="">Popup Roadmap</a></p>-->
+      </div>
+    </div>
+    <div class="right">
+      <div class="form-group">
+        <label for="name">Experience (year)</label>
+        <input type="text" class="form-control" formControlName="experience" />
+
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('experience')?.hasError('pattern')"
+          >Please input number greater than 0.</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="name">Level</label>
+        <select name="level" formControlName="level">
+          <option *ngFor="let level of levels" [ngValue]="level.id">
+            {{ level.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Other Skill</label>
+        <select name="skill" formControlName="skill">
+          <option *ngFor="let skill of skills" [ngValue]="skill.id">
+            {{ skill.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Notes</label>
+        <textarea
+          class="form-control"
+          placeholder="Notes"
+          rows="4"
+          formControlName="notes"
+        ></textarea>
+      </div>
+      <div class="form-buttons">
+        <button
+          (click)="clearInputField()"
+          type="button"
+          class="form-buttons-items form-buttons-items--clear"
+        >
+          Clear all
+        </button>
+        <button
+          type="button"
+          [disabled]="!requestForm.valid"
+          (click)="onSubmit(1)"
+          class="form-buttons-items form-buttons-items--draft"
+        >
+          Save Draft
+        </button>
+        <button
+          type="button"
+          (click)="onSubmit(2)"
+          [disabled]="!requestForm.valid"
+          class="form-buttons-items form-buttons-items--send"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="overlay"></div>
+</div>
+<swal #orgPicker title="Choose department" width="500px" tabindex="100">
+  <div *swalPortal="swalTargets.content">
+    <app-pop-up-organizations
+      (department)="getDataFromPopup($event)"
+    ></app-pop-up-organizations>
+  </div>
+</swal>

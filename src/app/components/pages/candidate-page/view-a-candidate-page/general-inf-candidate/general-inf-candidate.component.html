@@ -1,0 +1,183 @@
+<div class="info">
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <ng-container *ngIf="candidate">
+    <div class="info-heading">
+      <h6
+        routerLink="/ungvien/suaungvien"
+        [queryParams]="{ id: candidate.id }"
+        class="edit"
+      >
+        <i class="fas fa-user-edit"></i>Edit candidate
+      </h6>
+
+      <div class="info-heading-img">
+        <ngx-avatar
+          *ngIf="!imgURL"
+          class="img"
+          size="100"
+          [name]="letter"
+        ></ngx-avatar>
+        <img *ngIf="imgURL" [src]="imgURL" alt="" />
+        <input type="file" #input (change)="selectFile($event)">
+        <small class="ava" (click)="input.click()">Change Avatar</small>
+      </div>
+      <div class="info-heading-contact">
+        <h6>{{ candidate.fullName }}</h6>
+        <p>{{ candidate.phone }}</p>
+        <p>{{ candidate.email }}</p>
+      </div>
+      <div class="info-heading-social">
+        <div class="info-heading-social-item">
+          <p>Facebook:</p>
+          <a target="_blank" [href]="candidate.facebook">{{
+            candidate.facebook
+          }}</a>
+        </div>
+        <div class="info-heading-social-item">
+          <p>Zalo:</p>
+          <a>{{ candidate.zalo }}</a>
+        </div>
+        <div class="info-heading-social-item">
+          <p>Skype:</p>
+          <a target="_blank" [href]="candidate.skype">{{ candidate.skype }}</a>
+        </div>
+        <div class="info-heading-social-item">
+          <p>Website:</p>
+          <a target="_blank" [href]="candidate.website">{{
+            candidate.website
+          }}</a>
+        </div>
+      </div>
+      <div class="info-heading-position">
+        <p class="text-danger" *ngIf="candidate.note">Note: {{candidate.note}}</p>
+      </div>
+    </div>
+    <div class="info-middle">
+      <div class="info-middle-left">
+        <h5 class="info-middle-left__ttl">General Information</h5>
+        <div class="info-middle-left-item">
+          <span>Candidate ID:</span>
+          <div class="info-middle-left-item-right">
+            <span>{{ candidate.id }}</span>
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>Gender:</span>
+          <div class="info-middle-left-item-right">
+            <span *ngIf="candidate.gender == 1">Male</span>
+            <span *ngIf="candidate.gender == 0">Female</span>
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>Year of birth:</span>
+          <div class="info-middle-left-item-right">
+            <span>{{ candidate.dob }}</span>
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>Address:</span>
+          <div class="info-middle-left-item-right">
+            <span
+              >{{ candidate.nationLive }} - {{ candidate.provinceLive }}</span
+            >
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>University:</span>
+          <div class="info-middle-left-item-right">
+            <span>{{ candidate.school }}</span>
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>Major:</span>
+          <div class="info-middle-left-item-right">
+            <span>{{ candidate.major }}</span>
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>GPA:</span>
+          <div class="info-middle-left-item-right">
+            <span>{{ candidate.score }}</span>
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>Graduate date:</span>
+          <div class="info-middle-left-item-right">
+            <span>{{ candidate.graduate }}</span>
+          </div>
+        </div>
+        <div class="info-middle-left-item">
+          <span>Awards:</span>
+          <div class="info-middle-left-item-right">
+            <span>{{ candidate.awards }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="info-middle-right">
+        <h5 class="info-middle-right__ttl">Languages and skillsheets</h5>
+
+        <div class="info-middle-right-languages">
+          <h6 class="heading">1. Foreign language</h6>
+          <ng-container *ngIf="languageList">
+            <div class="box" *ngFor="let language of languageList">
+              <p>{{ language.type }}</p>
+              <div class="box-item" *ngFor="let child of language.child">
+                <span>{{ child.level }}</span>
+                <span>Grade: {{ child.goal }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="info-middle-right-skillsheet">
+          <h6 class="heading">2. Skillsheets</h6>
+          <ng-container *ngIf="skillSheetList">
+            <div class="box" *ngFor="let skillsheet of skillSheetList">
+              <p>{{ skillsheet.typeSkill }}</p>
+              <div class="box-item" *ngFor="let child of skillsheet.child">
+                <span>{{ child.type }}</span>
+                <ng-container *ngFor="let c of child.child">
+                  <span>{{ c.level }}</span>
+                  <span>{{ c.goal }}</span>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="info-middle-right-exp">
+          <h6 class="heading">3. Experience</h6>
+          <ng-container>
+            <div class="box" *ngIf="expList">
+              <p>Domain</p>
+              <div class="box-item exp">
+                <div class="ss" *ngFor="let exp of expList; let i = index">
+                  <h5>{{ i + 1 }}.</h5>
+                  <div class="content">
+                    <span>Company/Project: {{ exp.firm }}</span>
+                    <span>Position: {{ exp.positiob }}</span>
+                    <span>Description: {{ exp.time }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="box" *ngIf="outSource">
+              <p>Outsource</p>
+              <div class="box-item exp">
+                <div
+                  class="ss"
+                  *ngFor="let outsource of outSource; let i = index"
+                >
+                  <h5>{{ i + 1 }}.</h5>
+                  <div class="content">
+                    <span>Company/Project: {{ outsource.firm }}</span>
+                    <span>Position: {{ outsource.positiob }}</span>
+                    <span>Description: {{ outsource.time }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

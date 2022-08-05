@@ -1,0 +1,67 @@
+<div class="content">
+  <h5>Candidate</h5>
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <app-back-btn [route]="route"></app-back-btn>
+  <app-step (step)="getStep($event)"></app-step>
+  <div class="content-middle">
+    <div
+      class="content-middle-left"
+      [ngClass]="{ hide: step == 4, show: step != 4 }"
+    >
+      <div>
+        <app-profile
+          class="profile"
+          [ngClass]="{ show: step == 1, hide: step != 1 }"
+          [candidateName]="name"
+          (imgLINK)="getImgURL($event)"
+        ></app-profile>
+        <app-general-inf
+          [step]="step"
+          (candidateName)="getName($event)"
+          (candidate)="getCandidate($event)"
+        ></app-general-inf>
+
+        <!-- <app-contact-form></app-contact-form> -->
+      </div>
+    </div>
+    <div
+      class="content-middle-right"
+      [ngClass]="{ hide: step == 4, show: step != 4 }"
+    >
+      <div class="content-middle-right-attach">
+        <app-attach-file
+          (fileUpload)="getFileUpLoad($event)"
+          (pdfSrc)="getPdfSrc($event)"
+          [attach]="attach"
+        >
+        </app-attach-file>
+      </div>
+
+      <div class="content-middle-right-show">
+        <app-show-pdf-file [pdfSrc]="pdfSrc"></app-show-pdf-file>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{ show: step == 4, hide: step != 4 }">
+    <app-over-view
+      (listSkill)="getSkill($event)"
+      (listExp)="getlistExp($event)"
+      [candidate]="candidate"
+    ></app-over-view>
+  </div>
+  <div class="content-bottom">
+    <div class="content-bottom-button">
+      <button class="btn btn-primary" (click)="onSubmit('draft')">
+        Save draft
+      </button>
+      <button
+        [disabled]="formCandite.invalid"
+        class="btn btn-success"
+        (click)="onSubmit('submit')"
+      >
+        Create
+      </button>
+    </div>
+  </div>
+</div>
+<div class="overlay"></div>

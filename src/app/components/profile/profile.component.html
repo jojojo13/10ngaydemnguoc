@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="content-wrapper">
+    <div class="content-wrapper-box">
+      <ngx-avatar
+        *ngIf="!isgetImg"
+        class="img"
+        size="120"
+        [name]="letter"
+      ></ngx-avatar>
+      <img
+        *ngIf="isgetImg"
+        [src]="imgURL"
+        alt=""
+        class="img"
+      />
+      <div class="file">
+        <input type="file" #file (change)="selectFile($event)" />
+        <span (click)="file.click()">Upload image</span>
+      </div>
+    </div>
+    <p>{{ candidateName }}</p>
+  </div>
+</div>

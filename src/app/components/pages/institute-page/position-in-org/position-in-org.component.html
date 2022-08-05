@@ -1,0 +1,120 @@
+<div class="content">
+  <h5>Institute Organization</h5>
+  <app-back-btn [route]="route"></app-back-btn>
+  <div class="action">
+    <div class="action-item" (click)="addNewPositionOrg()">
+      <p><i class="far fa-plus circle-icon"></i>Add new</p>
+    </div>
+    <div class="action-item" (click)="deletePositionOrg()">
+      <p><i class="far fa-check circle-icon"></i>Delete</p>
+    </div>
+  </div>
+
+  <div class="content-middle">
+    <div class="content-middle-form">
+      <h4>Mode:{{ action }}</h4>
+      <form
+        novalidate
+        [formGroup]="positionOrgForm"
+        (ngSubmit)="onSubmit()"
+        class="form"
+      >
+        <div class="form-group">
+          <label for="name">Department</label>
+          <input type="text" class="form-control c" formControlName="dep" />
+          <p (click)="showPopUp()" class="poppup">Choose</p>
+          <small
+            class="text-danger"
+            *ngIf="positionOrgForm.get('dep')?.value == ''&&disable==false"
+            >Please choose department</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="name">Position</label>
+          <select name="positions" formControlName="positions">
+            <option
+              [selected]="
+                position.id == positionOrgForm.controls['positions'].value
+              "
+              *ngFor="let position of positionList"
+              [ngValue]="position.id"
+            >
+              {{ position.name }}
+            </option>
+          </select>
+          <small
+            class="text-danger"
+            *ngIf="positionOrgForm.get('positions')?.hasError('required')"
+            >Please choose position</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="note">Notes</label>
+          <textarea name="note" rows="4" cols="30" formControlName="note">
+          </textarea>
+        </div>
+      </form>
+      <button #btn [disabled]="disable" (click)="onSubmit()" class="btnSave">
+        Save
+      </button>
+      <div class="content-bottom">
+        <ng-container>
+          <table>
+            <caption>
+              (Click any record to turn on Editting mode)
+            </caption>
+            <thead>
+              <tr>
+                <td></td>
+                <td>Orgnization name</td>
+                <td>Orgnization code</td>
+                <td>Title name</td>
+                <td>Position code</td>
+                <td>Position name</td>
+                <td>Note</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                [ngClass]="{ active: selectedIndexInTable === i }"
+                (click)="chooseItem(item, i)"
+                *ngFor="
+                  let item of positionOrgList
+                    | paginate
+                      : {
+                          itemsPerPage: itemsPerPage,
+                          currentPage: page,
+                          totalItems: totalItems
+                        };
+                  let i = index
+                "
+              >
+                <td>
+                  <mat-checkbox (change)="updateAllComplete($event, item.id)">
+                  </mat-checkbox>
+                </td>
+                <td>{{ item.orgName }}</td>
+                <td>{{ item.orgCode }}</td>
+                <td>{{ item.titleName }}</td>
+                <td>{{ item.positionCode }}</td>
+                <td>{{ item.positionName }}</td>
+                <td>{{ item.note }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls
+            class="pagi"
+            (pageChange)="gty((page = $event))"
+          ></pagination-controls>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<swal #orgPicker title="Choose department" width="500px" tabindex="100">
+  <div *swalPortal="swalTargets.content">
+    <app-pop-up-organizations
+      (department)="getDataFromPopup($event)"
+    ></app-pop-up-organizations>
+  </div>
+</swal>

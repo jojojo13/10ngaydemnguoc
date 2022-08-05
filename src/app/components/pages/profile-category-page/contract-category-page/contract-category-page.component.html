@@ -1,0 +1,96 @@
+<div class="content">
+  <h5>Contract categories</h5>
+  <app-back-btn [route]="route"></app-back-btn>
+
+  <div class="action">
+    <div class="action-item" (click)="addNewContract()">
+      <p><i class="far fa-plus circle-icon"></i>Add new</p>
+    </div>
+    <div class="action-item" (click)="deleteContract()">
+      <p><i class="fa fa-trash"></i>Delete</p>
+    </div>
+    <div class="action-item" (click)="activeContract()">
+      <p><i class="fa fa-check"></i>Active</p>
+    </div>
+    <div class="action-item" (click)="deactiveContract()">
+      <p><i class="fa fa-ban"></i>Deactive</p>
+    </div>
+    <div class="action-item" (click)="exportExcel()">
+      <p><i class="fa fa-download"></i>Export Excel</p>
+    </div>
+  </div>
+
+  <div class="content-middle">
+    <div class="content-middle-form">
+      <h4>Mode:{{ action }}</h4>
+      <form novalidate [formGroup]="contractForm" (ngSubmit)="onSubmit()" class="form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" formControlName="name" />
+          <small class="text-danger" *ngIf="contractForm.get('name')?.hasError('required')">Please input name</small>
+        </div>
+        <div class="form-group">
+          <label for="code">Code</label>
+          <input type="text" class="form-control" formControlName="code" />
+        </div>
+        <div class="form-group">
+          <label for="code">Contract term</label>
+          <input type="text" class="form-control" formControlName="term" />
+          <small class="text-danger" *ngIf="contractForm.get('term')?.hasError('required')">Please input Contract term</small>
+        </div>
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+          <label for="note">Notes</label>
+          <textarea name="note" rows="4" cols="30" formControlName="note"></textarea>
+        </div>
+      </form>
+      <button #btn [disabled]="disable" (click)="onSubmit()" class="btnSave">
+        Save
+      </button>
+      <div class="content-bottom">
+        <table>
+          <caption>
+            (Click any record to turn on Editting mode)
+          </caption>
+          <thead>
+            <tr>
+              <td></td>
+              <td>Name</td>
+              <td>Code</td>
+              <td>Contract term</td>
+              <td>Note</td>
+              <td>Status</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr [ngClass]="{ active: selectedIndexInTable === i }"
+                (click)="chooseItem(item, i)"
+                *ngFor="
+              let item of contractList
+                | paginate
+                  : {
+                      itemsPerPage: itemsPerPage,
+                      currentPage: page,
+                      totalItems: totalItems
+                    };
+              let i = index
+            ">
+              <td>
+                <mat-checkbox (change)="updateAllComplete($event, item.id)">
+                </mat-checkbox>
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.term }}</td>
+              <td>{{ item.note }}</td>
+              <td>{{ item.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls class="pagi"
+                             (pageChange)="gty((page = $event))"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

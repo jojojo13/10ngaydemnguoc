@@ -1,0 +1,19 @@
+<div class="content">
+  <p (click)="fileInput.click()">
+    <i class="far fa-paperclip"></i>{{ attach.name }}
+  </p>
+ 
+  <input #fileInput id="fileInput" type="file" (change)="selectFile($event)" />
+  <div *ngIf="currentFileUpload" class="progress mt-2">
+    <div
+      class="progress-bar progress-bar-info"
+      role="progressbar"
+      attr.aria-valuenow="{{ percentage }}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [ngStyle]="{ width: percentage + '%' }"
+    >
+      {{ percentage }}%
+    </div>
+  </div>
+</div>
