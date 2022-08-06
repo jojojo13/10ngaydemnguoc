@@ -50,7 +50,7 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
         this.listSkillSheet = this.candidateService.skillSheet;
 
         this.listExps = this.candidateService.expList;
-        console.log(this.listExps);
+
         newArr2 = this.convert2(this.candidateService.skillSheet);
         newArr = this.convertTypeArray(this.listExps);
       }
@@ -64,7 +64,6 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
       }
       if (this.listExp) {
         this.listExp.emit(newArr);
-        console.log(newArr);
       }
       if (newArr2 && this.test) {
         let concatArr = newArr2.concat(this.test);
@@ -76,7 +75,6 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
     let newArr = [];
     if (array) {
       for (let i = 0; i < array.length; i++) {
-       
         for (let j = 0; j < array[i].listSkill.length; j++) {
           let newobj = {
             typeID: array[i].id,
@@ -109,6 +107,15 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
             };
             newArr.push(newobj);
           }
+        }else{
+          let newobj = {
+            typeSkill: array[i].id,
+            type: 0,
+            level:0,
+            goal: '',
+            
+          };
+          newArr.push(newobj);
         }
       }
     }

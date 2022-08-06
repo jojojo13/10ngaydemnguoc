@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
@@ -7,6 +8,7 @@ import {
   EventSourceInput,
 } from '@fullcalendar/angular';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
+import { CandidateService } from 'src/app/services/candidate-service/candidate.service';
 
 @Component({
   selector: 'app-request-in-applications',
@@ -16,17 +18,23 @@ import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 export class RequestInApplicationsComponent implements OnInit {
   constructor(
     public readonly swalTargets: SwalPortalTargets,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private candidateService: CandidateService
   ) {}
   @ViewChild('datePicker') datePicker!: SwalComponent;
-  index = 2;
+  index = -1;
   addEventForm!: FormGroup;
   submitted = false;
   title = 'angularadmintemplates';
   calendarOptions!: CalendarOptions;
-  stepNow = 2;
+  stepNow = -1;
   c!: Calendar;
   Events!: EventSourceInput;
+  candidateID!: number;
+  requestID!: number;
+  candidateInfor: any;
+  isLoaded = true;
   //Add user form actions
   get f() {
     return this.addEventForm.controls;
@@ -43,6 +51,22 @@ export class RequestInApplicationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
+    this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
+    this.candidateService
+      .getCandidateRequestInfor(this.requestID, this.candidateID)
+      .subscribe(
+        (response: any) => {
+          this.isLoaded = false;
+          this.candidateInfor = response.data;
+          this.stepNow = this.candidateInfor.stepNow;
+          this.index = this.stepNow;
+          this.isLoaded = true;
+        },
+        (err) => {
+          this.isLoaded = true;
+        }
+      );
     this.Events = [
       {
         title: 'Interview SQL',
@@ -92,8 +116,7 @@ export class RequestInApplicationsComponent implements OnInit {
   handleDateClick(args: any) {
     this.datePicker.fire().then((result) => {
       if (result.isConfirmed) {
-        
-        this.calendarOptions.events = this.calendarOptions.events ;
+        this.calendarOptions.events = this.calendarOptions.events;
         (this.calendarOptions.events as any).push({
           title: 'Interview SQL',
           start: '2022-08-05 14:30',
@@ -104,6 +127,19 @@ export class RequestInApplicationsComponent implements OnInit {
     });
 
     this.addEventForm.get('startDate')?.setValue(args.dateStr);
+  }
+  reviewStep1(step1:number){
+    let objStep1={
+      candidateId: this.candidateID,
+      requestId: this.requestID,
+      step1: step1,
+      noteStep1: ""
+    }
+    this.candidateService.setStep1Candidate(objStep1).subscribe((response:any)=>{
+      this.ngOnInit()
+    },er=>{
+      this.ngOnInit()
+    })
   }
   addEvent(arg: any) {}
   //Hide Modal PopUp and clear the form validations

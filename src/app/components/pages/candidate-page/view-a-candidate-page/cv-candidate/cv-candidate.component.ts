@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { CommonService } from 'src/app/services/common.service';
 
@@ -21,6 +21,7 @@ export class CvCandidateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private candidateService: CandidateService
   ) {}
+  @Input('noAttach') noAttach=false;
   selectedFiles!: FileList;
   pdfSrc: any;
   listFile: any;

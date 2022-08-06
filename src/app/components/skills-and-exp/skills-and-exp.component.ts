@@ -63,14 +63,14 @@ export class SkillsAndExpComponent implements OnInit {
       this.renderer.addClass(itemMain, 'language-content-item-main');
       this.renderer.addClass(main, 'main');
       this.renderer.addClass(category, 'language-content-item-main-category');
-      this.renderer.addClass(trash, 'far');
-      this.renderer.addClass(trash, 'fa-trash-alt');
+      this.renderer.addClass(trash, 'fa');
+      this.renderer.addClass(trash, 'fa-trash');
       //create ele in side wrapper
       let pOfMain = this.renderer.createElement('p');
       let pForIcon = this.renderer.createElement('p');
       let icon = this.renderer.createElement('i');
       //create class
-      this.renderer.addClass(icon, 'far');
+      this.renderer.addClass(icon, 'fa');
       this.renderer.addClass(icon, 'fa-plus');
       this.renderer.addClass(icon, 'circle-icon');
       pOfMain.innerHTML = data.name;
@@ -163,7 +163,7 @@ export class SkillsAndExpComponent implements OnInit {
       let orig = -1;
       this.renderer.listen(select, 'focus', () => {
         orig = select.options[select.selectedIndex].value;
-        console.log(orig);
+       
       });
       this.renderer.listen(select, 'change', () => {
         value = select.options[select.selectedIndex].value;
@@ -213,8 +213,8 @@ export class SkillsAndExpComponent implements OnInit {
       a.name = select.options[select.selectedIndex].text;
       a.id = select.options[select.selectedIndex].value;
       this.renderer.addClass(main, 'main');
-      this.renderer.addClass(trash, 'far');
-      this.renderer.addClass(trash, 'fa-trash-alt');
+      this.renderer.addClass(trash, 'fa');
+      this.renderer.addClass(trash, 'fa-trash');
 
       this.renderer.appendChild(main, select);
       this.renderer.appendChild(main, input);
@@ -226,7 +226,6 @@ export class SkillsAndExpComponent implements OnInit {
       newObj.listSkill.push(a);
       this.candidateService.skillList = this.listSkill;
       this.candidateService.otherList = this.skills;
-      console.log(this.skills);
       this.isFirst = false;
       skillSize.size--;
       this.candidateService.detectChange.next(true);
@@ -243,13 +242,13 @@ export class SkillsAndExpComponent implements OnInit {
     parent?.removeChild(child);
   }
 
-  getDifference(array1: any, array2: any) {
-    return array1.filter((object1: any) => {
-      return !array2.some((object2: any) => {
-        return object1.id === object2.level;
-      });
-    });
-  }
+  // getDifference(array1: any, array2: any) {
+  //   return array1.filter((object1: any) => {
+  //     return !array2.some((object2: any) => {
+  //       return object1.id === object2.level;
+  //     });
+  //   });
+  // }
 
   //----------------------FOR SKILLSHEET-------------------------------
   getData($event: any) {

@@ -94,7 +94,7 @@
               <div class="main" *ngFor="let skillChild of skillsheet.listSkill">
                 <span>{{ skillChild.name }}</span>
                 <span>{{ skillChild.levelName }}</span>
-                <span>{{ skillChild.goal }}</span>
+                <span *ngIf="skillChild.goal ">{{ skillChild.goal }}</span>
                 <!-- <span disabled [value]="" #input type="text" /> -->
               </div>
             </div>

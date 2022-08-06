@@ -7,7 +7,7 @@
       </iframe>
     </div>
 
-    <div class="right">
+    <div class="right" *ngIf="!noAttach">
       <p class="attach" (click)="fileInput.click()">Attach CV</p>
 
       <input

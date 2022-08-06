@@ -100,4 +100,11 @@ export class CandidateService {
   getRequestInCandidate(candidateID:number){
     return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetAllRequestByCandidateID?id=${candidateID}`,{})
   }
+
+  getCandidateRequestInfor(requestID:number,candidateID:number){
+    return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetCandidateRequestInf?requestId=${requestID}&candidateId=${candidateID}`,{})
+  }
+  setStep1Candidate(obj:any){
+    return this.__http.post('https://localhost:44376/api/CandidateAPI/SetStep1CandidatePV',obj)
+  }
 }

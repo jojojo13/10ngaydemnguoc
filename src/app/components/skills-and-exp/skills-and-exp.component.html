@@ -9,7 +9,9 @@
         ></app-list-childskill>
       </div>
     </div>
-    <div class="language-content"></div>
+    <div class="language-content">
+
+    </div>
   </div>
 
   <div class="language">
@@ -22,7 +24,6 @@
     </div>
     <div class="language-content">
       <div
-        [(ngModel)]="skillSheets"
         _ngcontent-yxd-c87=""
         class="language-content-item"
         *ngFor="let skillsheet of skillSheets"
@@ -55,18 +56,13 @@
                   {{ item.name }}
                 </option>
               </select>
-              <form class="he" novalidate #form="ngForm">
+              <form class="he">
                 <input
-                  ngModel
                   name="contactName"
-                  required
                   #input
                   (change)="inputChange(skillChild, input)"
                   type="text"
                 />
-                <ng-container *ngIf="form.controls['contactName']?.errors">
-                  <small class="herr text-danger">Input description</small>
-                </ng-container>
               </form>
 
               <i
@@ -129,8 +125,8 @@
                       />
                     </div>
                     <small *ngIf="exp.controls['firm']?.errors"
-                    >Must input description</small
-                  >
+                      >Must input description</small
+                    >
                   </div>
                   <div class="exp">
                     <label for="">Position</label>
@@ -145,8 +141,8 @@
                       />
                     </div>
                     <small *ngIf="exp.controls['pos']?.errors"
-                    >Must input description</small
-                  >
+                      >Must input description</small
+                    >
                   </div>
 
                   <div class="exp">

@@ -1,31 +1,43 @@
 
-<div class="application">
+<app-loader [isLoaded]="isLoaded"></app-loader>
+<div class="application" *ngIf="candidateInfor">
   <div class="application-heading">
     <div class="application-heading-img">
       <ngx-avatar class="img" size="100" [name]="'letter'"></ngx-avatar>
     </div>
     <div class="application-heading-contact">
-      <p class="">Hoang Ngoc Minh</p>
-      <p>0988232322</p>
-      <p>sadsad@gmail.com</p>
+      <p  class="">{{candidateInfor.name}}</p>
+      <p>{{candidateInfor.phone}}</p>
+      <p>{{candidateInfor.email}}</p>
     </div>
     <div class="application-heading-social">
       <div class="application-heading-social-item">
         <p>Request:</p>
-        <span target="_blank"> NodeJS dev </span>
+        <span target="_blank"> {{candidateInfor.requestName}} </span>
       </div>
       <div class="application-heading-social-item">
         <p>Project:</p>
-        <span target="_blank"> ERP Solutions </span>
+        <span target="_blank"> {{candidateInfor.project}} </span>
       </div>
       <div class="application-heading-social-item">
         <p class=>Department:</p>
-        <span target="_blank"> Hoang Dao Thuy </span>
+        <span target="_blank"> {{candidateInfor.department}} </span>
       </div>
+    </div>
+    <div class="application-heading-social">
+      <div class="application-heading-social-item">
+        <p style="width: 70px;">Position:</p>
+        <span target="_blank"> {{candidateInfor.position}} </span>
+      </div>
+  
     </div>
     <div class="application-heading-stages">
           <p>Stages of candidate:</p>
-          <span class="text-success">CV passed</span>
+          <span *ngIf="stepNow==1" class="staging">Review CV</span>
+          <span *ngIf="stepNow==2" class="staging">Interview</span>
+          <span *ngIf="stepNow==3" class="staging">Chua biet lam gi</span>
+          <span *ngIf="stepNow==4" class="staging">Chua biet lam gi</span>
+          <span *ngIf="stepNow==5" class="staging">Chua biet lam gi</span>
           <div class="application-heading-stages-box">
             <div class="application-heading-stages-box-item"[ngClass]="{'isnow':stepNow==1,passed:stepNow>1,notyet:stepNow<1}" >
                 <span>1</span>
@@ -110,9 +122,13 @@
     </div>
   </form>
     </div>
-  
-
 </swal>
 </ng-container>
-
-<h6 class="cv" *ngIf="index==1">Candidate's CV is passed</h6>
+<ng-container *ngIf="index==1">
+ 
+<app-cv-candidate [noAttach]="true"></app-cv-candidate>
+<div class="action">
+  <button (click)="reviewStep1(0)" class="btn btn-danger px-5 mx-3">Fail</button>
+  <button (click)="reviewStep1(1)" class="btn btn-success px-5 mx-3">Pass</button>
+</div>
+</ng-container>

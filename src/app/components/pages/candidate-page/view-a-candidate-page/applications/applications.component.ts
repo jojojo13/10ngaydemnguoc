@@ -12,12 +12,17 @@ export class ApplicationsComponent implements OnInit {
   index = 1;
   listRequest:any
   id!:number
+  isLoaded=true
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.queryParams['id'];
+    this.isLoaded=false
     this.candidateService.getRequestInCandidate(this.id).subscribe((response:any)=>{
       console.log(response)
       console.log(this.id)
       this.listRequest=response.data
+      this.isLoaded=true
+    },err=>{
+      this.isLoaded=true
     })
 
   }

@@ -48,6 +48,12 @@
     &-social {
       margin-left: 30px;
       &-item {
+        span {
+          max-width: 300px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
         &:last-of-type {
           p {
             margin: 0;
@@ -151,18 +157,21 @@
   color: #3d4eac;
   width: 200px;
 }
-.passed{
-  background-color: #79EC7D;
+.passed {
+  background-color: #79ec7d;
 }
-.notyet{
-  background-color:#B5B6B0;
+.notyet {
+  background-color: #b5b6b0;
 }
-.isnow{
-  background-color: #a2d9fd ;
+.isnow {
+  background-color: #a2d9fd;
 }
-.cv{
+.cv {
   margin-left: 20px;
   font-weight: 600;
   font-size: 18px;
   margin-top: 30px;
+}
+.staging{
+ color: #1367a0;
 }
