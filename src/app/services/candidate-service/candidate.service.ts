@@ -107,4 +107,10 @@ export class CandidateService {
   setStep1Candidate(obj:any){
     return this.__http.post('https://localhost:44376/api/CandidateAPI/SetStep1CandidatePV',obj)
   }
+  insertScheduleCandidate(obj:any){
+    return this.__http.post('https://localhost:44376/api/ScheduleAPI/InsertSchedule',obj)
+  }
+  getScheduleCandidate(rqID:number,canID:number){
+    return this.__http.post(`https://localhost:44376/api/ScheduleAPI/GetSchedule?requestId=${rqID}&candidateId=${canID}`,{})
+  }
 }

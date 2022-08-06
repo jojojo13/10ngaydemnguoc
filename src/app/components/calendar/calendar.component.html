@@ -1,0 +1,47 @@
+
+    <full-calendar #calendar [deepChangeDetection]="true"  [options]="calendarOptions"></full-calendar>
+    <swal   class="confirm"
+    #datePicker
+    title="Add event"
+    width="500px"
+    tabindex="100"
+    [showCancelButton]="false"
+    [showConfirmButton]="false">
+      <div  *swalPortal="swalTargets.content">
+    <form action="" [formGroup]="addEventForm" class="form">
+      <div class="form-group">
+        <label for="">Title: </label>
+        <input type="text" formControlName="title">
+        <small *ngIf="addEventForm.controls['title'].hasError('required')" class="text-danger">Please input title</small>
+      </div>
+      <div class="form-group">
+        <label for="">Start Date: </label>
+        <input type="date" disable [min]="" formControlName="startDate">
+      </div>
+      <div class="form-group">
+        <label for="">Start Time: </label>
+        <input type="time" formControlName="startTime">
+        <small *ngIf="addEventForm.controls['startTime'].hasError('required')" class="text-danger">Please input start time</small>
+        <small *ngIf="startTime.errors?.['invalid']" class="text-danger">Start Time must greater than now</small>
+      </div>
+      <div class="form-group">
+        <label for="">End Date: </label>
+        <input type="date" formControlName="endDate">
+        <small *ngIf="addEventForm.controls['endDate'].hasError('required')" class="text-danger">Please input end date</small>
+        <small *ngIf="endDate.errors?.['invalid']" class="text-danger">End date must be equal or greater than start date</small>
+      </div>
+      <div class="form-group">
+        <label for="">End Time: </label>
+        <input type="time" formControlName="endTime">
+        <small *ngIf="addEventForm.controls['endTime'].hasError('required')" class="text-danger">Please input end time</small>
+        <small *ngIf="endTime.errors?.['invalid']" class="text-danger">End meeting must greater than start meeting</small>
+      </div>
+    </form>
+    <div class="action">
+      <button (click)="addEvent()" class="btn btn-success px-4 mx-2">Add Event</button>
+      <button (click)="datePicker.close()" class="btn btn-danger px-5 mx-2">Cancel</button>
+    </div>
+    
+      </div>
+    </swal>
+

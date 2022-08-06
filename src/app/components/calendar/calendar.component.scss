@@ -1,0 +1,23 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    &-group {
+      margin: 10px 0;
+      label {
+        width: 100px;
+        text-align: start;
+      }
+      input{
+        width: 200px;
+      }
+      small{
+        display: block;
+        margin-left: 100px;
+        text-align: start;
+        width: 200px;
+        word-wrap: break-word;
+      }
+    }
+  }

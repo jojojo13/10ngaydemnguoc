@@ -23,13 +23,10 @@
         <p class=>Department:</p>
         <span target="_blank"> {{candidateInfor.department}} </span>
       </div>
-    </div>
-    <div class="application-heading-social">
       <div class="application-heading-social-item">
-        <p style="width: 70px;">Position:</p>
+        <p >Position:</p>
         <span target="_blank"> {{candidateInfor.position}} </span>
       </div>
-  
     </div>
     <div class="application-heading-stages">
           <p>Stages of candidate:</p>
@@ -90,39 +87,7 @@
   </div>
 </div>
 <ng-container *ngIf="index==2">
-  <full-calendar  [options]="calendarOptions"></full-calendar>
-  <swal   class="confirm"
-  #datePicker
-  title="Add event"
-  width="500px"
-  tabindex="100"
-  [showCancelButton]="true"
-  [showConfirmButton]="true">
-    <div  *swalPortal="swalTargets.content">
-<form action="" [formGroup]="addEventForm">
-    <div class="form-group">
-      <label for="">Title: </label>
-      <input type="text">
-    </div>
-    <div class="form-group">
-      <label for="">Start Date: </label>
-      <input type="date" disable [min]="" formControlName="startDate">
-    </div>
-    <div class="form-group">
-      <label for="">Start Time: </label>
-      <input type="time" formControlName="startTime">
-    </div>
-    <div class="form-group">
-      <label for="">End Date: </label>
-      <input type="text">
-    </div>
-    <div class="form-group">
-      <label for="">End Time: </label>
-      <input type="text">
-    </div>
-  </form>
-    </div>
-</swal>
+  <app-calendar></app-calendar>
 </ng-container>
 <ng-container *ngIf="index==1">
  

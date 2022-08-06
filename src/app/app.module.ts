@@ -98,10 +98,12 @@ import { ViewContractComponent } from './components/pages/profile-institute-page
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
-import { RequestInApplicationsComponent } from './components/pages/candidate-page/view-a-candidate-page/applications/request-in-applications/request-in-applications.component'; // a plugin!
+import { RequestInApplicationsComponent } from './components/pages/candidate-page/view-a-candidate-page/applications/request-in-applications/request-in-applications.component';
+import { CalendarComponent } from './components/calendar/calendar.component'; // a plugin!
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
-  interactionPlugin
+  interactionPlugin,
+  
 ]);
 @NgModule({
   declarations: [
@@ -181,6 +183,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EditCandidateFormComponent,
     ViewContractComponent,
     RequestInApplicationsComponent,
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,7 @@
     "@fullcalendar/angular": "^5.11.2",
     "@fullcalendar/daygrid": "^5.11.2",
     "@fullcalendar/interaction": "^5.11.2",
+    "@fullcalendar/list": "^5.11.2",
     "@sweetalert2/ngx-sweetalert2": "^11.0.0",
     "file-saver": "^2.0.5",
     "firebase": "^9.9.0",
