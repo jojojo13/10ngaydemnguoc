@@ -36,8 +36,8 @@ export class PopUpOrganizationsComponent implements OnInit {
         let p = this.renderer.createElement('p');
         let span = this.renderer.createElement('span');
         let arrow = this.renderer.createElement('i');
-        this.renderer.addClass(arrow, 'fal');
-        this.renderer.addClass(arrow, 'fa-angle-down');
+        this.renderer.addClass(arrow, 'fa');
+        this.renderer.addClass(arrow, 'fa-chevron-down');
         this.renderer.addClass(arrow, 'down');
         this.renderer.listen(arrow, 'click', (evt) => {
           arrow.classList.toggle('down');
@@ -53,8 +53,8 @@ export class PopUpOrganizationsComponent implements OnInit {
         span.appendChild(arrow);
         main.appendChild(span);
         let folderIcon = this.renderer.createElement('i');
-        this.renderer.addClass(folderIcon, 'fas');
-        this.renderer.addClass(folderIcon, 'fa-folder');
+        this.renderer.addClass(folderIcon, 'fa');
+        this.renderer.addClass(folderIcon, 'fa-folder-open');
         p.appendChild(folderIcon);
         const text = this.renderer.createText(org.name);
         //add click listener
@@ -83,8 +83,8 @@ export class PopUpOrganizationsComponent implements OnInit {
         let p = this.renderer.createElement('p');
         let span = this.renderer.createElement('span');
         let arrow = this.renderer.createElement('i');
-        this.renderer.addClass(arrow, 'fal');
-        this.renderer.addClass(arrow, 'fa-angle-down');
+        this.renderer.addClass(arrow, 'fa');
+        this.renderer.addClass(arrow, 'fa-chevron-down');
         this.renderer.addClass(arrow, 'down');
         this.renderer.listen(arrow, 'click', (evt) => {
           arrow.classList.toggle('down');
@@ -100,8 +100,8 @@ export class PopUpOrganizationsComponent implements OnInit {
         span.appendChild(arrow);
         div.appendChild(span);
         let folderIcon = this.renderer.createElement('i');
-        this.renderer.addClass(folderIcon, 'fas');
-        this.renderer.addClass(folderIcon, 'fa-folder');
+        this.renderer.addClass(folderIcon, 'fa');
+        this.renderer.addClass(folderIcon, 'fa-folder-open');
         p.appendChild(folderIcon);
         const text = this.renderer.createText(child.name);
         //add click listener

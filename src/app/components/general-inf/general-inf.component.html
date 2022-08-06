@@ -13,7 +13,7 @@
           <small
             class="text-danger"
             *ngIf="contactForm.get('phone')?.hasError('pattern')"
-            >Phone need 10 digit numbers</small
+            >Phone need 10 digit numbers and start with 0 or 84</small
           >
         </div>
       </div>
@@ -28,7 +28,7 @@
           >
           <small
             class="text-danger"
-            *ngIf="contactForm.get('email')?.hasError('pattern')"
+            *ngIf="contactForm.get('email')?.hasError('email')"
             >Invalid email</small
           >
         </div>
@@ -102,7 +102,7 @@
                  [max]="today"
                  class="form-control"
                  formControlName="dob" />
-          <small class="text-danger" *ngIf="contactForm.get('dob')?.hasError('dateMinimum')">DOB cannot later than today</small>
+          <small class="text-danger" *ngIf="dob.errors?.['invalid']">DOB cannot later than now</small>
           <small class="text-danger" *ngIf="contactForm.get('dob')?.hasError('required')">Please enter date of birth</small>
         </div>
       
@@ -163,7 +163,14 @@
               contactForm.get('gpa')?.hasError('min') ||
               contactForm.get('gpa')?.hasError('max')
             "
-            >Input range from 0-10</small
+            >Input range from 0-4</small
+          >
+          <small
+            class="text-danger"
+            *ngIf="
+              contactForm.get('gpa')?.hasError('pattern')
+            "
+            >Must be double number and only 1 decimal</small
           >
         </div>
       </div>

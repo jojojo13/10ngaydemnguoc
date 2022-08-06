@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  AbstractControl,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
@@ -57,7 +58,7 @@ export class RequestFormComponent implements OnInit {
         [Validators.pattern('^[1-9][0-9]*$'), Validators.required],
       ],
       office: [{ value: '', disabled: true }],
-      deadline: ['', [Validators.required]],
+      deadline: ['', [Validators.required,this.dateValidator]],
       experience: ['', [Validators.pattern('^[1-9][0-9]*$')]],
       level: [''],
       skill: [''],
@@ -96,6 +97,9 @@ export class RequestFormComponent implements OnInit {
         this.skills = response.data;
       });
     this.extendFromParent();
+  }
+  get deadline(){
+    return this.requestForm.controls['deadline']
   }
   onSubmit(status: number) {
     (document?.querySelector('.overlay') as HTMLElement).style.display =
@@ -215,6 +219,17 @@ export class RequestFormComponent implements OnInit {
     if (this.requestService.selectedRequest.id != 0) {
     }
   }
+  dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    if (control?.value) {
+        const today = new Date();
+        const dateToCheck = new Date(control.value);
+        if (dateToCheck <= today) {
+            return {'invalid': true}
+        }
+    }
+    return null
+  }
+    
   extendFromParent() {
     let parentRequest = this.requestService.selectedRequest;
     // console.log(this.requestService.selectedRequest);
@@ -272,4 +287,5 @@ export class RequestFormComponent implements OnInit {
           : this.requestForm.controls['skill'].value,
     };
   }
+  
 }

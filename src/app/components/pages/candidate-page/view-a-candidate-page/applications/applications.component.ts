@@ -15,6 +15,8 @@ export class ApplicationsComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.queryParams['id'];
     this.candidateService.getRequestInCandidate(this.id).subscribe((response:any)=>{
+      console.log(response)
+      console.log(this.id)
       this.listRequest=response.data
     })
 

@@ -295,8 +295,8 @@ export class GridComponent implements OnInit, OnDestroy {
       this.renderer.listen(i, 'click', (evt) => {
         this.toggleChildren(tr, rq.id, evt);
       });
-      this.addClass(i, 'fas');
-      this.addClass(i, 'fa-angle-down');
+      this.addClass(i, 'fa');
+      this.addClass(i, 'fa-chevron-down');
       td11.appendChild(i);
       tr.appendChild(td0);
       tr.appendChild(td);

@@ -22,6 +22,7 @@
     </div>
     <div class="language-content">
       <div
+        [(ngModel)]="skillSheets"
         _ngcontent-yxd-c87=""
         class="language-content-item"
         *ngFor="let skillsheet of skillSheets"
@@ -33,14 +34,13 @@
               (childSkill)="getChildSkill($event, skillsheet)"
               [parentCode]="skillsheet.code"
             ></app-list-childskill>
-            <i
-              class="far fa-trash-alt"
-              (click)="removeSkillSheet(skillsheet)"
-            ></i>
+            <i class="fa fa-trash" (click)="removeSkillSheet(skillsheet)"></i>
           </div>
           <div class="language-content-item-main-category">
-            <div class="main" *ngFor="let skillChild of skillsheet.listSkill,let i=index">
-              
+            <div
+              class="main"
+              *ngFor="let skillChild of skillsheet.listSkill; let i = index"
+            >
               <span>{{ skillChild.name }}</span>
               <select
                 #select
@@ -53,15 +53,24 @@
                   [value]="item.id"
                 >
                   {{ item.name }}
-                </option></select
-              ><input
-                required
-                #input
-                (change)="inputChange(skillChild, input)"
-                type="text"
-              />
+                </option>
+              </select>
+              <form class="he" novalidate #form="ngForm">
+                <input
+                  ngModel
+                  name="contactName"
+                  required
+                  #input
+                  (change)="inputChange(skillChild, input)"
+                  type="text"
+                />
+                <ng-container *ngIf="form.controls['contactName']?.errors">
+                  <small class="herr text-danger">Input description</small>
+                </ng-container>
+              </form>
+
               <i
-                class="far fa-trash-alt"
+                class="fa fa-trash"
                 (click)="removeSkillSheetChild(skillChild)"
               ></i>
             </div>
@@ -81,65 +90,85 @@
       </div>
     </div>
     <div class="language-content">
-      <div class="language-content-item" *ngFor="let exp of expList">
+      <div
+        class="language-content-item"
+        *ngFor="let exp of expList; let a = index"
+      >
         <div _ngcontent-yxd-c87="" class="language-content-item-main">
           <div _ngcontent-yxd-c87="" class="main">
             <p _ngcontent-yxd-c87="">{{ exp.name }}</p>
 
             <p (click)="addExpChild(exp)">
-              <i class="far fa-plus circle-icon"></i>
+              <i class="fa fa-plus circle-icon"></i>
             </p>
-            <i (click)="removeExp(exp)" class="far fa-trash-alt"></i>
+            <i (click)="removeExp(exp)" class="fa fa-trash"></i>
           </div>
           <div
             _ngcontent-yxd-c87=""
             class="language-content-item-main-category"
           >
-            <div class="main cifu" *ngFor="let skillChild of exp.listSkill;let i =index">
-              <div class="box">
-                <h6 class="title">{{i+1}}.</h6>
+            <div
+              class="main cifu"
+              *ngFor="let skillChild of exp.listSkill; let i = index"
+            >
+              <form novalidate #exp="ngForm">
+                <div class="box">
+                  <h6 class="title">{{ i + 1 }}.</h6>
 
-                <div class="exp">
-                  <label for="">Comp/Project</label>
-                  <div class="err">
-                    <input
-                      class="firm"
-                      required
-                      #firm
-                      (change)="inputChangeFirm(skillChild, firm)"
-                      type="text"
-                    />
+                  <div class="exp">
+                    <label for="">Comp/Project</label>
+                    <div class="err">
+                      <input
+                        class="firm"
+                        required
+                        ngModel
+                        name="firm"
+                        #firm
+                        (change)="inputChangeFirm(skillChild, firm)"
+                        type="text"
+                      />
+                    </div>
+                    <small *ngIf="exp.controls['firm']?.errors"
+                    >Must input description</small
+                  >
                   </div>
-                </div>
                   <div class="exp">
                     <label for="">Position</label>
                     <div class="err">
                       <input
                         required
+                        ngModel
+                        name="pos"
                         #pos
                         (change)="inputChangePosition(skillChild, pos)"
                         type="text"
                       />
                     </div>
+                    <small *ngIf="exp.controls['pos']?.errors"
+                    >Must input description</small
+                  >
                   </div>
 
                   <div class="exp">
                     <label for="">Description</label>
                     <div class="err">
                       <input
+                        required
+                        ngModel
+                        name="time"
                         #time
                         (change)="inputChangeTime(skillChild, time)"
                         type="text"
                       />
                     </div>
+                    <small *ngIf="exp.controls['time']?.errors"
+                      >Must input description</small
+                    >
                   </div>
-        
-              
-              </div>
-                <i
-                  (click)="removeExpChild(skillChild)"
-                  class="far fa-trash-alt cus"
-                ></i>
+                </div>
+              </form>
+
+              <i (click)="removeExpChild(a, i)" class="fa fa-trash cus"></i>
             </div>
           </div>
         </div>

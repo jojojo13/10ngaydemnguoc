@@ -10,7 +10,7 @@
       <p style="font-size: 12px">{{ user.positionName }}</p>
       {{ user.name }}
     </h5>
-    <p><i (click)="toggleDropdown()" class="fal fa-angle-down"></i></p>
+    <p><i class="fa fa-chevron-down" (click)="toggleDropdown()" aria-hidden="true"></i></p>
   </div>
   <div class="content-dropdown" #dropdown>
     <ul class="content-dropdown-list">

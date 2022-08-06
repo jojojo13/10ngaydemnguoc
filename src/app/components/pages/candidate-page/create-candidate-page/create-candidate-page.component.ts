@@ -17,12 +17,13 @@ export class CreateCandidatePageComponent implements OnInit, OnDestroy {
   isLoaded = true;
   route = { name: 'Create New Candidate', link: '/ungvien' };
   attach = { name: 'Attach CV' };
-  imgURL !:FileUpload;
+  imgURL!: FileUpload;
   pdfSrc = '';
   fileUpLoad!: FileUpload;
   step = 1;
   candidate: any;
   formCandite: any;
+  isEmpty = false;
   objForAPI: Candidate = {
     fullName: '',
     dob: '1000-01-01T15:37:54.773Z',
@@ -159,21 +160,24 @@ export class CreateCandidatePageComponent implements OnInit, OnDestroy {
                     this.commonService.popUpSuccess();
                     let folderCandidate = response.code;
                     if (this.fileUpLoad) {
+                      console.log('vao day');
                       // let file:FileUpload =  new FileUpload();
                       this.commonService
-                      .pushFileToStorage(this.fileUpLoad, folderCandidate)
-                      .subscribe(
-                        (percentage: any) => {},
-                        (error: any) => {}
-                      );
+                        .pushFileToStorage(this.fileUpLoad, folderCandidate)
+                        .subscribe(
+                          (percentage: any) => {},
+                          (error: any) => {}
+                        );
                     }
-                    
+                    if (this.imgURL) {
                       this.commonService
-                      .pushFileToStorage(this.imgURL, folderCandidate)
-                      .subscribe(
-                        (percentage: any) => {},
-                        (error: any) => {}
-                      );
+                        .pushFileToStorage(this.imgURL, folderCandidate)
+                        .subscribe(
+                          (percentage: any) => {},
+                          (error: any) => {}
+                        );
+                    }
+
                     this.router.navigateByUrl(
                       'ungvien/xemungvien?index=1&size=20'
                     );
@@ -205,13 +209,33 @@ export class CreateCandidatePageComponent implements OnInit, OnDestroy {
   getlistExp(arr: any) {
     if (arr) {
       this.objForAPI.listExp = arr;
+      this.isEmpty=this.allAreNull(arr)
     }
+  }
+  allAreNull(arr: any) {
+    let isEmpty = false;
+
+    for (const item of arr) {
+      if (item.firm == '') {
+        isEmpty = true;
+      }
+      if (item.positiob == '') {
+        isEmpty = true;
+      }
+      if (item.time == '') {
+        isEmpty = true;
+      }
+    }
+
+    return isEmpty;
   }
   getSkill(arr: any) {
     this.objForAPI.listSkill = arr;
+    console.log(arr);
   }
   getFileUpLoad($event: FileUpload) {
     this.fileUpLoad = $event;
+    console.log(this.fileUpLoad);
   }
   getImgURL($event: any) {
     this.imgURL = $event;

@@ -1,7 +1,7 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 .popup {
   text-align: left;
@@ -10,13 +10,12 @@
   font-weight: 300;
   font-size: 14px;
   position: relative;
-  p{
+  p {
     display: inline-block !important;
     margin-bottom: 15px;
     width: 90%;
-  
   }
-  span{
+  span {
     width: 10%;
   }
   .child {
@@ -26,16 +25,16 @@
         cursor: pointer;
         background-color: #d8dadb;
         align-items: center;
-
       }
     }
   }
-  .fal {
+  .fa-chevron-down {
     color: #717374;
     cursor: pointer;
     margin-right: 10px;
-    transform: rotate(-90deg);
+
     transition: 1s;
+    font-size: 14px;
   }
 }
 .child[level] {
@@ -46,9 +45,9 @@ i {
   color: #80c9f1;
   font-size: 24px;
 }
-.hide{
-    display: none !important;
+.hide {
+  display: none !important;
 }
-.down{
-    transform: rotate(0) !important;
+.down {
+  transform: rotate(-90deg);
 }

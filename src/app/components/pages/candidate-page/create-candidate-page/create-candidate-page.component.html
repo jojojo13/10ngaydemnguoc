@@ -2,7 +2,7 @@
   <h5>Candidate</h5>
   <app-loader [isLoaded]="isLoaded"></app-loader>
   <app-back-btn [route]="route"></app-back-btn>
-  <app-step (step)="getStep($event)"></app-step>
+  <app-step (step)="getStep($event)" [isoke]="isEmpty" [form]="formCandite"></app-step>
   <div class="content-middle">
     <div
       class="content-middle-left"
@@ -48,20 +48,25 @@
       (listExp)="getlistExp($event)"
       [candidate]="candidate"
     ></app-over-view>
-  </div>
-  <div class="content-bottom">
-    <div class="content-bottom-button">
-      <button class="btn btn-primary" (click)="onSubmit('draft')">
-        Save draft
-      </button>
-      <button
-        [disabled]="formCandite.invalid"
-        class="btn btn-success"
-        (click)="onSubmit('submit')"
-      >
-        Create
-      </button>
+    <div class="content-bottom">
+      <div class="content-bottom-button">
+        <button
+          class="btn btn-primary"
+          [disabled]="formCandite.invalid"
+          (click)="onSubmit('draft')"
+        >
+          Save draft
+        </button>
+        <button
+          [disabled]="formCandite.invalid"
+          class="btn btn-success"
+          (click)="onSubmit('submit')"
+        >
+          Create
+        </button>
+      </div>
     </div>
   </div>
+
 </div>
 <div class="overlay"></div>

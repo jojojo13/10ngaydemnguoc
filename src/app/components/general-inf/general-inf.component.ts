@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {
 
+  AbstractControl,
   FormBuilder,
   FormGroup,
 
@@ -49,7 +50,7 @@ export class GeneralInfComponent implements OnInit, OnChanges {
    
     this.contactForm = this.fb.group({
       phone: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
-      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      email: ['', [Validators.required, Validators.email]],
       zalo: ['', [Validators.pattern(this.zaloPattern)]],
       linkedIn: [''],
       facebook: [''],
@@ -60,16 +61,16 @@ export class GeneralInfComponent implements OnInit, OnChanges {
         '',
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z ]*$'),
+          Validators.pattern('^([^0-9]*)$'),
           Validators.maxLength(50),
         ],
       ],
-      dob: ['', [Validators.required]],
+      dob: ['', [Validators.required,this.dateValidator]],
       gender: ['', [Validators.required]],
       major: ['', [Validators.maxLength(50)]],
       university: ['', Validators.maxLength(50)],
       graduate: [''],
-      gpa: [0, [Validators.min(0), Validators.max(10)]],
+      gpa: [0, [Validators.min(0),Validators.max(4)]],
       country: ['', [Validators.required]],
       city: ['', [Validators.required]],
       awards: ['', Validators.maxLength(80)],
@@ -98,7 +99,21 @@ export class GeneralInfComponent implements OnInit, OnChanges {
         this.provinces = data.data;
       });
   }
+  dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    if (control?.value) {
+        const today = new Date();
+        const dateToCheck = new Date(control.value);
+        if (dateToCheck > today) {
+            return {'invalid': true}
+        }
+    }
+    return null;
+  }
+  get dob(){
+    return this.contactForm.controls['dob']
+  }
 }
+
 export class CustomValidators {
 }
 

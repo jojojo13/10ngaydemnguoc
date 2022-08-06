@@ -40,7 +40,7 @@
       margin-top: 20px;
       &-main {
         p {
-          width: 110px;
+       
           text-align: center;
         }
         &-category {
@@ -72,15 +72,19 @@
 .main {
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  flex-wrap: wrap;
+  margin-top: 25px;
+  // flex-wrap: wrap;
   p {
     font-family: "Poppins";
     font-style: normal;
     font-weight: 700;
     font-size: 12px;
-    width: auto;
+  
     &:first-of-type {
+      width: 160px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       padding: 5px 25px;
       background-color: #ffc700;
       border-radius: 10px;
@@ -156,12 +160,12 @@ select {
     padding: 5px 15px;
   }
 }
-.fa-trash-alt {
+.fa-trash {
   color: red;
   margin-left: auto;
   margin-right: 15px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
 }
 .language-content-item-main-category:first-of-type .main i {
   display: none;
@@ -197,4 +201,15 @@ span {
   font-size: 16px;
   color: #0a24e9;
   margin-bottom: 10px;
+}
+.he{
+  position: relative;
+  small{
+    position: absolute;
+    bottom: -22px;
+    left: 35px;
+    width: 120px;
+    background-color: #fff;
+    
+  }
 }

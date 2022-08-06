@@ -24,7 +24,8 @@ export class SkillsAndExpComponent implements OnInit {
   candidateSkill: any;
   expList: any;
   candidateExp: any;
-
+  isErr = false;
+  check = [{ value1: true }, { value2: false }];
   constructor(
     private renderer: Renderer2,
     private commonService: CommonService,
@@ -38,6 +39,8 @@ export class SkillsAndExpComponent implements OnInit {
     this.expList = [];
     this.candidateExp = [];
     this.languageList = [];
+    let inputList = document.querySelectorAll('input');
+    inputList.forEach;
   }
   addLanguage(data: any) {
     const result = this.languageList.find((obj: any) => obj.id == data.id);
@@ -157,11 +160,11 @@ export class SkillsAndExpComponent implements OnInit {
         this.renderer.appendChild(select, option);
       }
       let a = { id: 0, name: '', goal: 0 };
-      let orig=-1;
-      this.renderer.listen(select,'focus',()=>{
-        orig=select.options[select.selectedIndex].value;
-        console.log(orig)
-      })
+      let orig = -1;
+      this.renderer.listen(select, 'focus', () => {
+        orig = select.options[select.selectedIndex].value;
+        console.log(orig);
+      });
       this.renderer.listen(select, 'change', () => {
         value = select.options[select.selectedIndex].value;
         let elementPos = this.listSkill
@@ -174,7 +177,7 @@ export class SkillsAndExpComponent implements OnInit {
             select.options[select.selectedIndex].text + ' is exsisted'
           );
           select.value = orig;
-          console.log( select.options[select.selectedIndex].value )
+          console.log(select.options[select.selectedIndex].value);
           return;
         } else {
           obj.level = value;
@@ -284,7 +287,6 @@ export class SkillsAndExpComponent implements OnInit {
         }
       }
     }
-    console.log($event);
     if (!isExsisted) {
       skillsheet.listSkill.push($event);
       let obj = {
@@ -376,11 +378,12 @@ export class SkillsAndExpComponent implements OnInit {
         id: $event.id,
         name: $event.name,
         code: $event.code,
-        listSkill: [],
+        listSkill: [{ firm: '', position: '', time: '' }],
       };
       this.expList.push(copiedSkill);
       this.candidateService.expList = this.expList;
       this.candidateService.detectChange.next(true);
+      this.commonService.emitBahavior.next(true);
     }
   }
 
@@ -393,22 +396,25 @@ export class SkillsAndExpComponent implements OnInit {
     }
     this.candidateService.expList = this.expList;
     this.candidateService.detectChange.next(true);
+    this.commonService.emitBahavior.next(true);
   }
   inputChangeFirm(skillChild: any, input: HTMLInputElement) {
     skillChild.firm = input.value;
     this.candidateService.expList = this.expList;
     this.candidateService.detectChange.next(true);
+    this.commonService.emitBahavior.next(true);
   }
   inputChangeTime(skillChild: any, input: HTMLInputElement) {
     skillChild.time = input.value;
     this.candidateService.expList = this.expList;
     this.candidateService.detectChange.next(true);
+    this.commonService.emitBahavior.next(true);
   }
   inputChangePosition(skillChild: any, input: HTMLInputElement) {
     skillChild.position = input.value;
     this.candidateService.expList = this.expList;
     this.candidateService.detectChange.next(true);
-    console.log(this.expList)
+    this.commonService.emitBahavior.next(true);
   }
 
   removeExp(exp: any) {
@@ -418,17 +424,13 @@ export class SkillsAndExpComponent implements OnInit {
     );
     this.candidateService.expList = this.expList;
     this.candidateService.detectChange.next(true);
+    this.commonService.emitBahavior.next(true);
   }
-  removeExpChild(child: any) {
-    for (let i = 0; i < this.expList.length; i++) {
-      for (let j = 0; j < this.expList[i].listSkill.length; j++) {
-        if (this.expList[i].listSkill[j].id == child.id) {
-          this.expList[i].listSkill.splice(j, 1);
-          break;
-        }
-      }
-    }
+  removeExpChild(a: number, i: number) {
+    this.expList[a].listSkill.splice(i, 1);
+
     this.candidateService.expList = this.expList;
     this.candidateService.detectChange.next(true);
+    this.commonService.emitBahavior.next(true);
   }
 }

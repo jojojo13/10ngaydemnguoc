@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'toString'
+  name: 'getErr',
 })
 export class ToStringPipe implements PipeTransform {
-
-  transform(value:number): unknown {
-    return value.toString();
+  transform(value: any, value2: any): unknown {
+    
+    let isErr = false;
+    return isErr;
   }
-
 }

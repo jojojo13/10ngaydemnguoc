@@ -123,6 +123,11 @@
           *ngIf="requestForm.get('deadline')?.hasError('required')"
           >Please input deadline</small
         >
+        <small
+          class="text-danger"
+          *ngIf="deadline.errors?.['invalid']"
+          >Deadline must be in future</small
+        >
       </div>
       <div class="form-group">
         <!--<label for="name">Roadmap</label>

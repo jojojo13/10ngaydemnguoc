@@ -50,7 +50,7 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
         this.listSkillSheet = this.candidateService.skillSheet;
 
         this.listExps = this.candidateService.expList;
-
+        console.log(this.listExps);
         newArr2 = this.convert2(this.candidateService.skillSheet);
         newArr = this.convertTypeArray(this.listExps);
       }
@@ -63,8 +63,8 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
         this.listSkill.emit(newArr2);
       }
       if (this.listExp) {
-        console.log(this.listExp);
         this.listExp.emit(newArr);
+        console.log(newArr);
       }
       if (newArr2 && this.test) {
         let concatArr = newArr2.concat(this.test);
@@ -74,17 +74,24 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
   }
   convertTypeArray(array: any) {
     let newArr = [];
-    for (let i = 0; i < array.length; i++) {
-      for (let j = 0; j < array[i].listSkill.length; j++) {
-        let newobj = {
-          typeID: array[i].id,
-          firm: array[i].listSkill[j].firm,
-          positiob: array[i].listSkill[j].position,
-          time: array[i].listSkill[j].time,
-        };
-        newArr.push(newobj);
+    if (array) {
+      for (let i = 0; i < array.length; i++) {
+       
+        for (let j = 0; j < array[i].listSkill.length; j++) {
+          let newobj = {
+            typeID: array[i].id,
+            firm: '',
+            positiob: '',
+            time: '',
+          };
+          (newobj.firm = array[i].listSkill[j].firm),
+            (newobj.positiob = array[i].listSkill[j].position),
+            (newobj.time = array[i].listSkill[j].time);
+          newArr.push(newobj);
+        }
       }
     }
+
     return newArr;
   }
   convert2(array: any) {

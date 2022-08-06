@@ -57,11 +57,11 @@ p {
       }
     }
   }
-  .fal {
+  .fa-chevron-down {
     color: #717374;
     cursor: pointer;
     margin-right: 10px;
-    transform: rotate(-90deg);
+    font-size: 14px;
     transition: 1s;
   }
 .child[level] {
@@ -76,11 +76,11 @@ i {
   display: none !important;
 }
 .down {
-  transform: rotate(0) !important;
+  transform: rotate(-90deg);
 }
 .cus{
     text-align: center;
 }
 .master{
-    
+    min-width: 400px;
 }
