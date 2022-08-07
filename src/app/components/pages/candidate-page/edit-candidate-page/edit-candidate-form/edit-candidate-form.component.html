@@ -1,262 +1,247 @@
 <div class="content">
-    <app-loader [isLoaded]="isLoaded"></app-loader>
-    <ng-container>
-        <form novalidate [formGroup]="contactForm" class="form" >
-            <div class="trans">
-              <div class="form-group">
-                <label for="phone"
-                  >Phone number <span class="text-danger">*</span></label
-                >
-                <div class="err">
-                  <input type="text" class="form-control" formControlName="phone" />
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('phone')?.hasError('required')"
-                    >Please input phone</small
-                  >
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('phone')?.hasError('pattern')"
-                    >Phone need 10 digit numbers</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="email">Email<span class="text-danger">*</span></label>
-                <div class="err">
-                  <input type="text" class="form-control" formControlName="email" />
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('email')?.hasError('required')"
-                    >Please input email</small
-                  >
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('email')?.hasError('pattern')"
-                    >Invalid email</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="zalo">Zalo</label>
-                <div class="err">
-                  <input type="text" class="form-control" formControlName="zalo" />
-        
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('zalo')?.hasError('pattern')"
-                    >Zalo need 10 digit number</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="linkedIn">LinkedIn</label>
-                <input type="text" class="form-control" formControlName="linkedIn" />
-              </div>
-              <div class="form-group">
-                <label for="facebook">FaceBook</label>
-                <input type="text" class="form-control" formControlName="facebook" />
-              </div>
-              <div class="form-group">
-                <label for="twitter">Twitter</label>
-                <input type="text" class="form-control" formControlName="twitter" />
-              </div>
-              <div class="form-group">
-                <label for="twitter">Skype</label>
-                <input type="text" class="form-control" formControlName="skype" />
-              </div>
-              <div class="form-group">
-                <label for="twitter">Website</label>
-                <input type="text" class="form-control" formControlName="website" />
-              </div>
-              <div class="form-group">
-                <label for="awards">Awards</label>
-                <div class="err">
-                  <input type="text" class="form-control" formControlName="awards" />
-        
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('awards')?.hasError('maxlength')"
-                    >Awards does not more than 80 characters</small
-                  >
-                </div>
-              </div>
-            </div>
-        
-            <div class="trans">
-              <div class="form-group">
-                <label for="email">Name<span class="text-danger">*</span></label>
-                <div class="err">
-                  <input
-                    type="text"
-                    class="form-control"
-                    (change)="onChange()"
-                   
-                    formControlName="name"
-                  />
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('name')?.hasError('required')"
-                    >Please input name</small
-                  >
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('name')?.hasError('pattern')"
-                    >Invalid name</small
-                  >
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('name')?.hasError('maxlength')"
-                    >Candidate name do not more than 50 characters</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="linkedIn">Date of birth</label>
-                <div class="err">
-                  <input
-                    type="date"
-                    [max]="today"
-                    class="form-control"
-                    formControlName="dob"
-                  />
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('dob')?.hasError('dateMinimum')"
-                    >DOB cannot later than today</small
-                  >
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('dob')?.hasError('required')"
-                    >Please enter date of birth</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="facebook">Gender<span class="text-danger">*</span></label>
-                <div class="err">
-                  <select name="" id="" formControlName="gender">
-                    <option
-                      [selected]="1 == contactForm.controls['gender'].value"
-                      [ngValue]="{ name: 'Male', value: 1 }"
-                    >
-                      Male
-                    </option>
-                    <option
-                      [selected]="0 == contactForm.controls['gender'].value"
-                      [ngValue]="{ name: 'Female', value: 0 }"
-                    >
-                      Female
-                    </option>
-                  </select>
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('gender')?.hasError('required')"
-                    >Please choose gender</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="twitter">Major</label>
-                <div class="err">
-                  <input type="text" class="form-control" formControlName="major" />
-        
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('major')?.hasError('maxlength')"
-                    >Major does not more than 50 characters</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="twitter">University</label>
-                <div class="err">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="university"
-                  />
-        
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('university')?.hasError('maxlength')"
-                    >University does not more than 50 characters</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="twitter">Graduate</label>
-                <input type="date" class="form-control" formControlName="graduate" />
-              </div>
-              <div class="form-group">
-                <label for="twitter">GPA</label>
-                <div class="err">
-                  <input type="number" class="form-control" formControlName="gpa" />
-                  <small
-                    class="text-danger"
-                    *ngIf="
-                      contactForm.get('gpa')?.hasError('min') ||
-                      contactForm.get('gpa')?.hasError('max')
-                    "
-                    >Input range from 0-10</small
-                  >
-                </div>
-              </div>
-        
-              <div class="form-group">
-                <!-- <mat-select-country
-                appearance="outline"
-                label="Country"
-                class="className"
-                formControlName="country"
-                (onCountrySelected)="onCountrySelected($event)"
-              >
-              </mat-select-country> -->
-                <label for="country">Country<span class="text-danger">*</span></label>
-                <div class="err">
-                  <select formControlName="country" (change)="onSelectedCountry()">
-                    <option
-                      [selected]="country.name == contactForm.controls['country'].value"
-                      [ngValue]="country"
-                      *ngFor="let country of countries"
-                    >
-                      {{ country.name }}
-                    </option>
-                  </select>
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('country')?.hasError('required')"
-                    >Please input country</small
-                  >
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="" for="city"
-                  >City<span class="text-danger">*</span></label
-                >
-                <div class="err">
-                  <select name="" id="" formControlName="city">
-                    <option value="0" disabled>Choose your city</option>
-                    <option
-                      [selected]="province.name == contactForm.controls['city'].value"
-                      [ngValue]="province"
-                      *ngFor="let province of provinces"
-                    >
-                      {{ province.name }}
-                    </option>
-                  </select>
-                  <small
-                    class="text-danger"
-                    *ngIf="contactForm.get('city')?.hasError('required')"
-                    >Please input city</small
-                  >
-                </div>
-              </div>
-            </div>
-          </form>
-    </ng-container>
+  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <div [ngClass]="{ show: candidateForm, hide: !candidateForm }">
+    <form novalidate [formGroup]="contactForm" class="form">
+      <div class="trans">
+        <div class="form-group">
+          <label for="phone"
+            >Phone number <span class="text-danger">*</span></label
+          >
+          <div class="err">
+            <input type="text" class="form-control" formControlName="phone" />
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('phone')?.hasError('required')"
+              >Please input phone</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('phone')?.hasError('pattern')"
+              >Phone need 10 digit numbers</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email<span class="text-danger">*</span></label>
+          <div class="err">
+            <input type="text" class="form-control" formControlName="email" />
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('email')?.hasError('required')"
+              >Please input email</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('email')?.hasError('email')"
+              >Invalid email</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="zalo">Zalo</label>
+          <div class="err">
+            <input type="text" class="form-control" formControlName="zalo" />
 
-  <!-- <div class="skill trans" [ngClass]="{ show: step == 3, hide: step != 3 }">
-    <app-skills-and-exp></app-skills-and-exp>
-  </div> -->
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('zalo')?.hasError('pattern')"
+              >Zalo need 10 digit number</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="linkedIn">LinkedIn</label>
+          <input type="text" class="form-control" formControlName="linkedIn" />
+        </div>
+        <div class="form-group">
+          <label for="facebook">FaceBook</label>
+          <input type="text" class="form-control" formControlName="facebook" />
+        </div>
+        <div class="form-group">
+          <label for="twitter">Twitter</label>
+          <input type="text" class="form-control" formControlName="twitter" />
+        </div>
+        <div class="form-group">
+          <label for="twitter">Skype</label>
+          <input type="text" class="form-control" formControlName="skype" />
+        </div>
+        <div class="form-group">
+          <label for="twitter">Website</label>
+          <input type="text" class="form-control" formControlName="website" />
+        </div>
+        <div class="form-group">
+          <label for="awards">Awards</label>
+          <div class="err">
+            <input type="text" class="form-control" formControlName="awards" />
+
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('awards')?.hasError('maxlength')"
+              >Awards does not more than 80 characters</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="trans">
+        <div class="form-group">
+          <label for="email">Name<span class="text-danger">*</span></label>
+          <div class="err">
+            <input type="text" class="form-control" formControlName="name" />
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('name')?.hasError('required')"
+              >Please input name</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('name')?.hasError('pattern')"
+              >Invalid name</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('name')?.hasError('maxlength')"
+              >Candidate name do not more than 50 characters</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="linkedIn">Date of birth</label>
+          <div class="err">
+            <input
+              type="date"
+              [max]="today"
+              class="form-control"
+              formControlName="dob"
+            />
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('dob')?.hasError('dateMinimum')"
+              >DOB cannot later than today</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('dob')?.hasError('required')"
+              >Please enter date of birth</small
+            >
+            <small class="text-danger" *ngIf="dob.errors?.['invalid']"
+              >DOB cannot later than now</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="facebook">Gender<span class="text-danger">*</span></label>
+          <div class="err">
+            <select name="" id="" formControlName="gender">
+              <option
+                [selected]="1 == contactForm.controls['gender'].value"
+                [ngValue]="{ name: 'Male', value: 1 }"
+              >
+                Male
+              </option>
+              <option
+                [selected]="0 == contactForm.controls['gender'].value"
+                [ngValue]="{ name: 'Female', value: 0 }"
+              >
+                Female
+              </option>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('gender')?.hasError('required')"
+              >Please choose gender</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="twitter">Major</label>
+          <div class="err">
+            <input type="text" class="form-control" formControlName="major" />
+
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('major')?.hasError('maxlength')"
+              >Major does not more than 50 characters</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="twitter">University</label>
+          <div class="err">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="university"
+            />
+
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('university')?.hasError('maxlength')"
+              >University does not more than 50 characters</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="twitter">Graduate</label>
+          <input type="date" class="form-control" formControlName="graduate" />
+        </div>
+        <div class="form-group">
+          <label for="twitter">GPA</label>
+          <div class="err">
+            <input type="number" class="form-control" formControlName="gpa" />
+            <small
+              class="text-danger"
+              *ngIf="
+                contactForm.get('gpa')?.hasError('min') ||
+                contactForm.get('gpa')?.hasError('max')
+              "
+              >Input range from 0-10</small
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="country">Country<span class="text-danger">*</span></label>
+          <div class="err">
+            <select formControlName="country" (change)="onSelectedCountry()">
+              <option
+                [selected]="country.id == contactForm.controls['country'].value"
+                [ngValue]="country"
+                *ngFor="let country of countries"
+              >
+                {{ country.name }}
+              </option>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('country')?.hasError('required')"
+              >Please input country</small
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="" for="city"
+            >City<span class="text-danger">*</span></label
+          >
+          <div class="err">
+            <select name="" id="city" formControlName="city">
+              <option
+                [selected]="province.id == candidateForm.provinceLive"
+                [ngValue]="province"
+                *ngFor="let province of provinces"
+              >
+                {{ province.name }}
+              </option>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="contactForm.get('city')?.hasError('required')"
+              >Please input city</small
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+    <button class="btn btn-primary px-5 py-1">Save</button>
+  </div>
 </div>

@@ -41,7 +41,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   idMeeting!: number;
   addBtn = false;
   editBtn = false;
-
+  type = 'interview';
   ngOnInit(): void {
     this.Events = [];
     this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
@@ -56,13 +56,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.addEventForm
       .get('startTime')
       ?.addValidators(this.startTimeValidator.bind(this));
-    this.addEventForm
-      .get('endDate')
-      ?.addValidators(this.timeValidator.bind(this));
-    this.addEventForm
-      .get('endTime')
-      ?.addValidators(this.timeValidator.bind(this));
-    //Add User form validations
+
     this.addEventForm.valueChanges.subscribe((x) => {
       let dateToCheck = new Date(this.addEventForm.getRawValue().endDate);
       let dateToCompare = new Date(this.addEventForm.getRawValue().startDate);
@@ -81,10 +75,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
           this.addEventForm.getRawValue().startTime
       );
 
-      if (a <= b) {
-        this.addEventForm.controls['endTime'].setErrors({ invalid: true });
+      if (a > b) {
+        this.addEventForm.controls['endTime'].setErrors(null);
       } else {
-        this.addEventForm.controls['endTime'].setErrors({ invalid: false });
+        this.addEventForm.controls['endTime'].setErrors({ invalid: true });
       }
     });
     this.getEvents();
@@ -103,7 +97,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         minute: '2-digit',
         meridiem: true,
       },
-      eventColor: 'green',
+
       editable: true,
       eventAdd: this.addEvent.bind(this),
       eventDrop: this.dropEvent.bind(this),
@@ -121,6 +115,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
             title: item.title,
             start: item.startHour,
             end: item.endHour,
+            classNames: item.classname,
           };
           (this.Events as any).push(newObj);
         }
@@ -142,7 +137,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     } else {
       this.addEventForm.reset();
       this.addEventForm.get('startDate')?.setValue(args.dateStr);
-
+      this.addEventForm.get('endDate')?.setValue(args.dateStr);
       this.datePicker.fire();
     }
   }
@@ -160,7 +155,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.addEventForm.get('endDate')?.value +
         ' ' +
         this.addEventForm.get('endTime')?.value,
-      classname: 'interview',
+      classname: this.type,
     };
 
     this.candidateService
@@ -190,6 +185,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.addEventForm
       .get('endTime')
       ?.setValue(args.event.end.toLocaleTimeString());
+      console.log(args.event.classname)
+    this.type = args.event.classNames[0];
   }
   submitEditEvent() {
     let obj = {
@@ -205,7 +202,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.addEventForm.get('endDate')?.value +
         ' ' +
         this.addEventForm.get('endTime')?.value,
-      classname: 'interview',
+      classname: this.type,
     };
     (document?.querySelector('.overlay') as HTMLElement).style.display =
       'block';
@@ -237,28 +234,66 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.datePicker.close();
   }
   dropEvent(args: any) {
-    let a = (this.Events as any).find((x: any) => x.id === args.event.id);
-    a.start =
-      this.handleDate(args.event.start) +
-      ' ' +
-      args.event.start.getHours() +
-      ':' +
-      args.event.start.getMinutes();
+    let obj = {
+      id: args.event.id,
+      requestId: this.requestID,
+      candidateId: this.candidateID,
+      title: args.event.title,
+      startHour:
+        this.handleDate(args.event.start) +
+        ' ' +
+        args.event.start.toLocaleTimeString(),
+
+      endHour:
+        this.handleDate(args.event.end) +
+        ' ' +
+        args.event.end.toLocaleTimeString(),
+      classname: args.event.classNames[0],
+    };
+    console.log(obj);
+    (document?.querySelector('.overlay') as HTMLElement).style.display =
+      'block';
+    this.isLoaded = false;
+    this.candidateService.modifyCandidateSchedule(obj).subscribe(
+      (response: any) => {
+        if (response.status == true) {
+          this.ngOnInit();
+          this.isLoaded = true;
+          (document?.querySelector('.overlay') as HTMLElement).style.display =
+            'none';
+
+          // this.initCalendar();
+        } else {
+          this.commonService.popUpFailed('Edit failed');
+          this.isLoaded = true;
+          (document?.querySelector('.overlay') as HTMLElement).style.display =
+            'none';
+        }
+      },
+      (err) => {
+        this.commonService.popUpFailed('Something wrong');
+        this.ngOnInit();
+        this.isLoaded = true;
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
+      }
+    );
   }
   deleteEvent() {
+    this.datePicker.close();
     (document?.querySelector('.overlay') as HTMLElement).style.display =
       'block';
     this.isLoaded = false;
     this.candidateService.deleteScheDule([this.idMeeting]).subscribe(
       (response: any) => {
         if (response.status == true) {
-          this.datePicker.close()
+          this.datePicker.close();
           this.ngOnInit();
           this.isLoaded = true;
           (document?.querySelector('.overlay') as HTMLElement).style.display =
             'none';
         } else {
-          this.datePicker.close()
+          this.datePicker.close();
           this.commonService.popUpFailed('Delete failed');
           this.ngOnInit();
           this.isLoaded = true;
@@ -267,7 +302,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         }
       },
       (err) => {
-        this.datePicker.close()
+        this.datePicker.close();
         this.commonService.popUpFailed('Delete failed');
         this.ngOnInit();
         this.isLoaded = true;
@@ -291,24 +326,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     }
     return null;
   }
-  timeValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    if (control?.value) {
-      let dateToCheck: any;
-      let dateToCompare: any;
-      if (
-        this.addEventForm.getRawValue().startTime == '' ||
-        this.addEventForm.getRawValue().endTime == ''
-      ) {
-        dateToCheck = new Date(this.addEventForm.getRawValue().endDate);
-        dateToCompare = new Date(this.addEventForm.getRawValue().startDate);
-        if (dateToCheck < dateToCompare) {
-          return { invalid: true };
-        }
-      }
-    }
 
-    return null;
-  }
   get endDate() {
     return this.addEventForm.controls['endDate'];
   }

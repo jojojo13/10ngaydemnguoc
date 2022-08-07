@@ -38,6 +38,7 @@ import { InformaionComponent } from './components/pages/profile-institute-page/e
 import { ContractComponent } from './components/pages/profile-institute-page/employee-information/contract/contract.component';
 import { ViewContractComponent } from './components/pages/profile-institute-page/view-contract/view-contract.component';
 import { RequestInApplicationsComponent } from './components/pages/candidate-page/view-a-candidate-page/applications/request-in-applications/request-in-applications.component';
+import { CreateContractComponent } from './components/pages/profile-institute-page/create-contract/create-contract.component';
 
 const routes: Routes = [
   {
@@ -192,6 +193,12 @@ const routes: Routes = [
       {
         path: 'thietlaphoso/hopdong',
         component: ViewContractComponent,
+        canActivate: [AuthorizeGuard],
+        
+      },
+      {
+        path: 'thietlaphoso/taohopdong',
+        component: CreateContractComponent,
         canActivate: [AuthorizeGuard],
         
       },

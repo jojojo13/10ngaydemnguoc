@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { CommonService } from 'src/app/services/common.service';
 
@@ -21,7 +21,8 @@ export class CvCandidateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private candidateService: CandidateService
   ) {}
-  @Input('noAttach') noAttach=false;
+  @Input('noAttach') noAttach = false;
+  @Output('src') src= new EventEmitter<string>()
   selectedFiles!: FileList;
   pdfSrc: any;
   listFile: any;
@@ -75,7 +76,7 @@ export class CvCandidateComponent implements OnInit {
       (response: any) => {
         var storageRef = this.storage.ref(`uploads/${response.data[0].code}`);
         this.uvcode = response.data[0].code;
-      
+
         storageRef.listAll().subscribe(
           (result: any) => {
             if (result.items.length > 0) {
@@ -90,14 +91,13 @@ export class CvCandidateComponent implements OnInit {
                   imageRef.getDownloadURL().then((url: any) => {
                     this.downloadURL = url;
                     this.pdfSrc =
-                    this.sanitizer.bypassSecurityTrustResourceUrl(url);
+                      this.sanitizer.bypassSecurityTrustResourceUrl(url);
+                      this.src.emit(this.pdfSrc)
                     this.isLoaded = true;
                   });
                 }
-              this.isLoaded = true;
-
-              }
-              );
+                this.isLoaded = true;
+              });
             } else {
               this.isLoaded = true;
             }

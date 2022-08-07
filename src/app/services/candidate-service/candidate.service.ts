@@ -119,4 +119,7 @@ export class CandidateService {
   deleteScheDule(obj:Array<number>){
     return this.__http.post('https://localhost:44376/api/ScheduleAPI/DeleteSchedule',obj)
   }
+  getInfEdit(id:number){
+    return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetOneInforCandidateToEdit?id=${id}`,{})
+  }
 }

@@ -153,7 +153,7 @@
   }
 }
 .highlight {
-  background-color: #a2d9fd !important;
+  background-color: #a2d9fd ;
   color: #3d4eac;
   width: 200px;
 }
@@ -174,5 +174,9 @@
 }
 .staging {
   color: #1367a0;
+}
+.fail{
+  background-color: red;
+  color: rgb(29, 28, 28);
 }
 

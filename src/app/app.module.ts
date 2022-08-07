@@ -99,7 +99,8 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // must go before pl
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
 import { RequestInApplicationsComponent } from './components/pages/candidate-page/view-a-candidate-page/applications/request-in-applications/request-in-applications.component';
-import { CalendarComponent } from './components/calendar/calendar.component'; // a plugin!
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { CreateContractComponent } from './components/pages/profile-institute-page/create-contract/create-contract.component'; // a plugin!
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -184,6 +185,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ViewContractComponent,
     RequestInApplicationsComponent,
     CalendarComponent,
+    CreateContractComponent,
   ],
   imports: [
     BrowserModule,
