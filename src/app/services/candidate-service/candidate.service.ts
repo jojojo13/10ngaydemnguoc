@@ -113,4 +113,10 @@ export class CandidateService {
   getScheduleCandidate(rqID:number,canID:number){
     return this.__http.post(`https://localhost:44376/api/ScheduleAPI/GetSchedule?requestId=${rqID}&candidateId=${canID}`,{})
   }
+  modifyCandidateSchedule(obj:any){
+    return this.__http.post('https://localhost:44376/api/ScheduleAPI/ModifySchedule',obj)
+  }
+  deleteScheDule(obj:Array<number>){
+    return this.__http.post('https://localhost:44376/api/ScheduleAPI/DeleteSchedule',obj)
+  }
 }

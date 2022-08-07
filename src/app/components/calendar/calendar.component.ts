@@ -22,6 +22,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class CalendarComponent implements OnInit, OnDestroy {
   @ViewChild('datePicker') datePicker!: SwalComponent;
+
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
   constructor(
     public readonly swalTargets: SwalPortalTargets,
@@ -29,9 +30,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private candidateService: CandidateService,
     private commonService: CommonService
-  ) {
-    console.log('cons');
-  }
+  ) {}
   ngOnDestroy(): void {}
   addEventForm!: FormGroup;
   calendarOptions!: CalendarOptions;
@@ -39,6 +38,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
   candidateID!: number;
   requestID!: number;
   isLoaded = true;
+  idMeeting!: number;
+  addBtn = false;
+  editBtn = false;
 
   ngOnInit(): void {
     this.Events = [];
@@ -106,7 +108,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       eventAdd: this.addEvent.bind(this),
       eventDrop: this.dropEvent.bind(this),
       eventClick: this.editEvent.bind(this),
-      weekNumbers:true,
+      weekNumbers: true,
     };
   }
   getEvents() {
@@ -133,6 +135,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
     return now;
   }
   handleDateClick(args: any) {
+    this.addBtn = true;
+    this.editBtn = false;
     if (args.dateStr < this.handleDate(new Date())) {
       this.commonService.popUpFailed('Cannot create meeting in past');
     } else {
@@ -163,13 +167,75 @@ export class CalendarComponent implements OnInit, OnDestroy {
       .insertScheduleCandidate(obj)
       .subscribe((response: any) => {
         if (response.status == true) {
-          this.ngOnInit()
+          this.ngOnInit();
           // this.initCalendar();
         }
       });
     this.datePicker.close();
   }
-  editEvent(args: any) {}
+  editEvent(args: any) {
+    this.addBtn = false;
+    this.editBtn = true;
+    this.datePicker.fire();
+    this.idMeeting = args.event.id;
+    let start = this.handleDate(args.event.start);
+    let end = this.handleDate(args.event.end);
+    this.addEventForm.get('title')?.setValue(args.event.title);
+
+    this.addEventForm.get('startDate')?.setValue(start);
+    this.addEventForm
+      .get('startTime')
+      ?.setValue(args.event.start.toLocaleTimeString());
+    this.addEventForm.get('endDate')?.setValue(end);
+    this.addEventForm
+      .get('endTime')
+      ?.setValue(args.event.end.toLocaleTimeString());
+  }
+  submitEditEvent() {
+    let obj = {
+      id: this.idMeeting,
+      requestId: this.requestID,
+      candidateId: this.candidateID,
+      title: this.addEventForm.get('title')?.value,
+      startHour:
+        this.addEventForm.get('startDate')?.value +
+        ' ' +
+        this.addEventForm.get('startTime')?.value,
+      endHour:
+        this.addEventForm.get('endDate')?.value +
+        ' ' +
+        this.addEventForm.get('endTime')?.value,
+      classname: 'interview',
+    };
+    (document?.querySelector('.overlay') as HTMLElement).style.display =
+      'block';
+    this.isLoaded = false;
+    this.candidateService.modifyCandidateSchedule(obj).subscribe(
+      (response: any) => {
+        if (response.status == true) {
+          this.ngOnInit();
+          this.isLoaded = true;
+          (document?.querySelector('.overlay') as HTMLElement).style.display =
+            'none';
+
+          // this.initCalendar();
+        } else {
+          this.commonService.popUpFailed('Edit failed');
+          this.isLoaded = true;
+          (document?.querySelector('.overlay') as HTMLElement).style.display =
+            'none';
+        }
+      },
+      (err) => {
+        this.commonService.popUpFailed('Something wrong');
+        this.ngOnInit();
+        this.isLoaded = true;
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
+      }
+    );
+    this.datePicker.close();
+  }
   dropEvent(args: any) {
     let a = (this.Events as any).find((x: any) => x.id === args.event.id);
     a.start =
@@ -179,6 +245,38 @@ export class CalendarComponent implements OnInit, OnDestroy {
       ':' +
       args.event.start.getMinutes();
   }
+  deleteEvent() {
+    (document?.querySelector('.overlay') as HTMLElement).style.display =
+      'block';
+    this.isLoaded = false;
+    this.candidateService.deleteScheDule([this.idMeeting]).subscribe(
+      (response: any) => {
+        if (response.status == true) {
+          this.datePicker.close()
+          this.ngOnInit();
+          this.isLoaded = true;
+          (document?.querySelector('.overlay') as HTMLElement).style.display =
+            'none';
+        } else {
+          this.datePicker.close()
+          this.commonService.popUpFailed('Delete failed');
+          this.ngOnInit();
+          this.isLoaded = true;
+          (document?.querySelector('.overlay') as HTMLElement).style.display =
+            'none';
+        }
+      },
+      (err) => {
+        this.datePicker.close()
+        this.commonService.popUpFailed('Delete failed');
+        this.ngOnInit();
+        this.isLoaded = true;
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
+      }
+    );
+  }
+
   startTimeValidator(
     control: AbstractControl
   ): { [key: string]: boolean } | null {
