@@ -8,6 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CandidateService } from 'src/app/services/candidate-service/candidate.service';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -25,9 +26,11 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
   listExps: any;
   test: any;
   letter = '';
+  imgURL: any;
   constructor(
     private candidateService: CandidateService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public sanitizer: DomSanitizer
   ) {}
   ngOnDestroy(): void {
     this.candidateService.otherList = [];
@@ -43,6 +46,13 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     let newArr: any;
     let newArr2: any;
+    this.commonService.imgBehavior.subscribe((change) => {
+      if (this.commonService.imgURL) {
+        this.imgURL = this.sanitizer.bypassSecurityTrustResourceUrl(
+          this.commonService.imgURL
+        );
+      }
+    });
     this.candidateService.detectChange.subscribe((change) => {
       if (change == true) {
         this.list = this.candidateService.otherList;
@@ -107,13 +117,12 @@ export class OverViewComponent implements OnInit, OnChanges, OnDestroy {
             };
             newArr.push(newobj);
           }
-        }else{
+        } else {
           let newobj = {
             typeSkill: array[i].id,
             type: 0,
-            level:0,
+            level: 0,
             goal: '',
-            
           };
           newArr.push(newobj);
         }

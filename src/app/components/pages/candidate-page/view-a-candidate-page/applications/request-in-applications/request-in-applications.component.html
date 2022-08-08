@@ -33,23 +33,23 @@
           <p>Stages of candidate:</p>
           <span *ngIf="stepNow==1" class="staging">Review CV</span>
           <span *ngIf="stepNow==2" class="staging">Setup Interview</span>
-          <span *ngIf="stepNow==3" class="staging">Chua biet lam gi</span>
-          <span *ngIf="stepNow==4" class="staging">Chua biet lam gi</span>
+          <span *ngIf="stepNow==3" class="staging">Interview result</span>
+          <span *ngIf="stepNow==4" class="staging">Offer</span>
           <span *ngIf="stepNow==5" class="staging">Chua biet lam gi</span>
           <div class="application-heading-stages-box">
-            <div class="application-heading-stages-box-item"[ngClass]="{'isnow':stepNow==1,passed:stepNow>1,notyet:stepNow<1,fail:candidateInfor.result==0 }">
+            <div class="application-heading-stages-box-item"[ngClass]="{'isnow':stepNow==1,passed:stepNow>1,notyet:stepNow<1,fail:candidateInfor.result==0&&stepNow==1 }">
                 <span>1</span>
             </div>
-            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==2,passed:stepNow>2,notyet:stepNow<2}">
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==2,passed:stepNow>2,notyet:stepNow<2,fail:candidateInfor.result==0&&stepNow==2}">
                 <span>2</span>
             </div>
-            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==3,passed:stepNow>3,notyet:stepNow<3}">
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==3,passed:stepNow>3,notyet:stepNow<3,fail:candidateInfor.result==0&&stepNow==3}">
                 <span>3</span>
             </div>
-            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==4,passed:stepNow>4,notyet:stepNow<4}">
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==4,passed:stepNow>4,notyet:stepNow<4,fail:candidateInfor.result==0&&stepNow==4}">
                 <span>4</span>
             </div>
-            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==5,passed:stepNow>5,notyet:stepNow<5}">
+            <div class="application-heading-stages-box-item" [ngClass]="{'isnow':stepNow==5,passed:stepNow>5,notyet:stepNow<5,fail:candidateInfor.result==0&&stepNow==5}">
                 <span>5</span>
             </div>
           </div>
@@ -59,7 +59,7 @@
   </div>
   <div class="application-middle">
     <div class="application-middle-step">
-        <h6 class="application-middle-step__ttl">Stages of Hoang Ngoc Minh</h6>
+        <h6 class="application-middle-step__ttl">Stages of {{candidateInfor.name}}</h6>
         <div class="content">
             <div class="content-list">
                 <div class="content-list-item" #step1 [ngClass]="{'highlight':index==1,passed:stepNow>1,notyet:stepNow<1,fail:candidateInfor.result==0&&stepNow==1 }" (click)="chooseStep(1,step1)" >
@@ -72,11 +72,11 @@
                 </div>
                 <div class="content-list-item" #step3 [ngClass]="{'highlight':index==3,passed:stepNow>3,notyet:stepNow<3,fail:candidateInfor.result==0&&stepNow==3}" (click)="chooseStep(3,step3)">
                     <h6 class="content-list-item__ttl">Stage 3</h6>
-                    <p lass="content-list-item__stl">Offer</p>
+                    <p lass="content-list-item__stl">Interview result</p>
                 </div>
                 <div class="content-list-item" #step4 [ngClass]="{'highlight':index==4,passed:stepNow>4,notyet:stepNow<4,fail:candidateInfor.result==0&&stepNow==4}" (click)="chooseStep(4,step4)">
                     <h6 class="content-list-item__ttl">Stage 4</h6>
-                    <p lass="content-list-item__stl">Onboard</p>
+                    <p lass="content-list-item__stl">Offer</p>
                 </div>
                 <div class="content-list-item" #step5 [ngClass]="{'highlight':index==5,passed:stepNow>5,notyet:stepNow<5,fail:candidateInfor.result==0&&stepNow==5}" (click)="chooseStep(5,step5)">
                     <h6 class="content-list-item__ttl">Stage 5</h6>
@@ -97,3 +97,11 @@
   <button (click)="reviewStep1(1)" class="btn btn-success px-5 mx-3">Pass</button>
 </div>
 </div>
+<ng-container  *ngIf="index==3 ">
+  <app-interview-result></app-interview-result>
+  <div class="action" *ngIf="(stepNow==3) &&candidateInfor.step3Score!=null ">
+    <button (click)="reviewStep3(0)" class="btn btn-danger px-5 mx-3">Fail</button>
+    <button (click)="reviewStep3(1)" class="btn btn-success px-5 mx-3">Pass</button>
+  </div>
+</ng-container>
+<div class="overlay"></div>

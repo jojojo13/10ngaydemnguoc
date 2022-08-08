@@ -2,7 +2,8 @@
   <div class="content-profile">
     <div class="content-profile-heading">
       <div class="img-box">
-        <ngx-avatar class="img" size="120" [name]="letter"></ngx-avatar>
+        <ngx-avatar *ngIf="!imgURL" class="img" size="120" [name]="letter"></ngx-avatar>
+        <img *ngIf="imgURL" [src]="imgURL" alt="" />
       </div>
       <div class="title">
         <p>Name: {{ candidate.name }}</p>
@@ -94,7 +95,7 @@
               <div class="main" *ngFor="let skillChild of skillsheet.listSkill">
                 <span>{{ skillChild.name }}</span>
                 <span>{{ skillChild.levelName }}</span>
-                <span *ngIf="skillChild.goal ">{{ skillChild.goal }}</span>
+                <span *ngIf="skillChild.goal">{{ skillChild.goal }}</span>
                 <!-- <span disabled [value]="" #input type="text" /> -->
               </div>
             </div>
@@ -113,8 +114,11 @@
               <p _ngcontent-yxd-c87="">{{ exp.name }}</p>
             </div>
             <div class="language-content-item-main-category">
-              <div class="main customize" *ngFor="let skillChild of exp.listSkill,let i=index">
-                <h6>{{i+1}}.</h6>
+              <div
+                class="main customize"
+                *ngFor="let skillChild of exp.listSkill; let i = index"
+              >
+                <h6>{{ i + 1 }}.</h6>
                 <h6>Company/Project: {{ skillChild.firm }}</h6>
                 <h6>Position: {{ skillChild.position }}</h6>
                 <h6>Description: {{ skillChild.time }}</h6>

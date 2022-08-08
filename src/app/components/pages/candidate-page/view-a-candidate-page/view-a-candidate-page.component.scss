@@ -10,14 +10,33 @@
 .content {
   font-family: "Poppins";
   &-heading {
-    h5{
-        font-family: "Poppins";
-        font-style: normal;
-        font-weight: 900;
-        font-size: 18px;
-        margin-left: 9px;
-        margin-bottom: 10px;
-        color: #001246;
+    h5 {
+      font-family: "Poppins";
+      font-style: normal;
+      font-weight: 900;
+      font-size: 18px;
+      margin-left: 9px;
+      margin-bottom: 10px;
+      color: #001246;
     }
   }
+  &-render {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+.content ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(235, 50, 50, 0.3);
+
+  border-radius: 15px;
+}
+
+.content ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #6c67fc;
 }

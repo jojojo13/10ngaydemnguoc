@@ -48,7 +48,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
     this.addEventForm = this.formBuilder.group({
       title: ['', [Validators.required]],
-      startDate: [{ value: '', disabled: true }],
+      startDate: [{ value: '' }],
       startTime: ['', Validators.required],
       endDate: ['', [Validators.required]],
       endTime: ['', Validators.required],
@@ -60,8 +60,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.addEventForm.valueChanges.subscribe((x) => {
       let dateToCheck = new Date(this.addEventForm.getRawValue().endDate);
       let dateToCompare = new Date(this.addEventForm.getRawValue().startDate);
-      if (dateToCheck < dateToCompare) {
+      if (dateToCheck >= dateToCompare) {
+        this.addEventForm.controls['endDate'].setErrors(null);
+      }else{
         this.addEventForm.controls['endDate'].setErrors({ invalid: true });
+
       }
       let a = new Date(
         this.addEventForm.getRawValue().endDate +
@@ -164,6 +167,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
         if (response.status == true) {
           this.ngOnInit();
           // this.initCalendar();
+          this.candidateService.stepBehavior.next(true)
         }
       });
     this.datePicker.close();
@@ -234,50 +238,57 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.datePicker.close();
   }
   dropEvent(args: any) {
-    let obj = {
-      id: args.event.id,
-      requestId: this.requestID,
-      candidateId: this.candidateID,
-      title: args.event.title,
-      startHour:
-        this.handleDate(args.event.start) +
-        ' ' +
-        args.event.start.toLocaleTimeString(),
 
-      endHour:
-        this.handleDate(args.event.end) +
-        ' ' +
-        args.event.end.toLocaleTimeString(),
-      classname: args.event.classNames[0],
-    };
-    console.log(obj);
-    (document?.querySelector('.overlay') as HTMLElement).style.display =
-      'block';
-    this.isLoaded = false;
-    this.candidateService.modifyCandidateSchedule(obj).subscribe(
-      (response: any) => {
-        if (response.status == true) {
+    if (this.handleDate(args.event.start) < this.handleDate(new Date())) {
+      this.commonService.popUpFailed('Cannot create meeting in past');
+      this.ngOnInit()
+    } else {
+      let obj = {
+        id: args.event.id,
+        requestId: this.requestID,
+        candidateId: this.candidateID,
+        title: args.event.title,
+        startHour:
+          this.handleDate(args.event.start) +
+          ' ' +
+          args.event.start.toLocaleTimeString(),
+  
+        endHour:
+          this.handleDate(args.event.end) + 
+          ' ' +
+          args.event.end.toLocaleTimeString(),
+        classname: args.event.classNames[0],
+      };
+      
+      (document?.querySelector('.overlay') as HTMLElement).style.display =
+        'block';
+      this.isLoaded = false;
+      this.candidateService.modifyCandidateSchedule(obj).subscribe(
+        (response: any) => {
+          if (response.status == true) {
+            this.ngOnInit();
+            this.isLoaded = true;
+            (document?.querySelector('.overlay') as HTMLElement).style.display =
+              'none';
+  
+            // this.initCalendar();
+          } else {
+            this.commonService.popUpFailed('Edit failed');
+            this.isLoaded = true;
+            (document?.querySelector('.overlay') as HTMLElement).style.display =
+              'none';
+          }
+        },
+        (err) => {
+          this.commonService.popUpFailed('Something wrong');
           this.ngOnInit();
           this.isLoaded = true;
           (document?.querySelector('.overlay') as HTMLElement).style.display =
             'none';
-
-          // this.initCalendar();
-        } else {
-          this.commonService.popUpFailed('Edit failed');
-          this.isLoaded = true;
-          (document?.querySelector('.overlay') as HTMLElement).style.display =
-            'none';
         }
-      },
-      (err) => {
-        this.commonService.popUpFailed('Something wrong');
-        this.ngOnInit();
-        this.isLoaded = true;
-        (document?.querySelector('.overlay') as HTMLElement).style.display =
-          'none';
-      }
-    );
+      );
+    }
+ 
   }
   deleteEvent() {
     this.datePicker.close();

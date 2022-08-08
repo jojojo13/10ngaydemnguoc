@@ -1,0 +1,99 @@
+.content {
+  display: flex;
+  margin-left: 30px;
+  margin-top: 30px;
+  
+  justify-content: space-between;
+  .form {
+    width: 380px;
+    max-height: 500px;
+    &-group {
+      margin-top: 10px;
+      label {
+        width: 160px;
+      }
+      input,
+      textarea {
+        width: 220px;
+      }
+      small {
+        display: block;
+        margin-left: 160px;
+      }
+    }
+  }
+}
+.example-radio-button {
+  margin-right: 15px;
+}
+.note {
+  display: flex;
+  align-items: center;
+}
+.adc {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  margin-top: 30px;
+}
+.cus {
+  width: 600px;
+  tr,
+  td {
+    height: 40px !important;
+  }
+}
+table {
+  font-size: 14px;
+  margin-right: 40px;
+  table-layout: fixed;
+  font-family: "Poppins";
+  border: 1px solid rgb(202, 202, 202);
+  thead {
+    tr {
+      &:first-of-type {
+        border: none;
+        th {
+          &:nth-of-type(8),
+          &:nth-of-type(9) {
+            width: 140px;
+          }
+        }
+      }
+    }
+  }
+  tr {
+    border-top: 1px solid rgb(202, 202, 202);
+    border-bottom: 1px solid rgb(202, 202, 202);
+    width: 100%;
+    th {
+      text-align: center;
+      height: 60px;
+    }
+    td {
+      vertical-align: middle;
+      text-align: center;
+      height: 60px;
+      width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      i {
+        cursor: pointer;
+        &:active {
+          cursor: wait;
+        }
+      }
+    }
+  }
+}
+.abc{
+    display: flex;
+    flex-direction: column;
+}
+.highlight{
+    background-color: #B8E9FF;
+}
+.err{
+    display: flex;
+    align-items: center;
+}

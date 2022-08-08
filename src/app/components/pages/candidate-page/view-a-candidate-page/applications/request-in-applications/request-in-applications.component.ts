@@ -24,24 +24,26 @@ export class RequestInApplicationsComponent implements OnInit {
   isLoaded = true;
   srcPDF = '';
   ngOnInit(): void {
-    this.isLoaded = false;
+    this.candidateService.stepBehavior.subscribe((change) => {
+      this.isLoaded = false;
 
-    this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
-    this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
-    this.candidateService
-      .getCandidateRequestInfor(this.requestID, this.candidateID)
-      .subscribe(
-        (response: any) => {
-          this.candidateInfor = response.data;
-          this.stepNow = this.candidateInfor.stepNow;
-          this.index = this.stepNow;
-          console.log(response.data);
-          this.isLoaded = true;
-        },
-        (err) => {
-          this.isLoaded = true;
-        }
-      );
+      this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
+      this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
+      this.candidateService
+        .getCandidateRequestInfor(this.requestID, this.candidateID)
+        .subscribe(
+          (response: any) => {
+            this.candidateInfor = response.data;
+            this.stepNow = this.candidateInfor.stepNow;
+            this.index = this.stepNow;
+            console.log(this.candidateInfor);
+            this.isLoaded = true;
+          },
+          (err) => {
+            this.isLoaded = true;
+          }
+        );
+    });
   }
 
   chooseStep(step: number, ele: HTMLElement) {
@@ -52,6 +54,8 @@ export class RequestInApplicationsComponent implements OnInit {
 
   reviewStep1(step1: number) {
     this.isLoaded = false;
+    (document?.querySelector('.overlay') as HTMLElement).style.display =
+      'block';
     let objStep1 = {
       candidateId: this.candidateID,
       requestId: this.requestID,
@@ -62,14 +66,42 @@ export class RequestInApplicationsComponent implements OnInit {
       (response: any) => {
         this.ngOnInit();
         this.isLoaded = true;
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
       },
       (er) => {
         this.isLoaded = true;
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
         this.ngOnInit();
       }
     );
   }
   getPDFsrc($event: string) {
     this.srcPDF = $event;
+  }
+  reviewStep3(step3: number) {
+    this.isLoaded = false;
+    (document?.querySelector('.overlay') as HTMLElement).style.display =
+      'block';
+    let objStep1 = {
+      candidateID: this.candidateID,
+      requestID: this.requestID,
+      result: step3,
+    };
+    this.candidateService.pass3tp4(objStep1).subscribe(
+      (response: any) => {
+        this.ngOnInit();
+        this.isLoaded = true;
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
+      },
+      (er) => {
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
+        this.isLoaded = true;
+        this.ngOnInit();
+      }
+    );
   }
 }

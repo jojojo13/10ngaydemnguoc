@@ -93,6 +93,7 @@ import { ApplicationsComponent } from './components/pages/candidate-page/view-a-
 import { InformaionComponent } from './components/pages/profile-institute-page/employee-information/informaion/informaion.component';
 import { ContractComponent } from './components/pages/profile-institute-page/employee-information/contract/contract.component';
 import { AvatarModule } from 'ngx-avatar';
+import {MatRadioModule} from '@angular/material/radio';
 import { EditCandidateFormComponent } from './components/pages/candidate-page/edit-candidate-page/edit-candidate-form/edit-candidate-form.component';
 import { ViewContractComponent } from './components/pages/profile-institute-page/view-contract/view-contract.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
@@ -102,7 +103,8 @@ import { RequestInApplicationsComponent } from './components/pages/candidate-pag
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { CreateContractComponent } from './components/pages/profile-institute-page/create-contract/create-contract.component';
 import { SettingComponent } from './components/setting/setting.component';
-import { ForgotFormComponent } from './components/forgot-form/forgot-form.component'; // a plugin!
+import { ForgotFormComponent } from './components/forgot-form/forgot-form.component';
+import { InterviewResultComponent } from './components/interview-result/interview-result.component'; // a plugin!
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -190,6 +192,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CreateContractComponent,
     SettingComponent,
     ForgotFormComponent,
+    InterviewResultComponent,
   ],
   imports: [
     BrowserModule,
@@ -211,6 +214,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MatNativeDateModule,
     MatTableModule,
     MatInputModule,
+    MatRadioModule,
     AvatarModule,
     FullCalendarModule
   ],

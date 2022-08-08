@@ -1,0 +1,103 @@
+<div class="content" *ngIf="candidateInfor">
+  <ng-container *ngIf="candidateInfor.step3Score == null">
+    <form style="position: relative" class="form" [formGroup]="interviewF">
+      <!-- <div class="form-group">
+        <label for="">Interview result</label>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="favoriteSeason"
+          [ngModelOptions]="{standalone: true}"
+        >
+          <mat-radio-button  class="example-radio-button" [value]="0">
+            Failed
+          </mat-radio-button>
+          <mat-radio-button class="example-radio-button" [value]="1">
+            Passed
+          </mat-radio-button>
+        </mat-radio-group>
+        <small class="text-danger" *ngIf="favoriteSeason==-1">Please choose interview result</small>
+      </div> -->
+      <div class="form-group">
+        <div class="err">
+          <label for="">Note interview</label>
+          <textarea cols="30" rows="4" formControlName="noteInterview">
+          </textarea>
+        </div>
+        <small
+          class="text-danger"
+          *ngIf="interviewF.controls['noteInterview'].hasError('maxlength')"
+          >Input only 150 characters</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="">Test score <span class="text-danger">*</span></label>
+        <input type="number" formControlName="testScore" />
+        <small
+          class="text-danger"
+          *ngIf="interviewF.controls['testScore'].hasError('required')"
+          >Please input test score</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="interviewF.controls['testScore'].hasError('min')"
+          >Score must greater than 0</small
+        >
+      </div>
+      <div class="form-group">
+        <div class="err">
+          <label for="">Note test</label>
+          <textarea cols="30" rows="4" formControlName="noteTest"> </textarea>
+        </div>
+
+        <small
+          class="text-danger"
+          *ngIf="interviewF.controls['noteTest'].hasError('maxlength')"
+          >Input only 150 characters</small
+        >
+      </div>
+      <div class="adc">
+        <button
+        [disabled]="interviewF.invalid"
+        (click)="saveInterviewTest()"
+        class="btn btn-primary a px-4 py-2"
+      >
+        Save
+      </button>
+      </div>
+   
+    </form>
+  </ng-container>
+  <ng-container *ngIf="candidateInfor.step3Score != null">
+    <div class="abc">
+      <h4>Candidate has been interviewed</h4>
+      <h6>Test score:{{ candidateInfor.step3Score }}</h6>
+      <h6>Test note:{{ candidateInfor.step3TestNote }}</h6>
+      <h6>Interview note:{{ candidateInfor.step3InterNote }}</h6>
+    </div>
+  </ng-container>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Test score</th>
+        <th>Note test</th>
+        <th>Note interview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let c of listCandidate; let i = index"
+        [ngClass]="{ highlight: c.candidateID == candidateInfor.candidateId }"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ c.score }}</td>
+        <td>{{ c.note }}</td>
+        <td>note interview</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

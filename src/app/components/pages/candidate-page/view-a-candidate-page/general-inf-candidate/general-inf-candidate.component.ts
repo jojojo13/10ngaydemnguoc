@@ -38,7 +38,6 @@ export class GeneralInfCandidateComponent implements OnInit {
         this.uvCode = response.data[0].code;
         this.loadCV();
         this.candidate = response.data[0];
-        console.log(this.candidate)
         let words = this.candidate.fullName.trim().split(' ');
         this.letter = words[words.length - 1].charAt(0);
         if (response.data[0].language.length > 0) {

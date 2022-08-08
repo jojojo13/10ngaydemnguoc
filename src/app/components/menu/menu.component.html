@@ -24,52 +24,54 @@
       </div>
     </div>
 
-
-    <ng-container *ngIf="user.rule == 1 || user.rule == 0 ">
-      <div class="menu-list-item">
-        <div class="menu-list-item-parent"
-             #system
-             (click)="showDropdown(system, 'menu-list-item-system')">
-          <object data="../../../assets/icons/icons8-user-groups-16.png"
-                  width="18px"
-                  height="18px"></object>
-          <p class="menu-list-item-parent__ttl">Classify</p>
-        </div>
-        <div class="menu-list-item-system custom">
-          <ul>
-            <li routerLink="phanloaitochuc" routerLinkActive="is-active">
-              Organization
-            </li>
-            <li routerLink="thietlaptochuc" routerLinkActive="is-active">
-              Institute
-            </li>
-          </ul>
-        </div>
+<ng-container *ngIf="user">
+  <ng-container *ngIf="user.rule == 1 || user.rule == 0 ">
+    <div class="menu-list-item">
+      <div class="menu-list-item-parent"
+           #system
+           (click)="showDropdown(system, 'menu-list-item-system')">
+        <object data="../../../assets/icons/icons8-user-groups-16.png"
+                width="18px"
+                height="18px"></object>
+        <p class="menu-list-item-parent__ttl">Classify</p>
       </div>
-    </ng-container>
-
-    <ng-container *ngIf="user.rule == 1 || user.rule == 0 ">
-      <div class="menu-list-item">
-        <div class="menu-list-item-parent"
-             #profile
-             (click)="showDropdown(profile, 'menu-list-item-profile')">
-          <object data="../../../assets/icons/icons8-user-groups-16.png"
-                  width="18px"
-                  height="18px"></object>
-          <p class="menu-list-item-parent__ttl">Profile</p>
-        </div>
-        <div class="menu-list-item-profile custom">
-          <ul>
-            <li routerLink="danhmuchoso" routerLinkActive="is-active">
-              Profile categories
-            </li>
-            <li routerLink="thietlaphoso" routerLinkActive="is-active">
-              Profile institute
-            </li>
-          </ul>
-        </div>
+      <div class="menu-list-item-system custom">
+        <ul>
+          <li routerLink="phanloaitochuc" routerLinkActive="is-active">
+            Organization
+          </li>
+          <li routerLink="thietlaptochuc" routerLinkActive="is-active">
+            Institute
+          </li>
+        </ul>
       </div>
-    </ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="user.rule == 1 || user.rule == 0 ">
+    <div class="menu-list-item">
+      <div class="menu-list-item-parent"
+           #profile
+           (click)="showDropdown(profile, 'menu-list-item-profile')">
+        <object data="../../../assets/icons/icons8-user-groups-16.png"
+                width="18px"
+                height="18px"></object>
+        <p class="menu-list-item-parent__ttl">Profile</p>
+      </div>
+      <div class="menu-list-item-profile custom">
+        <ul>
+          <li routerLink="danhmuchoso" routerLinkActive="is-active">
+            Profile categories
+          </li>
+          <li routerLink="thietlaphoso" routerLinkActive="is-active">
+            Profile institute
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
 
   </div>
 </div>

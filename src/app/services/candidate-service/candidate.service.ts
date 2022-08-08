@@ -14,11 +14,12 @@ export class CandidateService {
   public expList: any;
   public detectChange: BehaviorSubject<boolean>;
   public otherList: any;
-
+  public stepBehavior: BehaviorSubject<boolean>;
   listSelectedCandidate: any;
   constructor(private __http: HttpClient) {
     this.skillBehaviour = new BehaviorSubject<boolean>(false);
     this.detectChange = new BehaviorSubject<boolean>(false);
+    this.stepBehavior = new BehaviorSubject<boolean>(false);
     this.listSelectedCandidate = [];
   }
   getAllcandidateByFilter(obj: CandidateFilter) {
@@ -97,35 +98,74 @@ export class CandidateService {
       obj
     );
   }
-  getRequestInCandidate(candidateID:number){
-    return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetAllRequestByCandidateID?id=${candidateID}`,{})
+  getRequestInCandidate(candidateID: number) {
+    return this.__http.post(
+      `https://localhost:44376/api/CandidateAPI/GetAllRequestByCandidateID?id=${candidateID}`,
+      {}
+    );
   }
 
-  getCandidateRequestInfor(requestID:number,candidateID:number){
-    return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetCandidateRequestInf?requestId=${requestID}&candidateId=${candidateID}`,{})
+  getCandidateRequestInfor(requestID: number, candidateID: number) {
+    return this.__http.post(
+      `https://localhost:44376/api/CandidateAPI/GetCandidateRequestInf?requestId=${requestID}&candidateId=${candidateID}`,
+      {}
+    );
   }
-  setStep1Candidate(obj:any){
-    return this.__http.post('https://localhost:44376/api/CandidateAPI/SetStep1CandidatePV',obj)
+  setStep1Candidate(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/CandidateAPI/SetStep1CandidatePV',
+      obj
+    );
   }
-  insertScheduleCandidate(obj:any){
-    return this.__http.post('https://localhost:44376/api/ScheduleAPI/InsertSchedule',obj)
+  insertScheduleCandidate(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/ScheduleAPI/InsertSchedule',
+      obj
+    );
   }
-  getScheduleCandidate(rqID:number,canID:number){
-    return this.__http.post(`https://localhost:44376/api/ScheduleAPI/GetSchedule?requestId=${rqID}&candidateId=${canID}`,{})
+  getScheduleCandidate(rqID: number, canID: number) {
+    return this.__http.post(
+      `https://localhost:44376/api/ScheduleAPI/GetSchedule?requestId=${rqID}&candidateId=${canID}`,
+      {}
+    );
   }
-  modifyCandidateSchedule(obj:any){
-    return this.__http.post('https://localhost:44376/api/ScheduleAPI/ModifySchedule',obj)
+  modifyCandidateSchedule(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/ScheduleAPI/ModifySchedule',
+      obj
+    );
   }
-  deleteScheDule(obj:Array<number>){
-    return this.__http.post('https://localhost:44376/api/ScheduleAPI/DeleteSchedule',obj)
+  deleteScheDule(obj: Array<number>) {
+    return this.__http.post(
+      'https://localhost:44376/api/ScheduleAPI/DeleteSchedule',
+      obj
+    );
   }
-  getInfEdit(id:number){
-    return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetOneInforCandidateToEdit?id=${id}`,{})
+  getInfEdit(id: number) {
+    return this.__http.post(
+      `https://localhost:44376/api/CandidateAPI/GetOneInforCandidateToEdit?id=${id}`,
+      {}
+    );
   }
-  editInfoCan(obj:any){
-    return this.__http.post('https://localhost:44376/api/CandidateAPI/EditInforCandidate',obj)
+  editInfoCan(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/CandidateAPI/EditInforCandidate',
+      obj
+    );
   }
- checkInforCandidateEdit(obj:any){
-  return this.__http.post('https://localhost:44376/api/CandidateAPI/CheckInforCandidateEdit',obj)
- }
+  checkInforCandidateEdit(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/CandidateAPI/CheckInforCandidateEdit',
+      obj
+    );
+  }
+  saveResultInterview(obj:any){
+    return this.__http.post('https://localhost:44376/api/CandidateAPI/SetStep3CandidatePV',obj)
+  }
+  getAllCandidateStep3(id:number){
+    return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetAllResultStep3?requestID=${id}`,{})
+  }
+  pass3tp4(obj:any){
+    return this.__http.post('https://localhost:44376/api/CandidateAPI/PassStep3to4',obj)
+  }
 }
