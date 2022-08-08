@@ -218,4 +218,5 @@ export class EditCandidatePageComponent implements OnInit {
   changeTab(is:boolean){
     this.isTabOne=is
   }
+  
 }

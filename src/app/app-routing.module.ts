@@ -38,6 +38,9 @@ import { InformaionComponent } from './components/pages/profile-institute-page/e
 import { ContractComponent } from './components/pages/profile-institute-page/employee-information/contract/contract.component';
 import { ViewContractComponent } from './components/pages/profile-institute-page/view-contract/view-contract.component';
 import { RequestInApplicationsComponent } from './components/pages/candidate-page/view-a-candidate-page/applications/request-in-applications/request-in-applications.component';
+import { CreateContractComponent } from './components/pages/profile-institute-page/create-contract/create-contract.component';
+import { SettingComponent } from './components/setting/setting.component';
+import { ForgotFormComponent } from './components/forgot-form/forgot-form.component';
 
 const routes: Routes = [
   {
@@ -45,6 +48,11 @@ const routes: Routes = [
     component: HomePageComponent,
     canActivate: [AuthorizeGuard],
     children: [
+      {
+        path: 'thietlapnguoidung',
+        component: SettingComponent,
+        canActivate: [AuthorizeGuard],
+      },
       {
         path: 'yeucautuyendung',
         component: RecruitmentRequestPageComponent,
@@ -196,6 +204,12 @@ const routes: Routes = [
         
       },
       {
+        path: 'thietlaphoso/taohopdong',
+        component: CreateContractComponent,
+        canActivate: [AuthorizeGuard],
+        
+      },
+      {
         path: 'thietlaphoso/chitietnhanvien',
         component: EmployeeInformationComponent,
         canActivate: [AuthorizeGuard],
@@ -218,6 +232,7 @@ const routes: Routes = [
 
   { path: 'register', component: RegisterPageComponent },
   { path: 'login', component: LoginPageComponent },
+  { path: 'forgot', component: ForgotFormComponent },
 ];
 
 @NgModule({

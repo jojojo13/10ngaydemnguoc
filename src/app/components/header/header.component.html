@@ -10,12 +10,21 @@
       <p style="font-size: 12px">{{ user.positionName }}</p>
       {{ user.name }}
     </h5>
-    <p><i class="fa fa-chevron-down" (click)="toggleDropdown()" aria-hidden="true"></i></p>
+    <p>
+      <i
+        class="fa fa-chevron-down"
+        (click)="toggleDropdown()"
+        aria-hidden="true"
+      ></i>
+    </p>
   </div>
   <div class="content-dropdown" #dropdown>
     <ul class="content-dropdown-list">
       <li (click)="profile()">
         <i class="fa fa-user" aria-hidden="true"></i> <span>Profile</span>
+      </li>
+      <li routerLink="thietlapnguoidung">
+        <i class="fa fa-cogs" aria-hidden="true"></i> <span> Setting</span>
       </li>
       <li (click)="logOut()">
         <i class="fa fa-sign-out" aria-hidden="true"></i> <span> Log out</span>

@@ -22,18 +22,20 @@ export class RequestInApplicationsComponent implements OnInit {
   requestID!: number;
   candidateInfor: any;
   isLoaded = true;
-
+  srcPDF = '';
   ngOnInit(): void {
+    this.isLoaded = false;
+
     this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
     this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
     this.candidateService
       .getCandidateRequestInfor(this.requestID, this.candidateID)
       .subscribe(
         (response: any) => {
-          this.isLoaded = false;
           this.candidateInfor = response.data;
           this.stepNow = this.candidateInfor.stepNow;
           this.index = this.stepNow;
+          console.log(response.data);
           this.isLoaded = true;
         },
         (err) => {
@@ -49,6 +51,7 @@ export class RequestInApplicationsComponent implements OnInit {
   }
 
   reviewStep1(step1: number) {
+    this.isLoaded = false;
     let objStep1 = {
       candidateId: this.candidateID,
       requestId: this.requestID,
@@ -58,12 +61,15 @@ export class RequestInApplicationsComponent implements OnInit {
     this.candidateService.setStep1Candidate(objStep1).subscribe(
       (response: any) => {
         this.ngOnInit();
+        this.isLoaded = true;
       },
       (er) => {
+        this.isLoaded = true;
         this.ngOnInit();
       }
     );
   }
-
-  showa() {}
+  getPDFsrc($event: string) {
+    this.srcPDF = $event;
+  }
 }

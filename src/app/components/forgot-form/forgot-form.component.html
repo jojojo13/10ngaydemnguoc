@@ -1,0 +1,61 @@
+<div class="wrap">
+  <div class="card login-form c">
+    <div class="card-body">
+      <h3 class="text-center"><i class="fa fa-lock fa-4x"></i></h3>
+      <h3 class="card-title text-center">Reset password</h3>
+
+      <div class="card-text">
+        <form [formGroup]="forgotForm">
+          <div class="form-group">
+            <label for="exampleInputEmail1"
+              >Enter your email address and username and we will send you a link
+              to reset your password.</label
+            >
+            <div class="group">
+              <label for="">Username</label>
+              <input
+                formControlName="username"
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Enter your username"
+              />
+              <small
+                class="text-danger"
+                *ngIf="forgotForm.get('username')?.hasError('required')"
+                >Please enter username</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="forgotForm.get('username')?.hasError('pattern')"
+                >Only alphabet and number</small
+              >
+            </div>
+            <div class="group">
+              <label for="">Email</label>
+              <input
+                formControlName="email"
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Enter your email address"
+              />
+              <small
+                class="text-danger"
+                *ngIf="forgotForm.get('email')?.hasError('required')"
+                >Please enter email</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="forgotForm.get('email')?.hasError('email')"
+                >Invalid email</small
+              >
+            </div>
+          </div>
+
+          <button (click)="reset()" [disabled]="forgotForm.invalid" type="submit" class="btn btn-primary btn-block">
+            Send password reset email
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

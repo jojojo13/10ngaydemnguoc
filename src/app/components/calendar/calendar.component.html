@@ -65,10 +65,18 @@
             >End meeting must greater than start meeting</small
           >
         </div>
+        <div class="form-group">
+          <label for="">Type: </label>
+          <select name="aaa" id="" [ngModelOptions]="{standalone: true}" [(ngModel)]="type"t>
+            <option  value="interview">Interview</option>
+            <option value="test">Test</option>
+          </select>
+        </div>
       </form>
+
       <div class="action">
         <button
-        [disabled]="addEventForm.invalid"
+          [disabled]="addEventForm.invalid"
           *ngIf="addBtn"
           #addBtn
           (click)="addEvent()"
@@ -77,7 +85,7 @@
           Add Event
         </button>
         <button
-        [disabled]="addEventForm.invalid"
+          [disabled]="addEventForm.invalid"
           *ngIf="editBtn"
           #editBtn
           (click)="submitEditEvent()"
@@ -85,13 +93,16 @@
         >
           Edit Event
         </button>
-        <button  *ngIf="editBtn" (click)="deleteEvent()" class="btn btn-danger px-5 mx-2 my-3">
+        <button
+          *ngIf="editBtn"
+          (click)="deleteEvent()"
+          class="btn btn-danger px-5 mx-2 my-3"
+        >
           Delete
         </button>
-        <button  (click)="datePicker.close()" class="btn btn-primary px-5 mx-2">
+        <button (click)="datePicker.close()" class="btn btn-primary px-5 mx-2">
           Cancel
         </button>
-       
       </div>
     </div>
   </swal>

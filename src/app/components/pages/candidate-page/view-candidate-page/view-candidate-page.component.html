@@ -9,9 +9,9 @@
         <div class="content" (click)="addNewCandidate()">
           <p><i class="fa fa-plus circle-icon"></i>Add new</p>
         </div>
-        <div class="content" (click)="editCandidate()">
+        <!-- <div class="content" (click)="editCandidate()">
           <p><i class="fa fa-pencil"></i>Edit</p>
-        </div>
+        </div> -->
         <div class="content" (click)="deleteCandidate()">
           <p><i class="fa fa-trash"></i>Delete</p>
         </div>
@@ -157,7 +157,14 @@
             <td>{{ candidate.lastestPosition }}</td>
             <td>{{ candidate.experience }}</td>
             <td>{{ candidate.language }}</td>
-            <td [ngClass]="{'draft':candidate.statusId==0,'active':candidate.statusId==1}">{{ candidate.statusName }}</td>
+            <td
+              [ngClass]="{
+                draft: candidate.statusId == 0,
+                active: candidate.statusId == 1
+              }"
+            >
+              {{ candidate.statusName }}
+            </td>
           </tr>
         </tbody>
       </table>

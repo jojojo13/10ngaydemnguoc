@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
@@ -21,7 +21,7 @@ export class CommonService {
   fileType =
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
   fileExtension = '.xlsx';
-
+  httpClient!: HttpClient;
   public exportExcel(jsonData: any[], fileName: string): void {
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(jsonData);
 
@@ -50,12 +50,14 @@ export class CommonService {
     private router: Router,
     private activateRoute: ActivatedRoute,
     private db: AngularFireDatabase,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private httpBackend:HttpBackend
   ) {
     this.imgBehavior= new BehaviorSubject<boolean>(false);
     this.fileBehavior = new BehaviorSubject<boolean>(false);
     this.dataChange = new BehaviorSubject<any>(null);
     this.emitBahavior = new BehaviorSubject<any>(null);
+    this.httpClient = new HttpClient(httpBackend);
   }
 
   getOtherList(code: string, index: number, size: number) {
@@ -223,5 +225,9 @@ export class CommonService {
   deleteFile(downloadUrl: string) {
     // console.log(this.storage.storage.ref(downloadUrl))
     return this.storage.storage.refFromURL(downloadUrl).delete();
+  }
+
+  resetPWD(obj:any){
+    return this.httpClient.post('https://localhost:44376/api/AccountAPI/ResetpassWord',obj)
   }
 }
