@@ -1,1 +1,150 @@
-<p>view-contract works!</p>
+<div class="content">
+  <h5>Classify Organization</h5>
+  <app-back-btn [route]="route"></app-back-btn>
+  <div class="action">
+    <div class="action-item" (click)="addNewContractEmp()">
+      <p><i class="fa fa-plus circle-icon"></i>Add new</p>
+    </div>
+    <div class="action-item" (click)="deleteContractEmp()">
+      <p><i class="fa fa-trash"></i>Delete</p>
+    </div>
+    <!--<div class="action-item" (click)="activePosition()">
+      <p><i class="fa fa-check"></i>Active</p>
+    </div>
+    <div class="action-item" (click)="deactivePosition()">
+      <p><i class="fa fa-ban"></i>Deactive</p>
+    </div>-->
+    <div class="action-item" (click)="exportExcel()">
+      <p><i class="fa fa-download"></i>Export Excel</p>
+    </div>
+  </div>
+
+  <div class="content-middle">
+    <div class="content-middle-form">
+      <div class="content-bottom">
+        <table>
+          <thead>
+            <tr>
+              <td></td>
+              <td>Employee name</td>
+              <td>Employee code</td>
+              <td>Orgnization name</td>
+              <td>Contract No</td>
+              <td>Contract type</td>
+              <td>Position</td>
+              <td>Effect date</td>
+              <td>Expire date</td>
+              <td>Status</td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr [formGroup]="FilterForm">
+              <td></td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         placeholder="Filter"
+                         formControlName="name" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         placeholder="Filter"
+                         formControlName="code" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         placeholder="Filter"
+                         formControlName="orgName" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         placeholder="Filter"
+                         formControlName="contractNo" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         placeholder="Filter"
+                         formControlName="contractType" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         placeholder="Filter"
+                         formControlName="position" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="date"
+                         formControlName="effectdate" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="date"
+                         formControlName="exdate" />
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input matInput
+                         type="text"
+                         placeholder="Filter"
+                         formControlName="status" />
+                </mat-form-field>
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr [ngClass]="{ active: selectedIndexInTable === i }"
+                (click)="chooseItem(item, i)"
+                *ngFor="
+                let item of contractEmpList
+                  | paginate
+                    : {
+                        itemsPerPage: itemsPerPage,
+                        currentPage: page,
+                        totalItems: totalItems
+                      };
+                let i = index
+              ">
+              <td>
+                <mat-checkbox>
+                </mat-checkbox>
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.code }}</td>
+              <td>{{ item.orgnizationName }}</td>
+              <td>{{ item.contractNo }}</td>
+              <td>{{ item.contractType }}</td>
+              <td>{{ item.position }}</td>
+              <td>{{ item.effectDate }}</td>
+              <td>{{ item.expireDate }}</td>
+              <td>{{ item.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls class="pagi"
+                             (pageChange)="gty((page = $event))"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

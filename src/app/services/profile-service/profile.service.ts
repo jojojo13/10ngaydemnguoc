@@ -399,4 +399,19 @@ export class ProfileService {
   }
 
 
+
+  GetContractEmployeeByFilter(request: any) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + `/GetContractEmployeeByFilter`,
+      request, httpOptions1
+    );
+  }
+
+
 }
