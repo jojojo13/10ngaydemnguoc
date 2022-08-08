@@ -1,0 +1,34 @@
+<div class="content">
+  <h5>Change password</h5>
+  <form class="form" [formGroup]="passwordForm">
+    <div class="form-group">
+      <label for="">Old password:</label>
+      <input type="password" formControlName="oldPass" />
+      <small
+        class="text-danger"
+        *ngIf="passwordForm.controls['oldPass']?.hasError('required')"
+        >Please input old password</small
+      >
+    </div>
+    <div class="form-group">
+      <label for="">New password:</label>
+      <input type="password" formControlName="newPass" />
+      <small
+        class="text-danger"
+        *ngIf="passwordForm.controls['newPass']?.hasError('required')"
+        >Please input new password</small
+      >
+    </div>
+    <div class="form-group">
+      <label for="">Confirm password:</label>
+      <input type="password" formControlName="confirmPass" />
+      <small
+        class="text-danger"
+        *ngIf="passwordForm.controls['confirmPass']?.hasError('required')"
+        >Please input comfirm password</small
+      >
+      <small class="text-danger" *ngIf="cfp.errors?.['invalid']">Confirm password must match new password</small>
+    </div>
+    <button [disabled]="passwordForm.invalid" class="btn btn-primary px-3 py-1 custom ">Change</button>
+  </form>
+</div>

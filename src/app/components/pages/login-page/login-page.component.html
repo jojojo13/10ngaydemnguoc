@@ -32,15 +32,15 @@
           >
           
         </div>
-        <!-- <div class="form-under">
-          <div class="form-under-remember">
+        <div class="form-under">
+          <!-- <div class="form-under-remember">
             <input class="form-under-remember-checkbox" type="checkbox" />
             <span>Remember me</span>
-          </div>
+          </div> -->
           <div class="form-under-forgot">
-            <span><a href="">Forgot password?</a></span>
+            <span><a routerLink="/forgot">Forgot password?</a></span>
           </div>
-        </div> -->
+        </div>
         <small class="text-danger err">{{msg}}</small>
 
         <button type="submit"  [disabled]='loginForm.invalid'  class="form-button">Login</button>

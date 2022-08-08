@@ -134,14 +134,14 @@
           <div class="err">
             <select name="" id="" formControlName="gender">
               <option
-                [selected]="1 == contactForm.controls['gender'].value"
-                [ngValue]="{ name: 'Male', value: 1 }"
+                [selected]="'1' == contactForm.controls['gender'].value"
+                value="1"
               >
                 Male
               </option>
               <option
-                [selected]="0 == contactForm.controls['gender'].value"
-                [ngValue]="{ name: 'Female', value: 0 }"
+                [selected]="'0' == contactForm.controls['gender'].value"
+                ngValue="0"
               >
                 Female
               </option>
@@ -206,7 +206,7 @@
             <select formControlName="country" (change)="onSelectedCountry()">
               <option
                 [selected]="country.id == contactForm.controls['country'].value"
-                [ngValue]="country"
+                [value]="country.id"
                 *ngFor="let country of countries"
               >
                 {{ country.name }}
@@ -224,10 +224,10 @@
             >City<span class="text-danger">*</span></label
           >
           <div class="err">
-            <select name="" id="city" formControlName="city">
+            <select  formControlName="city">
               <option
-                [selected]="province.id == candidateForm.provinceLive"
-                [ngValue]="province"
+                [selected]="province.id == contactForm.controls['city'].value"
+                [value]="province.id"
                 *ngFor="let province of provinces"
               >
                 {{ province.name }}
@@ -242,6 +242,7 @@
         </div>
       </div>
     </form>
-    <button class="btn btn-primary px-5 py-1">Save</button>
+    <button [disabled]="contactForm.invalid" (click)="editCandidate()" class="btn btn-primary px-5 py-1">Save</button>
   </div>
 </div>
+<div class="overlay"></div>

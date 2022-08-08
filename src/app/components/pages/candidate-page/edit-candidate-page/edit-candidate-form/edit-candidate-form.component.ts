@@ -13,7 +13,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CandidateService } from 'src/app/services/candidate-service/candidate.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ProfileService } from 'src/app/services/profile-service/profile.service';
@@ -43,12 +43,14 @@ export class EditCandidateFormComponent implements OnInit {
   namePattern = '\\w+([[:space:]])\\w+([[:space:]])\\w+$';
   candidateID = -1;
   candidateForm: any;
+  nationID!: number;
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
     private profileService: ProfileService,
     private activatedRoute: ActivatedRoute,
-    private candidateService: CandidateService
+    private candidateService: CandidateService,
+    private router: Router
   ) {}
   ngOnChanges(changes: SimpleChanges): void {}
 
@@ -58,11 +60,12 @@ export class EditCandidateFormComponent implements OnInit {
 
     this.candidateService.getInfEdit(this.candidateID).subscribe(
       (response: any) => {
-        this.isLoaded = true;
         this.candidate = response.data[0];
         this.candidateForm = response.data[0];
+        this.nationID = this.candidateForm.nationLive;
         console.log(this.candidateForm);
         this.onSelectedCountry();
+        this.loadCountry();
         this.contactForm.get('phone')?.setValue(this.candidateForm.phone);
         this.contactForm.get('email')?.setValue(this.candidateForm.email);
         this.contactForm.get('zalo')?.setValue(this.candidateForm.zalo);
@@ -82,17 +85,27 @@ export class EditCandidateFormComponent implements OnInit {
           .get('graduate')
           ?.setValue(this.handleDate(this.candidateForm.graduate));
         this.contactForm.get('gpa')?.setValue(this.candidateForm.score);
-        this.contactForm
-          .get('country')
-          ?.setValue(this.candidateForm.nationLive);
-        this.contactForm.get('city')?.setValue(this.candidateForm.provinceLive);
+
+        setTimeout(() => {
+          this.contactForm
+            .get('country')
+            ?.setValue(this.candidateForm.nationLive);
+          this.contactForm
+            .get('city')
+            ?.setValue(this.candidateForm.provinceLive);
+          this.isLoaded = true;
+        }, 3000);
         this.contactForm.get('awards')?.setValue(this.candidateForm.awards);
+        this.contactForm.controls['country'].valueChanges.subscribe((value) => {
+          this.nationID = value;
+          console.log(this.nationID);
+        });
       },
       (err) => {
+       
         this.isLoaded = true;
       }
     );
-    this.loadCountry();
   }
 
   loadCountry() {
@@ -101,12 +114,15 @@ export class EditCandidateFormComponent implements OnInit {
     });
   }
   onSelectedCountry() {
-    this.profileService
-      .getProvinceByNationId(this.candidateForm.nationLive)
-      .subscribe((data: any) => {
+    this.profileService.getProvinceByNationId(this.nationID).subscribe(
+      (data: any) => {
         this.provinces = data.data;
-    
-      });
+        console.log(data);
+      },
+      (err) => {
+        this.provinces = undefined;
+      }
+    );
   }
   initForm() {
     this.contactForm = this.fb.group({
@@ -161,5 +177,86 @@ export class EditCandidateFormComponent implements OnInit {
       }
     }
     return txt;
+  }
+
+  editCandidate() {
+    (document?.querySelector('.overlay') as HTMLElement
+    ).style.display = 'block';
+    this.isLoaded = false;
+    this.candidateService
+      .checkInforCandidateEdit({
+        id: this.candidateID,
+        phone: this.contactForm.get('phone')?.value,
+        email: this.contactForm.get('email')?.value,
+      })
+      .subscribe(
+        (response: any) => {
+          if (response.status == true) {
+            let obj = {
+              id: this.candidateID,
+              fullName: this.contactForm.get('name')?.value.trim(),
+              dob: this.contactForm.get('dob')?.value,
+              gender: this.contactForm.get('gender')?.value,
+              phone: this.contactForm.get('phone')?.value,
+              zalo: this.contactForm.get('zalo')?.value,
+              email: this.contactForm.get('email')?.value,
+              linkedIn: this.contactForm.get('linkedIn')?.value,
+              facebook: this.contactForm.get('facebook')?.value,
+              skype: this.contactForm.get('skype')?.value,
+              website: this.contactForm.get('website')?.value,
+              twiter: this.contactForm.get('twitter')?.value,
+              noiO: '',
+              nationLive: this.contactForm.get('country')?.value,
+              porvinceLive: this.contactForm.get('city')?.value,
+              major: this.contactForm.get('major')?.value,
+              graduate: this.contactForm.get('graduate')?.value,
+              school: this.contactForm.get('university')?.value,
+              gpa: this.contactForm.get('gpa')?.value,
+              awards: this.contactForm.get('awards')?.value,
+            };
+            if (this.contactForm.get('graduate')?.value == '') {
+              obj.graduate = null;
+            }
+            if (this.contactForm.get('gpa')?.value == '') {
+              obj.gpa = null;
+            }
+            console.log(obj);
+            this.candidateService.editInfoCan(obj).subscribe(
+              (response: any) => {
+  
+                if (response.status == true) {
+                  this.isLoaded = true;
+                  this.commonService.popUpSuccess();
+                  this.router.navigateByUrl(
+                    `ungvien/xemungvien/info?id=${this.candidateID}`
+                  );
+                } else {
+                  (document?.querySelector('.overlay') as HTMLElement
+                  ).style.display = 'none';
+                  this.isLoaded = true;
+                  this.commonService.popUpFailed('Edit failed');
+                }
+              },
+              (err) => {
+                (document?.querySelector('.overlay') as HTMLElement
+                ).style.display = 'none';
+                this.isLoaded = true;
+                this.commonService.popUpFailed('Edit failed');
+              }
+            );
+          } else {
+            (document?.querySelector('.overlay') as HTMLElement
+            ).style.display = 'none';
+            this.isLoaded = true;
+            this.commonService.popUpFailed(response.thongbao);
+          }
+        },
+        (err) => {
+          (document?.querySelector('.overlay') as HTMLElement
+          ).style.display = 'none';
+          this.isLoaded = true;
+          this.commonService.popUpFailed('Something wrong');
+        }
+      );
   }
 }
