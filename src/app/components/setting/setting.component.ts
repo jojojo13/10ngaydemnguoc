@@ -69,6 +69,13 @@ export class SettingComponent implements OnInit {
           'Please check your username,email and old password'
         );
       }
+    },err=>{
+      this.isLoaded = true;
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
+        this.common.popUpFailed(
+          'Please check your username,email and old password'
+        );
     });
   }
   showOrHide(no:number){
