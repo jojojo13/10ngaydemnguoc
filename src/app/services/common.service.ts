@@ -230,4 +230,7 @@ export class CommonService {
   resetPWD(obj:any){
     return this.httpClient.post('https://localhost:44376/api/AccountAPI/ResetpassWord',obj)
   }
+  changePass(obj:any){
+    return this.__http.post('https://localhost:44376/api/AccountAPI/ChangePass',obj)
+  }
 }

@@ -104,7 +104,8 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { CreateContractComponent } from './components/pages/profile-institute-page/create-contract/create-contract.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { ForgotFormComponent } from './components/forgot-form/forgot-form.component';
-import { InterviewResultComponent } from './components/interview-result/interview-result.component'; // a plugin!
+import { InterviewResultComponent } from './components/interview-result/interview-result.component';
+import { Grid2Component } from './components/grid2/grid2.component'; // a plugin!
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -193,6 +194,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SettingComponent,
     ForgotFormComponent,
     InterviewResultComponent,
+    Grid2Component,
   ],
   imports: [
     BrowserModule,

@@ -165,6 +165,8 @@ export class RequestFormComponent implements OnInit {
                 (
                   document?.querySelector('.overlay') as HTMLElement
                 ).style.display = 'none';
+                this.router.navigateByUrl('/yeucautuyendung/xemyeucau?index=1&size=20')
+                
               } else {
                 this.isLoaded = true;
 

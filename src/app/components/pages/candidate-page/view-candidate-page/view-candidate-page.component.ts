@@ -24,7 +24,7 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
   role!: number;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private candidateService: CandidateService,
+    public candidateService: CandidateService,
     private router: Router,
     private fb: FormBuilder,
     private commonService: CommonService,
@@ -51,15 +51,23 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
   }
   loadData() {
     this.clearData();
-  
+
     this.candidateService
       .getAllcandidateByFilter(this.candidateFilter)
       .subscribe(
         (response: any) => {
-        
           this.isLoaded = true;
+
           this.listCandidate = response.data;
+
           this.totalItems = response.totalItem;
+          this.listCandidate.forEach((e: any) => {
+            this.candidateService.listSelectedCandidate.forEach((c: any) => {
+              if (e.id == c.id) {
+                e.isSelected = true;
+              }
+            });
+          });
         },
         (err) => {
           this.isLoaded = true;
@@ -113,22 +121,23 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
     if (this.candidateService.listSelectedCandidate.length <= 0) {
       this.commonService.popUpMessage('Choose at least one record!!!');
     } else {
-      this.candidateService
-        .activeCandidate(this.candidateService.listSelectedCandidate)
-        .subscribe(
-          (res: any) => {
-            if (res.status == true) {
-              this.loadData();
-              this.commonService.popUpSuccess();
-              this.candidateService.listSelectedCandidate = [];
-            } else {
-              this.commonService.popUpFailed('Some records have been appplied');
-            }
-          },
-          (err) => {
+      let newIDS = this.candidateService.listSelectedCandidate.map(
+        (c: any) => c.id
+      );
+      this.candidateService.activeCandidate(newIDS).subscribe(
+        (res: any) => {
+          if (res.status == true) {
+            this.loadData();
+            this.commonService.popUpSuccess();
+            this.candidateService.listSelectedCandidate = [];
+          } else {
             this.commonService.popUpFailed('Some records have been appplied');
           }
-        );
+        },
+        (err) => {
+          this.commonService.popUpFailed('Some records have been appplied');
+        }
+      );
     }
   }
   deactive() {
@@ -155,14 +164,13 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
         },
       }).then((result) => {
         if (result.isConfirmed) {
+          let newIDS = this.candidateService.listSelectedCandidate.map(
+            (c: any) => c.id
+          );
           this.candidateService
-            .deActiveCandidate(
-              result.value as any,
-              this.candidateService.listSelectedCandidate
-            )
+            .deActiveCandidate(result.value as any, newIDS)
             .subscribe(
               (res: any) => {
-            
                 if (res.status == true) {
                   this.loadData();
                   this.commonService.popUpSuccess();
@@ -207,6 +215,7 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
   }
   gty(page: number) {
     this.isLoaded = false;
+  
     this.router.navigateByUrl(
       `/ungvien/xemungvien?index=${page}&size=${this.itemsPerPage}`
     );
@@ -255,17 +264,18 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
       });
   }
   navigateToView(candidate: any) {
-    this.router.navigateByUrl(`ungvien/xemungvien/info?id=${candidate.id}`);
+    
+    this.router.navigateByUrl(`ungvien/xemungvien/info?id=${candidate.id}&prePage=${this.page}`);
   }
   selectedChange(candidate: any, event: any) {
     if (event.target.checked) {
-      this.candidateService.listSelectedCandidate.push(candidate.id);
+      this.candidateService.listSelectedCandidate.push(candidate);
       let wrapper = event.target.parentElement;
       let parent = wrapper.parentElement;
       parent.classList.add('selected');
     } else {
       let index = this.candidateService.listSelectedCandidate.findIndex(
-        (id: number) => id == candidate.id
+        (c: any) => c.id == candidate.id
       );
       let wrapper = event.target.parentElement;
       let parent = wrapper.parentElement;

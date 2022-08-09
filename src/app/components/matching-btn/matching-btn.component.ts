@@ -29,42 +29,58 @@ export class MatchingBtnComponent implements OnInit {
     });
   }
   matchingRequest() {
-    if (!this.requestService.selectedRequestForCandidate) {
-      this.commonService.popUpFailed('Please choose request!!!');
-      return;
-    }
-    if (this.candidateService.listSelectedCandidate.length == 0) {
-      this.commonService.popUpFailed('Please choose at least one candidate!!!');
-      return;
-    }
-    let obj = {
-      requestID: this.requestService.selectedRequestForCandidate,
-      lstCandidateID: this.candidateService.listSelectedCandidate,
-    };
+    let rs = this.candidateService.listSelectedCandidate.every((c: any) => {
+      return c.statusId == 1;
+    });
+    console.log(rs);
+    if (rs) {
+      if (!this.requestService.selectedRequestForCandidate) {
+        this.commonService.popUpFailed('Please choose request!!!');
+        return;
+      }
+      if (this.candidateService.listSelectedCandidate.length == 0) {
+        this.commonService.popUpFailed(
+          'Please choose at least one candidate!!!'
+        );
+        return;
+      }
+      let newIDs = this.candidateService.listSelectedCandidate.map(
+        (c: any) => c.id
+      );
 
-    this.candidateService.matchingCandidate(obj).subscribe(
-      (response: any) => {
-        this.isLoaded = false;
-        (document?.querySelector('.overlay') as HTMLElement).style.display =
-          'block';
-        if (response.status == true) {
-          this.isLoaded = true;
+      let obj = {
+        requestID: this.requestService.selectedRequestForCandidate,
+        lstCandidateID: newIDs,
+      };
+
+      this.candidateService.matchingCandidate(obj).subscribe(
+        (response: any) => {
+          this.isLoaded = false;
           (document?.querySelector('.overlay') as HTMLElement).style.display =
-            'none';
-          this.commonService.popUpSuccess();
-        } else {
+            'block';
+          if (response.status == true) {
+            this.isLoaded = true;
+            (document?.querySelector('.overlay') as HTMLElement).style.display =
+              'none';
+            this.commonService.popUpSuccess();
+            this.requestService.selectedRequestForCandidate = [];
+            this.candidateService.listSelectedCandidate = [];
+          } else {
+            this.isLoaded = true;
+            (document?.querySelector('.overlay') as HTMLElement).style.display =
+              'none';
+            this.commonService.popUpFailed('Matching failed');
+          }
+        },
+        (err) => {
           this.isLoaded = true;
           (document?.querySelector('.overlay') as HTMLElement).style.display =
             'none';
           this.commonService.popUpFailed('Matching failed');
         }
-      },
-      (err) => {
-        this.isLoaded = true;
-        (document?.querySelector('.overlay') as HTMLElement).style.display =
-          'none';
-        this.commonService.popUpFailed('Matching failed');
-      }
-    );
+      );
+    } else {
+      this.commonService.popUpFailed('Only choose active candidate');
+    }
   }
 }

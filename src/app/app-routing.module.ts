@@ -69,7 +69,7 @@ const routes: Routes = [
         canActivate: [AuthorizeGuard],
       },
       {
-        path: 'yeucautuyendung/xemyeucau/:id',
+        path: 'yeucautuyendung/xemyeucau/:id/:page',
         component: ViewOneRequestPageComponent,
         canActivate: [AuthorizeGuard],
       },

@@ -1,9 +1,35 @@
 <div class="content">
+  <app-loader [isLoaded]="isLoaded"></app-loader>
   <h5>Change password</h5>
   <form class="form" [formGroup]="passwordForm">
     <div class="form-group">
-      <label for="">Old password:</label>
-      <input type="password" formControlName="oldPass" />
+      <label for="">Username <span class="text-danger">*</span>:</label>
+      <input type="text" formControlName="username" />
+      <small
+        class="text-danger"
+        *ngIf="passwordForm.controls['username']?.hasError('required')"
+        >Please input username</small
+      >
+    </div>
+    <div class="form-group">
+      <label for="">Email<span class="text-danger">*</span>:</label>
+      <input type="text" formControlName="email" />
+      
+      <small
+        class="text-danger"
+        *ngIf="passwordForm.controls['email']?.hasError('required')"
+        >Please input email</small
+      >
+      <small
+        class="text-danger"
+        *ngIf="passwordForm.controls['email']?.hasError('email')"
+        >Email Invalid</small
+      >
+    </div>
+    <div class="form-group">
+      <label for="">Old password<span class="text-danger">*</span>:</label>
+      <input  [type]="isShow1?'text':'password'" formControlName="oldPass" />
+      <i (click)="showOrHide(1)" class="fa fa-eye" aria-hidden="true"></i>
       <small
         class="text-danger"
         *ngIf="passwordForm.controls['oldPass']?.hasError('required')"
@@ -11,8 +37,9 @@
       >
     </div>
     <div class="form-group">
-      <label for="">New password:</label>
-      <input type="password" formControlName="newPass" />
+      <label for="">New password<span class="text-danger">*</span>:</label>
+      <input  [type]="isShow2?'text':'password'" formControlName="newPass" />
+      <i (click)="showOrHide(2)" class="fa fa-eye" aria-hidden="true"></i>
       <small
         class="text-danger"
         *ngIf="passwordForm.controls['newPass']?.hasError('required')"
@@ -20,15 +47,25 @@
       >
     </div>
     <div class="form-group">
-      <label for="">Confirm password:</label>
-      <input type="password" formControlName="confirmPass" />
+      <label for="">Confirm password<span class="text-danger">*</span>:</label>
+      <input [type]="isShow3?'text':'password'" formControlName="confirmPass" />
+      <i (click)="showOrHide(3)" class="fa fa-eye" aria-hidden="true"></i>
       <small
         class="text-danger"
         *ngIf="passwordForm.controls['confirmPass']?.hasError('required')"
         >Please input comfirm password</small
       >
-      <small class="text-danger" *ngIf="cfp.errors?.['invalid']">Confirm password must match new password</small>
+      <small class="text-danger" *ngIf="cfp.errors?.['invalid']"
+        >Confirm password must match new password</small
+      >
     </div>
-    <button [disabled]="passwordForm.invalid" class="btn btn-primary px-3 py-1 custom ">Change</button>
+    <button
+      [disabled]="passwordForm.invalid"
+      (click)="changePWD()"
+      class="btn btn-primary px-3 py-1 custom"
+    >
+      Change
+    </button>
   </form>
 </div>
+<div class="overlay"></div>

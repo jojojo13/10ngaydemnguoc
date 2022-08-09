@@ -131,6 +131,7 @@
         </tbody>
         <tbody *ngIf="listCandidate">
           <tr
+            [ngClass]="{selected:candidate.isSelected==true}"
             (dblclick)="navigateToView(candidate)"
             *ngFor="
               let candidate of listCandidate
@@ -144,6 +145,7 @@
           >
             <td>
               <input
+              [checked]="candidate.isSelected==true"
                 type="checkbox"
                 (change)="selectedChange(candidate, $event)"
               />

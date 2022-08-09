@@ -13,14 +13,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { RequestFilter } from 'src/app/models/RequestFIlter';
 @Component({
-  selector: 'app-grid',
-  templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss'],
+  selector: 'app-grid2',
+  templateUrl: './grid2.component.html',
+  styleUrls: ['./grid2.component.scss']
 })
-export class GridComponent implements OnInit, OnDestroy {
+export class Grid2Component implements OnInit {
+
   fn: any;
   requestList!: any;
-  itemsPerPage = 20;
+  itemsPerPage = 10;
   totalItems!: number;
   page: number = 1;
   isLoaded: boolean = false;
@@ -44,8 +45,8 @@ export class GridComponent implements OnInit, OnDestroy {
     this.filterObj = new RequestFilter();
     this.isLoaded = false;
 
-    this.page = this.activatedRoute.snapshot.queryParams['index'];
-    this.itemsPerPage = this.activatedRoute.snapshot.queryParams['size'];
+    // this.page = this.activatedRoute.snapshot.queryParams['index'];
+    // this.itemsPerPage = this.activatedRoute.snapshot.queryParams['size'];
 
     this.filterForm = this.fb.group({
       name: [''],
@@ -92,7 +93,7 @@ export class GridComponent implements OnInit, OnDestroy {
     });
   }
   navigateEdit(request: any) {
-    this.router.navigate([`yeucautuyendung/xemyeucau`, request.id, this.page]);
+    this.router.navigate(['yeucautuyendung/xemyeucau', request.id]);
   }
   loadData() {
     this.checktoFormat();
@@ -113,10 +114,8 @@ export class GridComponent implements OnInit, OnDestroy {
     );
   }
 
-  toggleChildren(clicked: HTMLElement, requestID: number, $event: MouseEvent,i:HTMLElement) {
-    i.classList.toggle('rotate');
+  toggleChildren(clicked: HTMLElement, requestID: number, $event: MouseEvent) {
     let isFirstTimeLoading = this.isFirstTimeLoading(clicked);
-
     if (isFirstTimeLoading) {
       this.initLoadingWhenCallAPI();
       this.hideButtonWhenCallAPI($event);
@@ -180,10 +179,8 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   gty(page: number) {
-    this.router.navigateByUrl(
-      `yeucautuyendung/xemyeucau?index=${page}&size=${this.itemsPerPage}`
-    );
-
+   
+    this.page=page
     this.isLoaded = false;
     this.clearData();
 
@@ -295,8 +292,7 @@ export class GridComponent implements OnInit, OnDestroy {
       let td11 = this.renderer.createElement('td');
       let i = this.renderer.createElement('i');
       this.renderer.listen(i, 'click', (evt) => {
-        this.toggleChildren(tr, rq.id, evt,i);
-      
+        this.toggleChildren(tr, rq.id, evt);
       });
       this.addClass(i, 'fa');
       this.addClass(i, 'fa-chevron-down');
@@ -375,5 +371,24 @@ export class GridComponent implements OnInit, OnDestroy {
     nodeList.forEach((node: Element) => [
       parent.nativeElement.childNodes[2].removeChild(node),
     ]);
+
+    // console.log(parent.nativeElement.childNodes[2].childNodes);
+    // let nodeList = parent.nativeElement.childNodes[2].childNodes;
+    // nodeList.forEach((node: Element) => {
+    //   console.log(node);
+
+    // if (node) {
+    //   if (node.classList.contains('children')) {
+    //     console.log('aaaaaaaaha')
+    //     parent.nativeElement.childNodes[2].removeChild(node);
+    //   }
+    // }
+    // });
+    // while (parent.nativeElement.childNodes[2].firstChild) {
+    //   parent.nativeElement.childNodes[2].removeChild(
+    //     parent.nativeElement.childNodes[2].firstChild
+    //   );
+    // }
   }
+
 }
