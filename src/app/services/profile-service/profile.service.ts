@@ -413,5 +413,54 @@ export class ProfileService {
     );
   }
 
+  deactiveContractEmp(arr: Array<number>) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + '/DeActiveContractEmployee',
+      arr, httpOptions1
+    );
+  }
+  activeContractEmp(arr: Array<number>) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + '/ActiveContractEmployee',
+      arr, httpOptions1
+    );
+  }
+  deleteContractEmp(arr: Array<number>) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + '/DeActiveContractType',
+      arr, httpOptions1
+    );
+  }
+
+  insertContractEmp(request: any) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + `/InsertContractEmployee`,
+      request, httpOptions1
+    );
+  }
 
 }

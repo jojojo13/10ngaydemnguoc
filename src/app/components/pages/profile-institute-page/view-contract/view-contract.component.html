@@ -8,12 +8,12 @@
     <div class="action-item" (click)="deleteContractEmp()">
       <p><i class="fa fa-trash"></i>Delete</p>
     </div>
-    <!--<div class="action-item" (click)="activePosition()">
+    <div class="action-item" (click)="activeContractEmp()">
       <p><i class="fa fa-check"></i>Active</p>
     </div>
-    <div class="action-item" (click)="deactivePosition()">
+    <div class="action-item" (click)="deactiveContractEmp()">
       <p><i class="fa fa-ban"></i>Deactive</p>
-    </div>-->
+    </div>
     <div class="action-item" (click)="exportExcel()">
       <p><i class="fa fa-download"></i>Export Excel</p>
     </div>
@@ -116,6 +116,7 @@
           <tbody>
             <tr [ngClass]="{ active: selectedIndexInTable === i }"
                 (click)="chooseItem(item, i)"
+                (dblclick)="navigateToView(item)"
                 *ngFor="
                 let item of contractEmpList
                   | paginate
@@ -127,7 +128,7 @@
                 let i = index
               ">
               <td>
-                <mat-checkbox>
+                <mat-checkbox (change)="updateAllComplete($event, item.id)">
                 </mat-checkbox>
               </td>
               <td>{{ item.name }}</td>

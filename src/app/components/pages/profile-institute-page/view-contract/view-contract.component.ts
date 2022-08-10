@@ -105,8 +105,74 @@ export class ViewContractComponent implements OnInit {
     this.listSelected = [];
   }
   addNewContractEmp() {
-    this.disable = false;
-    this.selectedIndexInTable = null;
+    this.router.navigateByUrl('thietlaphoso/taohopdong?mode=New');
+  }
+
+  activeContractEmp() {
+    if (this.listSelected.length <= 0) {
+      this.commonService.popUpMessage('Choose at least one record!!!');
+    } else {
+      Swal.fire({
+        text: 'Are you sure to active?',
+        iconHtml:
+          ' <img src="../../../assets/images/icons/ques.jpg" width="100px" alt="">',
+        showCancelButton: true,
+        confirmButtonColor: '#309EFC',
+        cancelButtonColor: '#8B94B2',
+        confirmButtonText: 'Confirm',
+        width: '380px',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.profileService.activeContractEmp(this.listSelected).subscribe(
+            (res: any) => {
+              if (res.status == true) {
+                this.loadData(this.page - 1);
+                this.commonService.popUpSuccess();
+                this.listSelected = []
+              } else {
+                this.commonService.popUpFailed('Some records have been appplied');
+              }
+            },
+            (err) => {
+              this.commonService.popUpFailed('Some records have been appplied');
+            }
+          );
+        }
+      });
+    }
+  }
+  deactiveContractEmp() {
+    if (this.listSelected.length <= 0) {
+      this.commonService.popUpMessage('Choose at least one record!!!');
+    } else {
+      Swal.fire({
+        text: 'Are you sure to deactive?',
+        iconHtml:
+          ' <img src="../../../assets/images/icons/ques.jpg" width="100px" alt="">',
+        showCancelButton: true,
+        confirmButtonColor: '#309EFC',
+        cancelButtonColor: '#8B94B2',
+        confirmButtonText: 'Confirm',
+        width: '380px',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.profileService.deactiveContractEmp(this.listSelected).subscribe(
+            (res: any) => {
+              if (res.status == true) {
+                this.loadData(this.page - 1);
+                this.commonService.popUpSuccess();
+                this.listSelected = []
+              } else {
+                this.commonService.popUpFailed('Some records have been appplied');
+              }
+            },
+            (err) => {
+              this.commonService.popUpFailed('Some records have been appplied');
+            }
+          );
+        }
+      });
+    }
   }
 
 
@@ -266,6 +332,16 @@ export class ViewContractComponent implements OnInit {
 
   }
 
+  updateAllComplete($event: any, id: number) {
+    if ((event?.target as any).checked) {
+      this.listSelected.push(id);
+    } else {
+      let index = this.listSelected.findIndex((idObject) => idObject == id);
+      this.listSelected.splice(index, 1);
+    }
+    console.log(this.listSelected);
+  }
+
   gty(page: number) {
     this.router.navigateByUrl(`/thietlaphoso/hopdong?index=${page}&size=${this.itemsPerPage}`);
     this.selectedIndexInTable = null;
@@ -285,5 +361,9 @@ export class ViewContractComponent implements OnInit {
       titleID: this.positionForm.controls['titles'].value,
       status: -1
     };
+  }
+
+  navigateToView(item: any) {
+    this.router.navigateByUrl(`/thietlaphoso/taohopdong?mode=Edit&id=${item.id}`);
   }
 }
