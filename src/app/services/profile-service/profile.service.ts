@@ -462,5 +462,27 @@ export class ProfileService {
       request, httpOptions1
     );
   }
+  modifyContractEmp(request: any) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + `/ModifyContractEmployee`,
+      request, httpOptions1
+    );
+  }
+
+  getContractEmployeeById(id: number) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(this.baseProfileUrl + `/getContractEmployeeById?id=${id}`, {}, httpOptions1)
+  }
 
 }

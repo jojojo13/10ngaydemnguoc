@@ -16,6 +16,7 @@ export class CreateContractComponent implements OnInit {
 
   orgForm!: FormGroup;
   mode!: string;
+  contractEId!: 0;
   today: string = new Date().toISOString().slice(0, 10);
   department: any;
   contractTypeList!: any;
@@ -58,6 +59,8 @@ export class CreateContractComponent implements OnInit {
   }
   ngOnInit() {
     this.mode = this.activatedRoute.snapshot.queryParams["mode"];
+    this.contractEId = this.activatedRoute.snapshot.queryParams["id"];
+
     this.orgForm = this.fb.group({
       orgName: [{ value: '', disabled: true }],
       position: [{ value: '', disabled: true }],
@@ -78,8 +81,24 @@ export class CreateContractComponent implements OnInit {
     if (this.mode == "New") {
 
     }
-    else if (this.mode == "edit") {
+    else if (this.mode == "Edit") {
+      this.getInfoById(this.contractEId);
     }
+  }
+  getInfoById(cId: number) {
+    this.profileServices.getContractEmployeeById(cId).subscribe((response: any) => {
+      this.orgId = response.data.orgnizationId;
+      this.employeeId = response.data.employeeId;
+      this.positionId = response.data.PositionId;
+      this.orgForm.controls['no'].setValue(response.data.contractNo);
+      this.orgForm.controls['orgName'].setValue(response.data.orgnizationName);
+      this.orgForm.controls['position'].setValue(response.data.position);
+      this.orgForm.controls['type'].setValue(response.data.contractTypeId);
+      this.orgForm.controls['emp'].setValue(response.data.name);
+      this.orgForm.controls['effectdate'].setValue(response.data.effectDate);
+      this.orgForm.controls['exDate'].setValue(response.data.expireDate);
+      this.orgForm.controls['notes'].setValue(response.data.note);
+    })
   }
   onSubmit() {
 
@@ -116,7 +135,8 @@ export class CreateContractComponent implements OnInit {
       })
     }
     else {
-      this.organizationService.modifyOrg(obj).subscribe((response: any) => {
+      obj.id = this.contractEId;
+      this.profileServices.modifyContractEmp(obj).subscribe((response: any) => {
         if (response.status == true) {
           this.commonService.popUpSuccess()
         } else {
@@ -135,6 +155,5 @@ export class CreateContractComponent implements OnInit {
       /*      chưa làm*/
     }
   }
-
 }
 
