@@ -1,103 +1,140 @@
-<div class="content" *ngIf="candidateInfor">
-  <ng-container *ngIf="candidateInfor.step3Score == null">
+<div class="content">
+  <app-loader2 [isLoaded]="isLoaded"></app-loader2>
+  <ng-container>
     <form style="position: relative" class="form" [formGroup]="interviewF">
-      <!-- <div class="form-group">
-        <label for="">Interview result</label>
-        <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="favoriteSeason"
-          [ngModelOptions]="{standalone: true}"
+      <div class="interviews" formArrayName="interviews">
+        <div
+          class="item"
+          *ngFor="let interview of interviews.controls; index as i"
         >
-          <mat-radio-button  class="example-radio-button" [value]="0">
-            Failed
-          </mat-radio-button>
-          <mat-radio-button class="example-radio-button" [value]="1">
-            Passed
-          </mat-radio-button>
-        </mat-radio-group>
-        <small class="text-danger" *ngIf="favoriteSeason==-1">Please choose interview result</small>
-      </div> -->
-      <div class="form-group">
-        <div class="err">
-          <label for="">Note interview</label>
-          <textarea cols="30" rows="4" formControlName="noteInterview">
-          </textarea>
+          <div class="form-group" [formGroupName]="i">
+            <div class="title">
+              <h6>{{ i + 1 }}. {{ interview.get("title")?.value }}</h6>
+            </div>
+            <div class="wrap">
+              <label for=""
+                >Interview score<span class="text-danger">*</span>:</label
+              >
+              <input type="number" formControlName="score" />
+              <small
+                class="text-danger"
+                *ngIf="interview.get('score')?.hasError('required')"
+                >Please input interview score</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="interview.get('score')?.hasError('min')"
+                >Score must greater than 0</small
+              >
+            </div>
+          </div>
+          <div class="form-group" [formGroupName]="i">
+            <div class="wrap">
+              <div class="err">
+                <label for="">Note interview</label>
+                <textarea cols="30" rows="3" formControlName="note"> </textarea>
+              </div>
+              <small
+                class="text-danger"
+                *ngIf="interview.get('note')?.hasError('maxlength')"
+                >Input only 80 characters</small
+              >
+            </div>
+          </div>
         </div>
-        <small
-          class="text-danger"
-          *ngIf="interviewF.controls['noteInterview'].hasError('maxlength')"
-          >Input only 150 characters</small
-        >
       </div>
-      <div class="form-group">
-        <label for="">Test score <span class="text-danger">*</span></label>
-        <input type="number" formControlName="testScore" />
-        <small
-          class="text-danger"
-          *ngIf="interviewF.controls['testScore'].hasError('required')"
-          >Please input test score</small
-        >
-        <small
-          class="text-danger"
-          *ngIf="interviewF.controls['testScore'].hasError('min')"
-          >Score must greater than 0</small
-        >
-      </div>
-      <div class="form-group">
-        <div class="err">
-          <label for="">Note test</label>
-          <textarea cols="30" rows="4" formControlName="noteTest"> </textarea>
+      <div class="interviews" formArrayName="tests">
+        <div class="item test" *ngFor="let test of tests.controls; index as i">
+          <div class="form-group" [formGroupName]="i">
+            <div class="title">
+              <h6>{{ i + 1 }}. {{ test.get("title")?.value }}</h6>
+            </div>
+            <div class="wrap">
+              <label for=""
+                >Test score<span class="text-danger">*</span>:</label
+              >
+              <input type="number" formControlName="score" />
+              <small
+                class="text-danger"
+                *ngIf="test.get('score')?.hasError('required')"
+                >Please input test score</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="test.get('score')?.hasError('min')"
+                >Score must greater than 0</small
+              >
+            </div>
+          </div>
+          <div class="form-group" [formGroupName]="i">
+            <div class="wrap">
+              <div class="err">
+                <label for="">Test note</label>
+                <textarea cols="30" rows="3" formControlName="note"> </textarea>
+              </div>
+              <small
+                class="text-danger"
+                *ngIf="test.get('note')?.hasError('maxlength')"
+                >Input only 80 characters</small
+              >
+            </div>
+          </div>
         </div>
+      </div>
 
-        <small
-          class="text-danger"
-          *ngIf="interviewF.controls['noteTest'].hasError('maxlength')"
-          >Input only 150 characters</small
-        >
-      </div>
-      <div class="adc">
+      <div class="adc" [ngClass]="{ hide: result == 0 }">
         <button
-        [disabled]="interviewF.invalid"
-        (click)="saveInterviewTest()"
-        class="btn btn-primary a px-4 py-2"
-      >
-        Save
-      </button>
+          [disabled]="interviewF.invalid"
+          (click)="saveInterviewTest()"
+          class="btn btn-primary a px-4 py-2"
+        >
+          Save
+        </button>
       </div>
-   
     </form>
   </ng-container>
-  <ng-container *ngIf="candidateInfor.step3Score != null">
+  <!-- <ng-container *ngIf="candidateInfor.step3Score != null">
     <div class="abc">
       <h4>Candidate has been interviewed</h4>
       <h6>Test score:{{ candidateInfor.step3Score }}</h6>
       <h6>Test note:{{ candidateInfor.step3TestNote }}</h6>
       <h6>Interview note:{{ candidateInfor.step3InterNote }}</h6>
     </div>
-  </ng-container>
-
-  <table>
+  </ng-container> -->
+  <table *ngIf="listCandidate">
     <thead>
       <tr>
         <th>Number</th>
-        <th>Name</th>
-        <th>Test score</th>
-        <th>Note test</th>
+        <th>Candidate Name</th>
+        <th>Interview Name</th>
+        <th>Score interview</th>
         <th>Note interview</th>
+        <th>Interview Name</th>
+        <th>Score interview</th>
+        <th>Note interview</th>
+        <th>Interview Name</th>
+        <th>Score interview</th>
+        <th>Note interview</th>
+        <!-- <th>Test score</th>
+        <th>Note test</th>
+        <th>Note interview</th> -->
       </tr>
     </thead>
-    <tbody>
+    <tbody style="position: relative; min-height: 300px">
       <tr
         *ngFor="let c of listCandidate; let i = index"
-        [ngClass]="{ highlight: c.candidateID == candidateInfor.candidateId }"
+        (click)="navigate(c.candidateID)"
+        [ngClass]="{highlight:c.candidateID==candidateID}"
       >
         <td>{{ i + 1 }}</td>
         <td>{{ c.name }}</td>
-        <td>{{ c.score }}</td>
-        <td>{{ c.note }}</td>
-        <td>note interview</td>
+        <ng-container *ngFor="let a of c.interView">
+          <td>{{ a.title }}</td>
+          <td>{{ a.score }}</td>
+          <td>{{ a.note }}</td>
+        </ng-container>
       </tr>
     </tbody>
   </table>
 </div>
+<div class="overlay"></div>

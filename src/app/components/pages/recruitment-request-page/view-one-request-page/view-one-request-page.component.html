@@ -1,5 +1,5 @@
 <div class="content">
-  <app-loader [isLoaded]="isLoaded"></app-loader>
+  <app-loader2 [isLoaded]="isLoaded"></app-loader2>
   <div class="content-top">
     <h5>Recruitment request</h5>
     <div class="d-flex custom">
@@ -57,7 +57,7 @@
           >{{ requestService.selectedRequest.comment }}</textarea
         >
         <br>
-        <button type="button" (click)="uploadComment()">Send Note</button>
+        <button type="button" class="btn btn-primary px-3 py-1" (click)="uploadComment()">Save comment</button>
       </ng-container>
     </ng-container>
   </div>

@@ -109,6 +109,8 @@ export class GridComponent implements OnInit, OnDestroy {
       (err) => {
         this.isLoaded = true;
         this.commonService.popUpFailed('Something wrong');
+        // this.router.navigateByUrl('yeucautuyendung/xemyeucau?index=1&size=20')
+        location.href='yeucautuyendung/xemyeucau?index=1&size=20'
       }
     );
   }

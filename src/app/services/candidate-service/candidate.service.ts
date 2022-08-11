@@ -16,10 +16,12 @@ export class CandidateService {
   public otherList: any;
   public stepBehavior: BehaviorSubject<boolean>;
   listSelectedCandidate: any;
+  public matchingBehavior: BehaviorSubject<boolean>;
   constructor(private __http: HttpClient) {
     this.skillBehaviour = new BehaviorSubject<boolean>(false);
     this.detectChange = new BehaviorSubject<boolean>(false);
     this.stepBehavior = new BehaviorSubject<boolean>(false);
+    this.matchingBehavior = new BehaviorSubject<boolean>(false);
     this.listSelectedCandidate = [];
   }
   getAllcandidateByFilter(obj: CandidateFilter) {
@@ -159,13 +161,39 @@ export class CandidateService {
       obj
     );
   }
-  saveResultInterview(obj:any){
-    return this.__http.post('https://localhost:44376/api/CandidateAPI/SetStep3CandidatePV',obj)
+  saveResultInterview(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/CandidateAPI/SetStep3CandidatePV',
+      obj
+    );
   }
-  getAllCandidateStep3(id:number){
-    return this.__http.post(`https://localhost:44376/api/CandidateAPI/GetAllResultStep3?requestID=${id}`,{})
+  getAllCandidateStep3(id: number) {
+    return this.__http.post(
+      `https://localhost:44376/api/CandidateAPI/GetAllResultStep3?requestID=${id}`,
+      {}
+    );
   }
-  pass3tp4(obj:any){
-    return this.__http.post('https://localhost:44376/api/CandidateAPI/PassStep3to4',obj)
+  pass3tp4(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/CandidateAPI/PassStep3to4',
+      obj
+    );
+  }
+  getAllEventCandidate(canID: number, rqID: number) {
+    return this.__http.post(
+      `https://localhost:44376/api/CandidateAPI/ViewStep3RcEvent?candidate=${canID}&request=${rqID}`,
+      {}
+    );
+  }
+
+  setStep4(obj: any) {
+    return this.__http.post(
+      'https://localhost:44376/api/CandidateAPI/SetStep4CandidatePV',
+      obj
+    );
+  }
+
+  setStep5(obj:any){
+    return this.__http.post('https://localhost:44376/api/CandidateAPI/SetStep5CandidatePV',obj)
   }
 }

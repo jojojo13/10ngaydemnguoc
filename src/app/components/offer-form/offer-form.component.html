@@ -1,0 +1,56 @@
+<div class="content">
+  <h5>Offer stage</h5>
+  <ng-container *ngIf="infor && !infor.offer && infor.result != 0">
+    <form action="" class="content-form" [formGroup]="offerForm">
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Candidate offer:</label>
+          <input type="text" formControlName="offerDeal" />
+        </div>
+        <small *ngIf="offerForm.get('offerDeal')?.hasError('required')"
+          >Please input offer</small
+        >
+        <small *ngIf="offerForm.get('offerDeal')?.hasError('pattern')"
+          >Offer must be interger</small
+        >
+      </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Note offer:</label>
+          <textarea
+            placeholder="write your note"
+            rows="3"
+            formControlName="note"
+          ></textarea>
+        </div>
+        <small *ngIf="offerForm.get('note')?.hasError('maxlength')"
+          >Please enter less than 100 characters</small
+        >
+      </div>
+    </form>
+    <div class="action">
+      <button (click)="reviewStep4(0)" class="btn btn-danger px-5 mx-3 py-1">
+        Fail
+      </button>
+      <button [disabled]="offerForm.invalid" (click)="reviewStep4(1)" class="btn btn-success px-5 mx-3 py-1">
+        Pass
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="infor && infor.offer && infor.result != 0">
+    <div class="offer">
+      <h6 class="text-success">Offer approved</h6>
+      <p>Offer:{{ infor.offer }} VND</p>
+      <p>Note:{{ infor.noteOffer }}</p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="infor && infor.result == 0 && infor.stepNow == 4">
+    <div class="offer">
+      <h6 class="text-danger">Offer denied</h6>
+      <p>Offer:{{ infor.offer }} VND</p>
+      <p>Note:{{ infor.noteOffer }}</p>
+    </div>
+  </ng-container>
+</div>
+<app-loader2 [isLoaded]="isLoaded"></app-loader2>
+<div class="overlay"></div>

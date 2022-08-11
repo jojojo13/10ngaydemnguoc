@@ -35,7 +35,7 @@
           <span *ngIf="stepNow==2" class="staging">Setup Interview</span>
           <span *ngIf="stepNow==3" class="staging">Interview result</span>
           <span *ngIf="stepNow==4" class="staging">Offer</span>
-          <span *ngIf="stepNow==5" class="staging">Chua biet lam gi</span>
+          <span *ngIf="stepNow==5" class="staging">Onboard</span>
           <div class="application-heading-stages-box">
             <div class="application-heading-stages-box-item"[ngClass]="{'isnow':stepNow==1,passed:stepNow>1,notyet:stepNow<1,fail:candidateInfor.result==0&&stepNow==1 }">
                 <span>1</span>
@@ -80,15 +80,15 @@
                 </div>
                 <div class="content-list-item" #step5 [ngClass]="{'highlight':index==5,passed:stepNow>5,notyet:stepNow<5,fail:candidateInfor.result==0&&stepNow==5}" (click)="chooseStep(5,step5)">
                     <h6 class="content-list-item__ttl">Stage 5</h6>
-                    <p lass="content-list-item__stl">Contract</p>
+                    <p lass="content-list-item__stl">Onboard</p>
                 </div>
             </div>
         </div>
     </div>
   </div>
 </div>
-<ng-container *ngIf="index==2">
-  <app-calendar></app-calendar>
+<ng-container *ngIf="index==2 ">
+  <app-calendar [infor]="candidateInfor"></app-calendar>
 </ng-container>
 <div style="position: relative;" *ngIf="index==1">
 <app-cv-candidate (src)="getPDFsrc($event)" [noAttach]="true"></app-cv-candidate>
@@ -98,10 +98,18 @@
 </div>
 </div>
 <ng-container  *ngIf="index==3 ">
-  <app-interview-result></app-interview-result>
-  <div class="action" *ngIf="(stepNow==3) &&candidateInfor.step3Score!=null ">
+  <app-interview-result [result]="candidateInfor.result"></app-interview-result>
+  <div class="action" *ngIf="(stepNow==3) &&candidateInfor.result!=0 ">
     <button (click)="reviewStep3(0)" class="btn btn-danger px-5 mx-3">Fail</button>
     <button (click)="reviewStep3(1)" class="btn btn-success px-5 mx-3">Pass</button>
   </div>
+</ng-container>
+<ng-container  *ngIf="index==4 ">
+  <app-offer-form [infor]="candidateInfor"></app-offer-form>
+
+</ng-container>
+<ng-container  *ngIf="index==5 ">
+  <app-onboard></app-onboard>
+
 </ng-container>
 <div class="overlay"></div>

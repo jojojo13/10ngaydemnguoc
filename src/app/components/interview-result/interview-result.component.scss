@@ -1,24 +1,48 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("../../../assets/DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h6 {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #001246;
+}
 .content {
-  display: flex;
   margin-left: 30px;
   margin-top: 30px;
-  
-  justify-content: space-between;
+
   .form {
-    width: 380px;
+    font-family: "Poppins";
+    width: 1000px;
     max-height: 500px;
     &-group {
-      margin-top: 10px;
       label {
-        width: 160px;
+        width: 130px;
+        font-size: 14px;
+        font-family: "Poppins";
       }
       input,
       textarea {
-        width: 220px;
+        width: 160px;
+        font-size: 14px;
+        font-family: "Poppins";
       }
       small {
         display: block;
-        margin-left: 160px;
+        margin-left: 130px;
+        font-family: "Poppins";
       }
     }
   }
@@ -35,6 +59,8 @@
   width: 100%;
   justify-content: end;
   margin-top: 30px;
+  margin-right: 30px;
+  font-family: "Poppins";
 }
 .cus {
   width: 600px;
@@ -44,6 +70,7 @@
   }
 }
 table {
+  margin-top: 30px;
   font-size: 14px;
   margin-right: 40px;
   table-layout: fixed;
@@ -86,14 +113,61 @@ table {
     }
   }
 }
-.abc{
-    display: flex;
-    flex-direction: column;
+tbody {
+  tr {
+    min-width: 100%;
+    &:hover {
+      background-color: #b8e9ff;
+    }
+  }
 }
-.highlight{
-    background-color: #B8E9FF;
+.abc {
+  display: flex;
+  flex-direction: column;
 }
-.err{
-    display: flex;
-    align-items: center;
+.highlight {
+  background-color: #b8e9ff;
+}
+.err {
+  display: flex;
+  align-items: center;
+}
+.interviews {
+  display: flex;
+
+  .item {
+    margin-right: 30px;
+    background-color: #79ec7d;
+    width: 320px;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin-top: 20px;
+  }
+  .test {
+    background-color: #a2d9fd;
+  }
+}
+.title {
+  padding: 5px 10px;
+  margin-bottom: 0;
+  border-bottom: 2px solid black;
+}
+.wrap {
+  padding: 10px;
+}
+.hide {
+  display: none;
+}
+.overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
 }
