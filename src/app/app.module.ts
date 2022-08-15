@@ -114,6 +114,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ReportPageComponent } from './components/pages/report-page/report-page.component';
 import { ReportStep1Component } from './components/pages/report-page/report-step1/report-step1.component';
 import { ReportStep3Component } from './components/pages/report-page/report-step3/report-step3.component';
+import { RpNotPassComponent } from './components/pages/report-page/rp-not-pass/rp-not-pass.component';
+import { ReportStep5Component } from './components/pages/report-page/report-step5/report-step5.component';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -210,6 +212,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ReportPageComponent,
     ReportStep1Component,
     ReportStep3Component,
+    RpNotPassComponent,
+    ReportStep5Component,
     
   ],
   imports: [

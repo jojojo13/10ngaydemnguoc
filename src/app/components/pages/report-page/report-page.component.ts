@@ -10,6 +10,7 @@ export class ReportPageComponent implements OnInit {
   route = { name: 'View report', link: 'ungvien' };
   updateFlag = false;
   highcharts = Highcharts;
+  isLoaded=false
   chartOptions: Highcharts.Options = {
     chart: {
       type: 'column',
@@ -81,6 +82,7 @@ export class ReportPageComponent implements OnInit {
   ngOnInit(): void {
     let seriData1: any;
     let seriData2: any;
+    this.isLoaded=false
     this.commonService.getReportByYear(2022).subscribe((responese: any) => {
       seriData1 = responese.data.map((item: any) => {
         return item.quantity;
@@ -102,6 +104,7 @@ export class ReportPageComponent implements OnInit {
           },
         ];
         this.updateFlag = true;
+        this.isLoaded=true
       });
     });
   }

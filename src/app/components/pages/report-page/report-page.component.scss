@@ -9,3 +9,16 @@
         margin-bottom: 10px;
     }
 }
+.list{
+    display: flex;
+    .content-report{
+        margin: 20px 0;
+        width: 50%;
+    }
+}
+.c{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}

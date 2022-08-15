@@ -243,4 +243,10 @@ export class CommonService {
   getInStep3(){
     return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportStep3')
   }
+  getInStep5(){
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportPassStep5')
+  }
+  getRpNotPass(){
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportNotPass')
+  }
 }

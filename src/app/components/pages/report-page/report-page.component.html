@@ -1,18 +1,32 @@
 <div class="content">
   <h5>Report</h5>
   <app-back-btn [route]="route"></app-back-btn>
-  <highcharts-chart
-    [(update)]="updateFlag"
-    [Highcharts]="highcharts"
-    [options]="chartOptions"
-    [oneToOne]="true"
-   
-  >
-  </highcharts-chart>
-  <!-- <div class="content-report">
-<app-report-step1></app-report-step1>
+  <div class="list c">
+    <app-loader [isLoaded]="isLoaded"></app-loader>
+    <highcharts-chart
+      [(update)]="updateFlag"
+      [Highcharts]="highcharts"
+      [options]="chartOptions"
+      [oneToOne]="true"
+    >
+    </highcharts-chart>
   </div>
-  <div class="content-report">
-    <app-report-step3></app-report-step3>
-      </div> -->
+
+  <div class="list">
+    <div class="content-report">
+      <app-report-step1></app-report-step1>
+    </div>
+    <div class="content-report">
+      <app-report-step5></app-report-step5>
+    </div>
+  </div>
+  <div class="list">
+    <div class="content-report">
+      <app-report-step3></app-report-step3>
+    </div>
+    <div class="content-report">
+      <app-rp-not-pass></app-rp-not-pass>
+    </div>
+  </div>
+  <div class="list c"></div>
 </div>

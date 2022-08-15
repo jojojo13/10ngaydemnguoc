@@ -10,14 +10,17 @@ import { CommonService } from 'src/app/services/common.service';
 export class ReportStep1Component implements OnInit {
   updateFlag = false;
   highcharts = Highcharts;
+  isLoaded=false
   chartOptions: Highcharts.Options = {
     chart: {
       plotShadow: false,
       type: 'pie',
+      width: 450,
+      height: 350,
     },
 
     title: {
-      text: 'Number of CV pased in review CV',
+      text: 'Applications in CV review',
       style: {
         fontFamily: 'Poppins',
         fontWeight: '600',
@@ -49,19 +52,22 @@ export class ReportStep1Component implements OnInit {
   constructor(private commonService: CommonService) {}
 
   ngOnInit(): void {
+    this.isLoaded=false
     this.commonService.getSucessStep1().subscribe((response: any) => {
-      console.log();
+ 
       this.chartOptions.series = [
         {
-          name: 'Applications in CV',
+          name: 'Applications',
           type: 'pie',
           data: [
-            { name: 'Cv pased', y: response.data.resultPass, color: '#36CA68' },
-            { name: 'Total cv received', y: response.data.total },
+            { name: 'Application pased', y: response.data.resultPass },
+            { name: 'Application failed', y: response.data.resultNotPass },
+            { name: 'Others', y: response.data.chuaTH },
           ],
         },
       ];
       this.updateFlag = true;
+      this.isLoaded=true
     });
   }
 }

@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import * as Highcharts from 'highcharts';
 @Component({
-  selector: 'app-report-step3',
-  templateUrl: './report-step3.component.html',
-  styleUrls: ['./report-step3.component.scss'],
+  selector: 'app-report-step5',
+  templateUrl: './report-step5.component.html',
+  styleUrls: ['./report-step5.component.scss']
 })
-export class ReportStep3Component implements OnInit {
+export class ReportStep5Component implements OnInit {
   updateFlag = false;
   highcharts = Highcharts;
-  isLoaded=false
   chartOptions: Highcharts.Options = {
     chart: {
       plotShadow: false,
@@ -17,6 +16,7 @@ export class ReportStep3Component implements OnInit {
       width: 450,
       height: 350,
     },
+      
 
     title: {
       text: 'Applications in onboard process',
@@ -47,13 +47,14 @@ export class ReportStep3Component implements OnInit {
     },
     series: [],
   };
+  isLoaded=false;
 
   constructor(private commonService: CommonService) {}
 
   ngOnInit(): void {
     this.isLoaded=false
-    this.commonService.getInStep3().subscribe((response: any) => {
-   
+    this.commonService.getInStep5().subscribe((response: any) => {
+      console.log();
       this.chartOptions.series = [
         {
           name: 'Applications',

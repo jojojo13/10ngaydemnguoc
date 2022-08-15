@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'src/app/services/common.service';
 import * as Highcharts from 'highcharts';
+import { CommonService } from 'src/app/services/common.service';
 @Component({
-  selector: 'app-report-step3',
-  templateUrl: './report-step3.component.html',
-  styleUrls: ['./report-step3.component.scss'],
+  selector: 'app-rp-not-pass',
+  templateUrl: './rp-not-pass.component.html',
+  styleUrls: ['./rp-not-pass.component.scss'],
 })
-export class ReportStep3Component implements OnInit {
+export class RpNotPassComponent implements OnInit {
   updateFlag = false;
   highcharts = Highcharts;
   isLoaded=false
@@ -19,7 +19,7 @@ export class ReportStep3Component implements OnInit {
     },
 
     title: {
-      text: 'Applications in onboard process',
+      text: 'Applications failed in recruitment process',
       style: {
         fontFamily: 'Poppins',
         fontWeight: '600',
@@ -52,16 +52,29 @@ export class ReportStep3Component implements OnInit {
 
   ngOnInit(): void {
     this.isLoaded=false
-    this.commonService.getInStep3().subscribe((response: any) => {
-   
+    this.commonService.getRpNotPass().subscribe((response: any) => {
+      console.log();
       this.chartOptions.series = [
         {
-          name: 'Applications',
+          name: 'Applications failed',
           type: 'pie',
           data: [
-            { name: 'Application pased', y: response.data.resultPass },
-            { name: 'Application failed', y: response.data.resultNotPass },
-            { name: 'Others', y: response.data.chuaTH },
+            {
+              name: 'Applications failed in cv review',
+              y: response.data[0].quantity,
+            },
+            {
+              name: 'Applications failed in interview',
+              y: response.data[1].quantity,
+            },
+            {
+              name: 'Applications failed in offer',
+              y: response.data[2].quantity,
+            },
+            {
+              name: 'Applications failed in onboard',
+              y: response.data[3].quantity,
+            },
           ],
         },
       ];
