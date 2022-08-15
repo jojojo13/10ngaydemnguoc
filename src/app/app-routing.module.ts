@@ -41,6 +41,7 @@ import { RequestInApplicationsComponent } from './components/pages/candidate-pag
 import { CreateContractComponent } from './components/pages/profile-institute-page/create-contract/create-contract.component';
 import { SettingComponent } from './components/setting/setting.component';
 import { ForgotFormComponent } from './components/forgot-form/forgot-form.component';
+import { NotfoundPagesComponent } from './components/pages/notfound-pages/notfound-pages.component';
 
 const routes: Routes = [
   {
@@ -233,6 +234,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'forgot', component: ForgotFormComponent },
+  {path: '404', component: NotfoundPagesComponent},
+ {path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({

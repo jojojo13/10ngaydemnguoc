@@ -46,7 +46,7 @@ export class FormRequestComponent implements OnInit {
 
   ngOnInit(): void {
     (document?.querySelector('.overlay') as HTMLElement).style.display =
-    'block';
+      'block';
 
     let id = this.route.snapshot.paramMap.get('id') as string;
     this.requestForm = this.fb.group({
@@ -79,7 +79,7 @@ export class FormRequestComponent implements OnInit {
         this.requestForm.controls['name'].setValue(rq.name);
         this.requestForm.controls['type'].setValue(rq.typeID);
         this.requestForm.controls['dep'].setValue(rq.orgnizationName);
-       
+
         this.requestForm.controls['projects'].setValue(rq.projectID);
         this.requestForm.controls['position'].setValue(rq.positionID);
         this.requestForm.controls['quantity'].setValue(rq.quantity);
@@ -93,18 +93,15 @@ export class FormRequestComponent implements OnInit {
         this.managerID = rq.signID;
         this.renderPosition(this.departmentID);
         this.disableALL();
-       
       });
-   
 
-      (document?.querySelector('.overlay') as HTMLElement).style.display =
-      'none';
+    (document?.querySelector('.overlay') as HTMLElement).style.display = 'none';
     this.loadData();
   }
   onSubmit() {
     (document?.querySelector('.overlay') as HTMLElement).style.display =
       'block';
-    this.isLoaded = true;
+    this.isLoaded = false;
     let request = {
       id: this.request.id,
       name: this.requestForm.controls['name'].value,
@@ -133,7 +130,7 @@ export class FormRequestComponent implements OnInit {
       updateDate: '2022-06-23T08:45:38.630Z',
       hrInchange: 2,
     };
-    console.log(request);
+
     Swal.fire({
       text: 'Are you sure to edit this request?',
       iconHtml:
@@ -144,15 +141,20 @@ export class FormRequestComponent implements OnInit {
       confirmButtonText: 'Confirm',
       width: '380px',
     }).then((result) => {
-
-      this.requestService.checkTotal(this.requestService.selectedRequest.id, this.requestForm.controls['quantity'].value).subscribe(
-        (response: any) => {
+      this.requestService
+        .checkTotal(
+          this.requestService.selectedRequest.id,
+          this.requestForm.controls['quantity'].value
+        )
+        .subscribe((response: any) => {
           if (response.status == false) {
-            Swal.fire('Total quantity must be less than quantity of request parent');
+            this.isLoaded = true;
+            Swal.fire(
+              'Total quantity must be less than quantity of request parent'
+            );
             (document?.querySelector('.overlay') as HTMLElement).style.display =
               'none';
-          }
-          else {
+          } else {
             if (result.isConfirmed) {
               console.log('confirm');
               this.requestService.editRequest(request).subscribe(
@@ -173,8 +175,9 @@ export class FormRequestComponent implements OnInit {
                   }
                 },
                 (err: any) => {
-                  (document?.querySelector('.overlay') as HTMLElement).style.display =
-                    'none';
+                  (
+                    document?.querySelector('.overlay') as HTMLElement
+                  ).style.display = 'none';
                   this.commonService.popUpFailed('Something wrong');
                   this.isLoaded = true;
                 }
@@ -202,7 +205,7 @@ export class FormRequestComponent implements OnInit {
     this.commonService
       .getOtherList('RC_PROJECT', 0, 9999)
       .subscribe((response: any) => {
-        console.log(response )
+        console.log(response);
         this.projects = response.data;
       });
   }
@@ -247,7 +250,7 @@ export class FormRequestComponent implements OnInit {
       this.requestForm.controls['office'].setValue(response.data.office);
       this.managerID = response.data.managerID;
     });
-    console.log(this.requestForm)
+    console.log(this.requestForm);
   }
   renderPosition(id: number) {
     this.orgService.getPositionByOrgID(id).subscribe(

@@ -50,29 +50,31 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
     this.loadData();
   }
   loadData() {
-    this.clearData();
+    this.candidateService.matchingBehavior.subscribe((change) => {
+      this.clearData();
 
-    this.candidateService
-      .getAllcandidateByFilter(this.candidateFilter)
-      .subscribe(
-        (response: any) => {
-          this.isLoaded = true;
+      this.candidateService
+        .getAllcandidateByFilter(this.candidateFilter)
+        .subscribe(
+          (response: any) => {
+            this.isLoaded = true;
 
-          this.listCandidate = response.data;
+            this.listCandidate = response.data;
 
-          this.totalItems = response.totalItem;
-          this.listCandidate.forEach((e: any) => {
-            this.candidateService.listSelectedCandidate.forEach((c: any) => {
-              if (e.id == c.id) {
-                e.isSelected = true;
-              }
+            this.totalItems = response.totalItem;
+            this.listCandidate.forEach((e: any) => {
+              this.candidateService.listSelectedCandidate.forEach((c: any) => {
+                if (e.id == c.id) {
+                  e.isSelected = true;
+                }
+              });
             });
-          });
-        },
-        (err) => {
-          this.isLoaded = true;
-        }
-      );
+          },
+          (err) => {
+            this.isLoaded = true;
+          }
+        );
+    });
   }
 
   addNewCandidate() {
@@ -215,7 +217,7 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
   }
   gty(page: number) {
     this.isLoaded = false;
-  
+
     this.router.navigateByUrl(
       `/ungvien/xemungvien?index=${page}&size=${this.itemsPerPage}`
     );
@@ -264,8 +266,9 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
       });
   }
   navigateToView(candidate: any) {
-    
-    this.router.navigateByUrl(`ungvien/xemungvien/info?id=${candidate.id}&prePage=${this.page}`);
+    this.router.navigateByUrl(
+      `ungvien/xemungvien/info?id=${candidate.id}&prePage=${this.page}`
+    );
   }
   selectedChange(candidate: any, event: any) {
     if (event.target.checked) {

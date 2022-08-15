@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { FileUpload } from 'src/app/models/FileUpload';
 import { CandidateService } from 'src/app/services/candidate-service/candidate.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -27,7 +27,8 @@ export class GeneralInfCandidateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private candidateService: CandidateService,
     private commonService: CommonService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -35,25 +36,33 @@ export class GeneralInfCandidateComponent implements OnInit {
     this.candidateService
       .getCandidateById(this.id)
       .subscribe((response: any) => {
-        this.uvCode = response.data[0].code;
-        this.loadCV();
-        this.candidate = response.data[0];
-        let words = this.candidate.fullName.trim().split(' ');
-        this.letter = words[words.length - 1].charAt(0);
-        if (response.data[0].language.length > 0) {
-          this.languageList = response.data[0].language[0].child;
+        if(response.status==true){
+          this.uvCode = response.data[0].code;
+    
+          this.loadCV();
+          this.candidate = response.data[0];
+          let words = this.candidate.fullName.trim().split(' ');
+          this.letter = words[words.length - 1].charAt(0);
+          if (response.data[0].language.length > 0) {
+            this.languageList = response.data[0].language[0].child;
+          }
+          if (response.data[0].skillSheet.length > 0) {
+            this.skillSheetList = response.data[0].skillSheet;
+          }
+          if (response.data[0].domain.length > 0) {
+            this.expList = response.data[0].domain;
+          }
+          if (response.data[0].outSource.length > 0) {
+            this.outSource = response.data[0].outSource;
+          }
+        }else{
+          this.commonService.popUpFailed('Cannot find candidate')
         }
-        if (response.data[0].skillSheet.length > 0) {
-          this.skillSheetList = response.data[0].skillSheet;
-        }
-        if (response.data[0].domain.length > 0) {
-          this.expList = response.data[0].domain;
-        }
-        if (response.data[0].outSource.length > 0) {
-          this.outSource = response.data[0].outSource;
-        }
+      
 
         this.isLoaded = true;
+      },(err)=>{
+        this.router.navigateByUrl('/404')
       });
   }
   selectFile(event: any): void {

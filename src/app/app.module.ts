@@ -105,7 +105,11 @@ import { CreateContractComponent } from './components/pages/profile-institute-pa
 import { SettingComponent } from './components/setting/setting.component';
 import { ForgotFormComponent } from './components/forgot-form/forgot-form.component';
 import { InterviewResultComponent } from './components/interview-result/interview-result.component';
-import { Grid2Component } from './components/grid2/grid2.component'; // a plugin!
+import { Grid2Component } from './components/grid2/grid2.component';
+import { NotfoundPagesComponent } from './components/pages/notfound-pages/notfound-pages.component';
+import { Loader2Component } from './components/loader2/loader2.component';
+import { OfferFormComponent } from './components/offer-form/offer-form.component';
+import { OnboardComponent } from './components/onboard/onboard.component'; // a plugin!
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -195,6 +199,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ForgotFormComponent,
     InterviewResultComponent,
     Grid2Component,
+    NotfoundPagesComponent,
+    Loader2Component,
+    OfferFormComponent,
+    OnboardComponent,
   ],
   imports: [
     BrowserModule,

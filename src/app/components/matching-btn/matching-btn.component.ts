@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RequestService } from 'src/app/services/request-service/request.service';
 import { CandidateService } from 'src/app/services/candidate-service/candidate.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -18,7 +18,7 @@ export class MatchingBtnComponent implements OnInit {
 
     private requestService: RequestService,
     private candidateService: CandidateService,
-    private commonService: CommonService
+    private commonService: CommonService,
   ) {}
   ngOnInit(): void {}
   popupRequest() {
@@ -65,6 +65,9 @@ export class MatchingBtnComponent implements OnInit {
             this.commonService.popUpSuccess();
             this.requestService.selectedRequestForCandidate = [];
             this.candidateService.listSelectedCandidate = [];
+          
+            this.candidateService.matchingBehavior.next(true)
+
           } else {
             this.isLoaded = true;
             (document?.querySelector('.overlay') as HTMLElement).style.display =
