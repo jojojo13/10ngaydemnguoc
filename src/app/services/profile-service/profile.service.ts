@@ -398,6 +398,19 @@ export class ProfileService {
     return this.__http.post(this.baseProfileUrl + `/getProfileOfEmployee?empID=${id}`, {}, httpOptions1)
   }
 
+  modifyEmployee(request: any) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + `/ModifyEmployee`,
+      request, httpOptions1
+    );
+  }
+
 
 
   GetContractEmployeeByFilter(request: any) {

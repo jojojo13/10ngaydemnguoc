@@ -102,7 +102,7 @@ export class CreateContractComponent implements OnInit {
   }
   onSubmit() {
 
-    let exdate = this.orgForm.controls['exDate'].value == '' ? '1000-01-01T15:37:54.773Z' : this.orgForm.controls['dissdate'].value;
+    let exdate = this.orgForm.controls['exDate'].value == '' ? '1000-01-01T15:37:54.773Z' : this.orgForm.controls['exDate'].value;
     let obj = {
       id: 0,
       orgnizationName: "",
