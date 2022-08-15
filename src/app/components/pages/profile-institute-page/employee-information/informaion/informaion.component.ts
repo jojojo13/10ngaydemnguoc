@@ -167,7 +167,7 @@ export class InformaionComponent implements OnInit {
     this.orgForm = this.fb.group({
       empid: [{ value: '', disabled: true }, [Validators.required]],
       orgName: [{ value: '', disabled: true }, [Validators.required]],
-      empfirst: ['', [Validators.required]],
+      empfirst: [{ value: '', disabled: true }, [Validators.required]],
       gender: ['', [Validators.required]],
       email: [''],
       quoctich: [''],
@@ -179,9 +179,9 @@ export class InformaionComponent implements OnInit {
       deegree: [''],
       language1: [''],
       language2: [''],
-      empLast: ['', [Validators.required]],
+      empLast: [{ value: '', disabled: true }, [Validators.required]],
       dob: ['', [Validators.required]],
-      cmnd: [''],
+      cmnd: [{ value: '', disabled: true }],
       resNation: [''],
       resWard: [''],
       noiNation: ['', [Validators.required]],
@@ -191,7 +191,7 @@ export class InformaionComponent implements OnInit {
       skill1: [''],
       skill2: [''],
       status: [{ value: '', disabled: true }, [Validators.required]],
-      empFullName: ['', [Validators.required]],
+      empFullName: [{ value: '', disabled: true }, [Validators.required]],
       provinces: [''],
       resProvince: [''],
       noiProvince: ['', [Validators.required]],
@@ -199,12 +199,12 @@ export class InformaionComponent implements OnInit {
       infl: [''],
       score1: [''],
       score2: [''],
-      cmndPlace: [''],
+      cmndPlace: [{ value: '', disabled: true }],
       phone: ['', [Validators.required]],
       workEmail: [{ value: '', disabled: true }, [Validators.required]],
-      joinDate: ['', [Validators.required]],
-      outDate: [''],
-      position: [''],
+      joinDate: [{ value: '', disabled: true }, [Validators.required]],
+      outDate: [{ value: '', disabled: true }],
+      position: [{ value: '', disabled: true }],
       ethnic: [''],
     });
     this.profileServices.getNationList().subscribe((res: any) => {
@@ -253,15 +253,50 @@ export class InformaionComponent implements OnInit {
     this.getEmpInformation()
   }
   onSubmit() {
-    let nationId = this.orgForm.controls['nations'].value == '' ? 0 : this.orgForm.controls['nations'].value;
-    let provinceId = this.orgForm.controls['provinces'].value == '' ? 0 : this.orgForm.controls['provinces'].value;
-    let districtId = this.orgForm.controls['districts'].value == '' ? 0 : this.orgForm.controls['districts'].value;
-    let wardId = this.orgForm.controls['wards'].value == '' ? 0 : this.orgForm.controls['wards'].value;
-    let disDate = this.orgForm.controls['dissdate'].value == '' ? '1000-01-01T15:37:54.773Z' : this.orgForm.controls['dissdate'].value;
-    let mngID = this.managerId == null ? 0 : this.managerId
     let obj = {
-      
-    };
+      id: this.empId,
+      gender: this.orgForm.controls['gender'].value,
+      dob: this.orgForm.controls['dob'].value,
+      phoneNumber: this.orgForm.controls['phone'].value,
+      email: this.orgForm.controls['email'].value,
+      danToc: this.orgForm.controls['ethnic'].value,
+      quocTich: this.orgForm.controls['quoctich'].value,
+      hoKhau: this.orgForm.controls['hokhau'].value,
+      nationHK: this.orgForm.controls['resNation'].value,
+      provinceHK: this.orgForm.controls['resProvince'].value,
+      districtHK: this.orgForm.controls['resDistrict'].value,
+      wardHK: this.orgForm.controls['resWard'].value,
+      noiO: this.orgForm.controls['noio'].value,
+      nationNoiO: this.orgForm.controls['noiNation'].value,
+      provinceNoiO: this.orgForm.controls['noiProvince'].value,
+      districtNoiO: this.orgForm.controls['noiDistrict'].value,
+      wardNoiO: this.orgForm.controls['noiWard'].value,
+      learningLV: this.orgForm.controls['llvel'].value,
+      school: this.orgForm.controls['school'].value,
+      major: this.orgForm.controls['major'].value,
+      degree: this.orgForm.controls['deegree'].value,
+      award: this.orgForm.controls['award'].value,
+      informaticLV: this.orgForm.controls['infl'].value,
+      language1: this.orgForm.controls['language1'].value,
+      language2: this.orgForm.controls['language2'].value,
+      skill1: this.orgForm.controls['skill1'].value,
+      skill2: this.orgForm.controls['skill2'].value,
+      score1: this.orgForm.controls['score1'].value,
+      score2: this.orgForm.controls['score2'].value
+    }
+
+    this.profileServices.modifyEmployee(obj).subscribe((response: any) => {
+      if (response.data == true) {
+        this.commonService.popUpSuccess()
+      } else {
+        this.commonService.popUpFailed('Modify Failed')
+      }
+    }, (err) => {
+      this.commonService.popUpFailed('Modify Failed')
+    })
+
+
+
   }
 
   clearInputField() {
