@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrganizationService } from 'src/app/services/organization-service/organization.service';
@@ -11,10 +12,12 @@ export class ViewOrganizationComponent implements OnInit {
   route = { name: 'View Organization', link: '/thietlaptochuc' };
   isLoaded = false;
   organizationList!: any;
+  url = '/thietlaptochuc/tochuc?orgId=0';
   constructor(
     private orgService: OrganizationService,
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -54,10 +57,25 @@ export class ViewOrganizationComponent implements OnInit {
         p.appendChild(folderIcon);
         const text = this.renderer.createText(org.name);
         //add click listener
-        this.renderer.listen(p, 'dblclick', (evt) => {
+        this.renderer.listen(p, 'click', (evt) => {
           // let department = { id: org.id, name: org.name };
           // this.department.emit(department);
-          this.router.navigateByUrl(`/thietlaptochuc/tochuc?orgId=${org.id}`);
+
+          if (evt.target.classList.contains('isSelected')) {
+            evt.target.classList.remove('isSelected');
+            this.location.replaceState(`/thietlaptochuc/tochuc?orgId=0`);
+            this.url='/thietlaptochuc/tochuc?orgId=0'
+          } else {
+            let list = document.querySelectorAll('p');
+            list.forEach((item) => {
+              item.classList.remove('isSelected');
+            });
+            evt.target.classList.add('isSelected');
+            this.location.replaceState(
+              `/thietlaptochuc/tochuc?orgId=${org.id}`
+            );
+            this.url= `/thietlaptochuc/tochuc?orgId=${org.id}`
+          }
         });
         this.renderer.appendChild(p, text);
         main.appendChild(p);
@@ -102,10 +120,22 @@ export class ViewOrganizationComponent implements OnInit {
         p.appendChild(folderIcon);
         const text = this.renderer.createText(child.name);
         //add click listener
-        this.renderer.listen(p, 'dblclick', (evt) => {
-          // let department = { id: child.id, name: child.name };
-          // this.department.emit(department);
-          this.router.navigateByUrl(`/thietlaptochuc/tochuc?orgId=${child.id}`);
+        this.renderer.listen(p, 'click', (evt) => {
+          if (evt.target.classList.contains('isSelected')) {
+            evt.target.classList.remove('isSelected');
+            this.location.replaceState(`/thietlaptochuc/tochuc?orgId=0`);
+            this.url=`/thietlaptochuc/tochuc?orgId=0`
+          } else {
+            let list = document.querySelectorAll('p');
+            list.forEach((item) => {
+              item.classList.remove('isSelected');
+            });
+            evt.target.classList.add('isSelected');
+            this.location.replaceState(
+              `/thietlaptochuc/tochuc?orgId=${child.id}`
+            );
+            this.url= `/thietlaptochuc/tochuc?orgId=${child.id}`
+          }
         });
         this.renderer.appendChild(p, text);
         div.appendChild(p);
@@ -114,5 +144,12 @@ export class ViewOrganizationComponent implements OnInit {
         this.render(child, div);
       }
     }
+  }
+  addNew() {
+   
+    this.router.navigateByUrl(`${this.url}`+'&mode=new')
+  }
+  edit(){
+    this.router.navigateByUrl(`${this.url}`+'&mode=edit')
   }
 }

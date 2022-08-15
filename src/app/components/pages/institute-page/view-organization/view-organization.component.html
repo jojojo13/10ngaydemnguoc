@@ -1,14 +1,21 @@
 <div class="content">
-    <div class="content-heading">
-        <h5>Institute Orgnization</h5>
-        <app-back-btn [route]="route"></app-back-btn>
-    </div>
-    <div class="wrapper">
-        <h5 class="cus">Organizations chart</h5>
-        <div class="content-middle">
-    
-           
+  <div class="content-heading">
+    <h5>Institute Orgnization</h5>
+    <div class="d-flex justify-content-between">
+      <app-back-btn [route]="route"></app-back-btn>
+      <div class="action">
+        <div class="cuss" (click)="addNew()">
+          <p><i class="fa fa-plus"></i>Add new</p>
         </div>
+        <div class="cuss" (click)="edit()">
+          <p><i class="fa fa-pencil"></i>Edit</p>
+        </div>
+      </div>
     </div>
+  </div>
 
+  <div class="wrapper">
+    <h5 class="cus">Organizations chart</h5>
+    <div class="content-middle"></div>
+  </div>
 </div>

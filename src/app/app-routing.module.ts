@@ -42,6 +42,7 @@ import { CreateContractComponent } from './components/pages/profile-institute-pa
 import { SettingComponent } from './components/setting/setting.component';
 import { ForgotFormComponent } from './components/forgot-form/forgot-form.component';
 import { NotfoundPagesComponent } from './components/pages/notfound-pages/notfound-pages.component';
+import { ReportPageComponent } from './components/pages/report-page/report-page.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
     component: HomePageComponent,
     canActivate: [AuthorizeGuard],
     children: [
+      { path: 'baocao', component: ReportPageComponent },
       {
         path: 'thietlapnguoidung',
         component: SettingComponent,
@@ -105,7 +107,10 @@ const routes: Routes = [
           },
           { path: 'cv', component: CvCandidateComponent },
           { path: 'applications', component: ApplicationsComponent },
-          { path: 'applications/request', component: RequestInApplicationsComponent },
+          {
+            path: 'applications/request',
+            component: RequestInApplicationsComponent,
+          },
         ],
       },
       {
@@ -196,25 +201,22 @@ const routes: Routes = [
         path: 'thietlaphoso/nhanvien',
         component: ViewEmployeePagesComponent,
         canActivate: [AuthorizeGuard],
-        
       },
       {
         path: 'thietlaphoso/hopdong',
         component: ViewContractComponent,
         canActivate: [AuthorizeGuard],
-        
       },
       {
         path: 'thietlaphoso/taohopdong',
         component: CreateContractComponent,
         canActivate: [AuthorizeGuard],
-        
       },
       {
         path: 'thietlaphoso/chitietnhanvien',
         component: EmployeeInformationComponent,
         canActivate: [AuthorizeGuard],
-        children:[
+        children: [
           {
             path: 'info',
             component: InformaionComponent,
@@ -225,17 +227,16 @@ const routes: Routes = [
             component: ContractComponent,
             canActivate: [AuthorizeGuard],
           },
-        ]
+        ],
       },
-      
     ],
   },
 
   { path: 'register', component: RegisterPageComponent },
   { path: 'login', component: LoginPageComponent },
   { path: 'forgot', component: ForgotFormComponent },
-  {path: '404', component: NotfoundPagesComponent},
- {path: '**', redirectTo: '/404'}
+  { path: '404', component: NotfoundPagesComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({

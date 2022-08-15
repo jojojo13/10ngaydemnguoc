@@ -110,6 +110,10 @@ import { NotfoundPagesComponent } from './components/pages/notfound-pages/notfou
 import { Loader2Component } from './components/loader2/loader2.component';
 import { OfferFormComponent } from './components/offer-form/offer-form.component';
 import { OnboardComponent } from './components/onboard/onboard.component'; // a plugin!
+import { HighchartsChartModule } from 'highcharts-angular';
+import { ReportPageComponent } from './components/pages/report-page/report-page.component';
+import { ReportStep1Component } from './components/pages/report-page/report-step1/report-step1.component';
+import { ReportStep3Component } from './components/pages/report-page/report-step3/report-step3.component';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -203,6 +207,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     Loader2Component,
     OfferFormComponent,
     OnboardComponent,
+    ReportPageComponent,
+    ReportStep1Component,
+    ReportStep3Component,
+    
   ],
   imports: [
     BrowserModule,
@@ -226,7 +234,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MatInputModule,
     MatRadioModule,
     AvatarModule,
-    FullCalendarModule
+    FullCalendarModule,
+    HighchartsChartModule
+    
   ],
   providers: [
     {

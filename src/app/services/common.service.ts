@@ -233,4 +233,14 @@ export class CommonService {
   changePass(obj:any){
     return this.__http.post('https://localhost:44376/api/AccountAPI/ChangePass',obj)
   }
+
+  getReportByYear(year:number){
+    return this.__http.post(`https://localhost:44376/api/CandidateAPI/ReportByYear?year=${year}`,{})
+  }
+  getSucessStep1(){
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportStep1')
+  }
+  getInStep3(){
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportStep3')
+  }
 }

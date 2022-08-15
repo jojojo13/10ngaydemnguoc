@@ -17,17 +17,16 @@ h5 {
   margin-bottom: 10px;
   /* identical to box height, or 233% */
 }
-.wrapper{
-    width: 100%;
-
+.wrapper {
+  width: 100%;
 }
-.content{
+.content {
+  width: 100%;
+  &-middle {
     width: 100%;
-    &-middle{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
+    display: flex;
+    justify-content: center;
+  }
 }
 .popup-middle {
   text-align: left;
@@ -36,34 +35,33 @@ h5 {
   font-weight: 300;
   font-size: 14px;
   position: relative;
-  
 }
 p {
-    display: inline-block !important;
-    margin-bottom: 15px;
-    width: 90%;
-  }
-  span {
-    width: 10%;
-    display: inline-block;
-  }
-  .child {
-    display: block;
-    p {
-      &:hover {
-        cursor: pointer;
-        background-color: #d8dadb;
-        align-items: center;
-      }
+  display: inline-block !important;
+  margin-bottom: 15px;
+  width: 90%;
+}
+span {
+  width: 10%;
+  display: inline-block;
+}
+.child {
+  display: block;
+  p {
+    &:hover {
+      cursor: pointer;
+      background-color: #d8dadb;
+      align-items: center;
     }
   }
-  .fa-chevron-down {
-    color: #717374;
-    cursor: pointer;
-    margin-right: 10px;
-    font-size: 14px;
-    transition: 1s;
-  }
+}
+.fa-chevron-down {
+  color: #717374;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 14px;
+  transition: 1s;
+}
 .child[level] {
   margin-left: 30px;
 }
@@ -78,9 +76,34 @@ i {
 .down {
   transform: rotate(-90deg);
 }
-.cus{
-    text-align: center;
+.cus {
+  text-align: center;
 }
-.master{
-    min-width: 400px;
+.master {
+  min-width: 400px;
+}
+.cuss {
+  p{
+    width: 120px;
+  }
+  cursor: pointer;
+  i {
+    color: initial;
+    font-size: 14px;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+    font-weight: 600;
+  }
+  transition: transform 0.2s;
+}
+.isSelected{
+  background-color: #d8dadb;
+}
+.fa-pencil {
+  color: #354ea0 !important;
+}
+.action{
+  display: flex;
 }

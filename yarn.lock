@@ -167,7 +167,7 @@
     "uuid" "8.3.2"
     "yargs" "17.4.1"
 
-"@angular/common@^11.1.0", "@angular/common@^12.0.0 || ^13.0.0 || ^14.0.0", "@angular/common@^13.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.x", "@angular/common@>=12.0.0", "@angular/common@~14.0.2", "@angular/common@14.0.2", "@angular/common@9 - 13":
+"@angular/common@^11.1.0", "@angular/common@^12.0.0 || ^13.0.0 || ^14.0.0", "@angular/common@^13.0.0", "@angular/common@^14.0.0 || ^15.0.0", "@angular/common@^14.x", "@angular/common@>=12.0.0", "@angular/common@>=9.0.0", "@angular/common@~14.0.2", "@angular/common@14.0.2", "@angular/common@9 - 13":
   "integrity" "sha512-vNZpun9ymZEDJ0CWskTZZqCbuCumgYxbsZgp9nALnRAJt3fK8fRFgIZTn7smEXvbStL4PvngnvESa/t9Jd4wMg=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-14.0.2.tgz"
   "version" "14.0.2"
@@ -197,7 +197,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^11.1.0", "@angular/core@^12.0.0 || ^13.0.0 || ^14.0.0", "@angular/core@^13.0.0", "@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.x", "@angular/core@>=12.0.0", "@angular/core@~14.0.2", "@angular/core@14.0.2", "@angular/core@14.0.5", "@angular/core@9 - 13":
+"@angular/core@^11.1.0", "@angular/core@^12.0.0 || ^13.0.0 || ^14.0.0", "@angular/core@^13.0.0", "@angular/core@^14.0.0 || ^15.0.0", "@angular/core@^14.x", "@angular/core@>=12.0.0", "@angular/core@>=9.0.0", "@angular/core@~14.0.2", "@angular/core@14.0.2", "@angular/core@14.0.5", "@angular/core@9 - 13":
   "integrity" "sha512-JR+xVuNjGYEP5mdm3iQykcRFjrhSKbN5yxKxlVdKpNtUsR2Yc9Nf180Y2+Oo6KabtywGedIBH/Xd6mhwQQv3vg=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-14.0.2.tgz"
   "version" "14.0.2"
@@ -4048,6 +4048,18 @@
   "integrity" "sha512-7kIufnBqdsBGcSZLPJwqHT3yhk1QTsSlFsVD3kx5ixH/AlgBs9yM1q6DPhXZ8f8gtdqgh7N7/5btRLpQsS2gHw=="
   "resolved" "https://registry.npmjs.org/hdr-histogram-percentiles-obj/-/hdr-histogram-percentiles-obj-3.0.0.tgz"
   "version" "3.0.0"
+
+"highcharts-angular@^3.0.0":
+  "integrity" "sha512-v2jMlvmzmLqqKVQdsARBewmYaQOL44lmioF9WEseuIF2KyTeZIeUtYbrEqG9uz+/dl0bsDZL6WtUrgCa42D3DQ=="
+  "resolved" "https://registry.npmjs.org/highcharts-angular/-/highcharts-angular-3.0.0.tgz"
+  "version" "3.0.0"
+  dependencies:
+    "tslib" "^2.0.0"
+
+"highcharts@>=6.0.0":
+  "integrity" "sha512-MvLo4dzR2Vo7Y85dsqJ07uabBXSSIRKRRdW4l9IGP55h2jYWNm/m9JBszVVxySH5Lda6g+Ins9NdGppZJpjNCA=="
+  "resolved" "https://registry.npmjs.org/highcharts/-/highcharts-10.2.0.tgz"
+  "version" "10.2.0"
 
 "hosted-git-info@^5.0.0":
   "integrity" "sha512-rRnjWu0Bxj+nIfUOkz0695C0H6tRrN5iYIzYejb0tDEefe2AekHu/U5Kn9pEie5vsJqpNQU02az7TGSH3qpz4Q=="

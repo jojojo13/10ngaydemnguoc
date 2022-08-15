@@ -1,0 +1,18 @@
+<div class="content">
+  <h5>Report</h5>
+  <app-back-btn [route]="route"></app-back-btn>
+  <highcharts-chart
+    [(update)]="updateFlag"
+    [Highcharts]="highcharts"
+    [options]="chartOptions"
+    [oneToOne]="true"
+   
+  >
+  </highcharts-chart>
+  <!-- <div class="content-report">
+<app-report-step1></app-report-step1>
+  </div>
+  <div class="content-report">
+    <app-report-step3></app-report-step3>
+      </div> -->
+</div>
