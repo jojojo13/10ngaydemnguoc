@@ -104,6 +104,7 @@
                  formControlName="dob" />
           <small class="text-danger" *ngIf="dob.errors?.['invalid']">DOB cannot later than now</small>
           <small class="text-danger" *ngIf="dob.errors?.['notEnough']">Age must be greater than 18</small>
+          <small class="text-danger" *ngIf="dob.errors?.['yearFailed']">Invalid year</small>
           <small class="text-danger" *ngIf="contactForm.get('dob')?.hasError('required')">Please enter date of birth</small>
         </div>
       

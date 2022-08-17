@@ -108,6 +108,8 @@ export class GeneralInfComponent implements OnInit, OnChanges {
             return {'invalid': true}
         }else if(age<18){
           return {'notEnough': true}
+        }else if(dateToCheck.getFullYear()<1000){
+          return {'yearFailed':true}
         }
     }
     return null;

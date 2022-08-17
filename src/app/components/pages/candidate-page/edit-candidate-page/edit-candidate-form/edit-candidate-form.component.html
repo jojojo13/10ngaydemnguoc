@@ -120,6 +120,7 @@
               *ngIf="contactForm.get('dob')?.hasError('dateMinimum')"
               >DOB cannot later than today</small
             >
+            <small class="text-danger" *ngIf="dob.errors?.['yearFailed']">Invalid year</small>
             <small
               class="text-danger"
               *ngIf="contactForm.get('dob')?.hasError('required')"

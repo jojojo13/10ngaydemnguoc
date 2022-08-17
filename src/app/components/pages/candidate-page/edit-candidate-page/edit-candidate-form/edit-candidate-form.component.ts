@@ -162,6 +162,8 @@ export class EditCandidateFormComponent implements OnInit {
         return { invalid: true };
       }else if(age<18){
         return { notEnough: true };
+      }else if(dateToCheck.getFullYear()<1000){
+        return {'yearFailed':true}
       }
     }
     return null;
@@ -241,6 +243,7 @@ export class EditCandidateFormComponent implements OnInit {
                 }
               },
               (err) => {
+                console.log(err);
                 (document?.querySelector('.overlay') as HTMLElement
                 ).style.display = 'none';
                 this.isLoaded = true;
