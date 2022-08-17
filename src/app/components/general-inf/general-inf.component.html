@@ -13,7 +13,7 @@
           <small
             class="text-danger"
             *ngIf="contactForm.get('phone')?.hasError('pattern')"
-            >Phone need 10 digit numbers and start with 0 or 84</small
+            >Need 10 digit numbers and start with 0 or 84</small
           >
         </div>
       </div>
@@ -103,6 +103,7 @@
                  class="form-control"
                  formControlName="dob" />
           <small class="text-danger" *ngIf="dob.errors?.['invalid']">DOB cannot later than now</small>
+          <small class="text-danger" *ngIf="dob.errors?.['notEnough']">Age must be greater than 18</small>
           <small class="text-danger" *ngIf="contactForm.get('dob')?.hasError('required')">Please enter date of birth</small>
         </div>
       

@@ -157,8 +157,11 @@ export class EditCandidateFormComponent implements OnInit {
     if (control?.value) {
       const today = new Date();
       const dateToCheck = new Date(control.value);
+      let age=today.getFullYear()-dateToCheck.getFullYear()
       if (dateToCheck > today) {
         return { invalid: true };
+      }else if(age<18){
+        return { notEnough: true };
       }
     }
     return null;

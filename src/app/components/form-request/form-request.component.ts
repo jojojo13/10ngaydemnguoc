@@ -71,6 +71,7 @@ export class FormRequestComponent implements OnInit {
       .getRequestByID(parseInt(id))
       .subscribe((respone: any) => {
         let rq = respone.data;
+        console.log(rq)
         this.isLoaded = true;
         this.request = rq;
         this.req.emit(rq);
@@ -256,10 +257,12 @@ export class FormRequestComponent implements OnInit {
     this.orgService.getPositionByOrgID(id).subscribe(
       (response: any) => {
         this.positions = response.data;
+    
       },
       (err) => {
         Swal.fire('Position for this department is not available ');
         this.requestForm.controls['dep']?.reset();
+        this.requestForm.controls['dep']?.setValue('')
       }
     );
   }

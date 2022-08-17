@@ -133,11 +133,14 @@ export class GridComponent implements OnInit, OnDestroy {
       next.classList.contains('children') &&
       nextSiblingLevel > clickedLevel
     ) {
+      let icon=next.querySelector('i')
+      icon?.classList.remove('rotate')
       if (nextSiblingLevel == clickedLevel + 1) {
         next?.classList.toggle('hide'); // check for existence and class
         next = next.nextElementSibling; // if it exists, but the class does not, move to the next element and repeat.
         nextSiblingLevel = parseInt(next?.getAttribute('level') as string);
       } else {
+      
         if (!next.classList.contains('hide')) {
           next?.classList.toggle('hide'); // check for existence and class
           next = next.nextElementSibling; // if it exists, but the class does not, move to the next element and repeat.

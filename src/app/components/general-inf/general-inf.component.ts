@@ -103,8 +103,11 @@ export class GeneralInfComponent implements OnInit, OnChanges {
     if (control?.value) {
         const today = new Date();
         const dateToCheck = new Date(control.value);
-        if (dateToCheck > today) {
+        let age=today.getFullYear()-dateToCheck.getFullYear()
+        if ((dateToCheck > today)) {
             return {'invalid': true}
+        }else if(age<18){
+          return {'notEnough': true}
         }
     }
     return null;

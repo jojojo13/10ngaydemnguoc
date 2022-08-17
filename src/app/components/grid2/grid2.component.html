@@ -111,14 +111,14 @@
           </mat-form-field>
         </td>
         <td>
-          <mat-form-field>
+          <!-- <mat-form-field>
             <input
               matInput
               type="text"
               placeholder="Filter"
               formControlName="status"
             />
-          </mat-form-field>
+          </mat-form-field> -->
         </td>
       </tr>
     </tbody>
@@ -173,7 +173,8 @@
             </td>
             <td>
               <i
-                (click)="toggleChildren(clicked, request.id, $event)"
+              #i
+                (click)="toggleChildren(clicked, request.id, $event,i)"
                 class="fa fa-chevron-down"
               ></i>
             </td>

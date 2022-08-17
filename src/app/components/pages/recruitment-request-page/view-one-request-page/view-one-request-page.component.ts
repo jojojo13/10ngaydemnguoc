@@ -34,7 +34,7 @@ export class ViewOneRequestPageComponent implements OnInit {
     if (!page) {
       page = '1';
     }
-    this.route.link = `/yeucautuyendung/xemyeucau?index=${page}&size=10`;
+    this.route.link = `/yeucautuyendung/xemyeucau?index=${page}&size=20`;
   }
   uploadComment() {
     this.isLoaded = false;

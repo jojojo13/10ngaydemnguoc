@@ -209,6 +209,7 @@ export class RequestFormComponent implements OnInit {
       (err) => {
         Swal.fire('Position for this department is not available ');
         this.requestForm.controls['dep']?.reset();
+        this.requestForm.controls['dep']?.setValue('')
         this.requestForm.controls['office']?.reset();
       }
     );

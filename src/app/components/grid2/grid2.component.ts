@@ -3,7 +3,6 @@ import { RequestService } from './../../services/request-service/request.service
 import {
   Component,
   ElementRef,
-  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild,
@@ -32,7 +31,6 @@ export class Grid2Component implements OnInit {
     public requestService: RequestService,
     private renderer: Renderer2,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private commonService: CommonService,
     private fb: FormBuilder
   ) {}
@@ -43,6 +41,7 @@ export class Grid2Component implements OnInit {
 
   ngOnInit() {
     this.filterObj = new RequestFilter();
+ 
     this.isLoaded = false;
 
     // this.page = this.activatedRoute.snapshot.queryParams['index'];
@@ -75,7 +74,7 @@ export class Grid2Component implements OnInit {
         this.filterObj.deadLine = this.filterForm.controls['deadLine'].value;
         this.filterObj.hrInchange =
           this.filterForm.controls['hrInchange'].value;
-        this.filterObj.status = this.filterForm.controls['status'].value;
+        // this.filterObj.status = this.filterForm.controls['status'].value;
         this.filterObj.otherSkill =
           this.filterForm.controls['otherSkill'].value;
         this.clearData();
@@ -83,6 +82,7 @@ export class Grid2Component implements OnInit {
         this.checktoFormat();
         this.unSelectedRequest();
         this.page = 1;
+   
         this.loadData();
       });
 
@@ -99,7 +99,7 @@ export class Grid2Component implements OnInit {
     this.checktoFormat();
     this.filterObj.index = this.page - 1;
     this.filterObj.size = this.itemsPerPage;
-
+    this.filterObj.status='approved'
     this.requestService.filterRequest(this.filterObj).subscribe(
       (response: any) => {
         console.log(response);
@@ -114,7 +114,8 @@ export class Grid2Component implements OnInit {
     );
   }
 
-  toggleChildren(clicked: HTMLElement, requestID: number, $event: MouseEvent) {
+  toggleChildren(clicked: HTMLElement, requestID: number, $event: MouseEvent,i:HTMLElement) {
+    i.classList.toggle('rotate');
     let isFirstTimeLoading = this.isFirstTimeLoading(clicked);
     if (isFirstTimeLoading) {
       this.initLoadingWhenCallAPI();
@@ -130,6 +131,8 @@ export class Grid2Component implements OnInit {
       next.classList.contains('children') &&
       nextSiblingLevel > clickedLevel
     ) {
+      let icon=next.querySelector('i')
+      icon?.classList.remove('rotate')
       if (nextSiblingLevel == clickedLevel + 1) {
         next?.classList.toggle('hide'); // check for existence and class
         next = next.nextElementSibling; // if it exists, but the class does not, move to the next element and repeat.
@@ -292,7 +295,7 @@ export class Grid2Component implements OnInit {
       let td11 = this.renderer.createElement('td');
       let i = this.renderer.createElement('i');
       this.renderer.listen(i, 'click', (evt) => {
-        this.toggleChildren(tr, rq.id, evt);
+        this.toggleChildren(tr, rq.id, evt,i);
       });
       this.addClass(i, 'fa');
       this.addClass(i, 'fa-chevron-down');

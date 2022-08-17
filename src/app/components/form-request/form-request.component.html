@@ -36,8 +36,7 @@
         <p (click)="showPopUp()" class="poppup">Choose</p>
         <small class="text-danger"
                *ngIf="
-            requestForm.get('dep')?.hasError('required') &&
-            requestForm.get('dep')?.touched
+            requestForm.get('dep')?.hasError('required') 
           ">Please choose department</small>
       </div>
       <div class="form-group">
