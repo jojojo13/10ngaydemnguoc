@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
@@ -38,12 +39,8 @@ export class OfferFormComponent implements OnInit, OnChanges {
   requestID!: number;
   isLoaded = true;
   insurance = 1;
-  listPosition: any;
-  Data = [
-    { name: 'Bonus project', value: 'Bonus project' },
-    { name: 'Bonus salary', value: 'Bonus salary' },
-    { name: 'Bonus holiday', value: 'Bonus holiday' },
-  ];
+
+
   ngOnInit(): void {
     this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
     this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
@@ -51,7 +48,7 @@ export class OfferFormComponent implements OnInit, OnChanges {
       netSalary: ['', [Validators.required, Validators.pattern('^[1-9]\\d*$')]],
       internSalary: [{ value: '', disabled: true }],
       allowance: [''],
-      bonus: this.fb.array([]),
+      startDate:['',[Validators.required,this.dateValidator]],
       insurance: [this.insurance],
       workTime: ['Fulltime: 8:00 - 17:00 Mon-Fri'],
       location: [{ value: '', disabled: true }],
@@ -62,22 +59,17 @@ export class OfferFormComponent implements OnInit, OnChanges {
       let internSal = this.offerForm.get('netSalary')?.value * 0.85;
       this.offerForm.get('internSalary')?.setValue(internSal);
     });
-    this.getLocationAndPosition();
+    this.getLocation();
   }
-  onCheckboxChange(e: any) {
-    const checkArray: FormArray = this.offerForm.get('bonus') as FormArray;
-    if (e.target.checked) {
-      checkArray.push(new FormControl(e.target.value));
-    } else {
-      let i: number = 0;
-      checkArray.controls.forEach((item: any) => {
-        if (item.value == e.target.value) {
-          checkArray.removeAt(i);
-          return;
+  dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    if (control?.value) {
+        const today = new Date();
+        const dateToCheck = new Date(control.value);
+        if ((dateToCheck < today)) {
+            return {'invalid': true}
         }
-        i++;
-      });
     }
+    return null;
   }
   reviewStep4(result: number) {
     this.isLoaded = false;
@@ -89,15 +81,17 @@ export class OfferFormComponent implements OnInit, OnChanges {
       luongNet: this.offerForm.get('netSalary')?.value,
       luongThuViec: this.offerForm.get('internSalary')?.value.toString(),
       phuCap: this.offerForm.get('allowance')?.value,
-      thuong: this.offerForm.get('bonus')?.value.join(),
       baoHiem: this.insurance.toString(),
       thoigianlv: this.offerForm.get('workTime')?.value,
       diaDiem: this.offerForm.get('location')?.value,
-      vitriCv: this.offerForm.get('position')?.value.toString(),
+      vitriCv: this.positionID.toString(),
       noteStep4: this.offerForm.get('note')?.value,
       step4Result: result,
+      ngayLamViec:this.offerForm.get('startDate')?.value
     };
-
+    if(this.offerForm.get('startDate')?.value==''){
+      obj.ngayLamViec='2022-08-18T17:15:23.797Z'
+    }
     this.candidateS.setStep4(obj).subscribe(
       (response: any) => {
         this.isLoaded = true;
@@ -112,18 +106,13 @@ export class OfferFormComponent implements OnInit, OnChanges {
       }
     );
   }
-  getLocationAndPosition() {
-    this.orgS.getPositionByOrgID(this.infor.orgId).subscribe(
-      (response: any) => {
-        this.listPosition = response.data;
-      },
-      (err) => {
-      }
-    );
+  getLocation() {
+   
     this.candidateS.getDDPosition(this.requestID).subscribe((response: any) => {
       this.positionID = response.data.position;
       this.offerForm.get('position')?.setValue(response.data.position);
       this.offerForm.get('location')?.setValue(response.data.diadiem);
+
     });
   }
 }

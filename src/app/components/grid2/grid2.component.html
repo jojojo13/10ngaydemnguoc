@@ -4,7 +4,7 @@
   <table #containList>
     <thead>
       <tr>
-        <th></th>
+    
         <th>ID</th>
         <th>Name</th>
         <th>Other skill(optional)</th>
@@ -142,13 +142,13 @@
             (dblclick)="navigateEdit(request)"
             (click)="getSelectedRQ(request, clicked)"
           >
-            <td level="1">
+            <!-- <td level="1">
               <input
                 type="checkbox"
                 (change)="selectedChange(request, $event)"
                 [value]="request.id"
               />
-            </td>
+            </td> -->
             <td id="code-col" level="1">{{ request.code }}</td>
             <td level="1">{{ request.name }}</td>
             <td level="1">{{ request.otherSkillname }}</td>

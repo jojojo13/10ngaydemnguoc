@@ -29,21 +29,17 @@
           <span>(breakfast, lunch, fuel, vehicle ticket)</span>
         </div>
       </div>
-      <div class="content-form-group custom1">
-        <label for="">Bonus:</label>
-        <div class="custom2">
-          <div *ngFor="let data of Data; let i = index">
-            <label>
-              <input
-                class="ckb"
-                type="checkbox"
-                [value]="data.value"
-                (change)="onCheckboxChange($event)"
-              />
-              {{ data.name }}
-            </label>
-          </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Start date:</label>
+          <input type="date" formControlName="startDate" />
         </div>
+        <small *ngIf="offerForm.get('startDate')?.hasError('required')"
+          >Please choose start date</small
+        >
+        <small *ngIf="offerForm.get('startDate')?.hasError('invalid')"
+          >Start date must from today</small
+        >
       </div>
       <div class="content-form-group">
         <div class="err">
@@ -74,35 +70,34 @@
             <option value="Fulltime: 8:00 - 17:00 Mon-Fri">
               Fulltime: 8:00 - 17:00 Mon-Fri
             </option>
-            <option value="Morning: 8:00 - 17:00 Mon-Fri">
-              Morning: 8:00 - 17:00 Mon-Fri
+            <option value="Morning: 8:00 - 12:00 Mon-Fri">
+              Morning: 8:00 - 12:00 Mon-Fri
             </option>
-            <option value="Afternoon: 8:00 - 17:00 Mon-Fri">
-              Afternoon: 8:00 - 17:00 Mon-Fri
+            <option value="Afternoon: 13:00 - 17:00 Mon-Fri">
+              Afternoon: 13:00 - 17:00 Mon-Fri
             </option>
           </select>
         </div>
       </div>
       <div class="content-form-group">
         <div class="err">
-          <label for="">Location:</label>
-          <input type="text" formControlName="location" />
+          <label for="">Organiztion:</label>
+          <p *ngIf="infor">{{ infor.orgName }}</p>
         </div>
       </div>
       <div class="content-form-group">
         <div class="err">
           <label for="">Position:</label>
-          <select name="" id="" formControlName="position">
-            <option
-              [selected]="positionID == position.id"
-              [value]="position.id"
-              *ngFor="let position of listPosition"
-            >
-              {{ position.name }}
-            </option>
-          </select>
+          <p *ngIf="infor">{{ infor.position }}</p>
         </div>
       </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Location:</label>
+          <p>{{ this.offerForm.get("location")?.value }}</p>
+        </div>
+      </div>
+
       <div class="content-form-group">
         <div class="err">
           <label for="">Note:</label>
@@ -139,20 +134,24 @@
         Allowance: <span>{{ infor.phuCap }} </span>
       </p>
       <p>
-        Bonus: <span> {{ infor.thuong }}</span>
+        Start Date: <span> {{ infor.ngayLamViec }}</span>
       </p>
       <p>
-        Insurance: <span>{{ infor.baoHiem|yesOrNo }}</span>
+        Insurance: <span>{{ infor.baoHiem | yesOrNo }}</span>
       </p>
       <p>
         Work time: <span>{{ infor.thoigianlv }}</span>
       </p>
       <p>
-        Location: <span>{{ infor.diaDiem }}</span>
+        Organization: <span>{{ infor.orgName }} </span>
       </p>
       <p>
         Position: <span>{{ infor.vitriCv }} </span>
       </p>
+      <p>
+        Location: <span>{{ infor.diaDiem }}</span>
+      </p>
+
       <p>
         Note: <span>{{ infor.noteStep4 }}</span>
       </p>

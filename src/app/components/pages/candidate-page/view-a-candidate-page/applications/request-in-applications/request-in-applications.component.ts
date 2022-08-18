@@ -24,8 +24,9 @@ export class RequestInApplicationsComponent implements OnInit {
   isLoaded = true;
   srcPDF = '';
   ngOnInit(): void {
+    this.isLoaded = false;
     this.candidateService.stepBehavior.subscribe((change) => {
-      this.isLoaded = false;
+     
 
       this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
       this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];

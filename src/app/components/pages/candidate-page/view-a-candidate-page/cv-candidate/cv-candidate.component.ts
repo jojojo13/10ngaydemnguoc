@@ -48,7 +48,7 @@ export class CvCandidateComponent implements OnInit {
     const file = this.selectedFiles.item(0) as File;
     let typeFile = this.getExtendsionFile(file.name).toLowerCase();
 
-    if (typeFile == 'pdf' && file.size < 5000000) {
+    if ((typeFile == 'pdf'||typeFile == 'doc'||typeFile == 'docx') && file.size < 5000000) {
       var storageRef = this.storage.ref('uploads/' + this.uvcode);
       storageRef.listAll().subscribe((result: any) => {
         if (result.items.length > 0) {
@@ -87,7 +87,7 @@ export class CvCandidateComponent implements OnInit {
                   ((imageRef.name.lastIndexOf('.') - 1) >>> 0) + 2
                 );
 
-                if (extendsionFile.toLowerCase() == 'pdf') {
+                if (extendsionFile.toLowerCase() == 'pdf'||extendsionFile.toLowerCase() == 'doc'|| extendsionFile.toLowerCase() == 'docx') {
                   imageRef.getDownloadURL().then((url: any) => {
                     this.downloadURL = url;
                     this.pdfSrc =

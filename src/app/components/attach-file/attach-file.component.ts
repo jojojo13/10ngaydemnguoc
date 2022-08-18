@@ -29,7 +29,7 @@ export class AttachFileComponent implements OnInit {
     const file = this.selectedFiles.item(0) as File;
     let typeFile = this.getExtendsionFile(file.name).toLowerCase();
 
-    if (typeFile=='pdf'&& file.size < 5000000) {
+    if ((typeFile=='pdf'||typeFile=='doc'||typeFile=='docx')&& file.size < 5000000) {
       this.currentFileUpload = new FileUpload(file);
       this.commonService.pushFileToStorage(this.currentFileUpload).subscribe(
         (percentage: any) => {

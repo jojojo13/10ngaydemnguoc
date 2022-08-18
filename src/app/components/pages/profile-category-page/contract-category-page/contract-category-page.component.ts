@@ -14,7 +14,7 @@ export class ContractCategoryPageComponent implements OnInit {
 
   disable = true;
   idSelected: any;
-  route = { name: 'Contract categories', link: 'phanloaitochuc' };
+  route = { name: 'Contract categories', link: 'danhmuchoso' };
   contractForm!: FormGroup;
   action = 'Viewing';
   categories: any;
