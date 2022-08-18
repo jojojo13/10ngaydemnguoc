@@ -19,7 +19,7 @@ export class ReportStep3Component implements OnInit {
     },
 
     title: {
-      text: 'Applications in onboard process',
+      text: 'Applications in interview',
       style: {
         fontFamily: 'Poppins',
         fontWeight: '600',

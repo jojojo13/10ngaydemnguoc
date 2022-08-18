@@ -1,30 +1,115 @@
 <div class="content">
   <h5>Offer stage</h5>
-  <ng-container *ngIf="infor && !infor.offer && infor.result != 0">
+  <ng-container *ngIf="infor && !infor.luongNet && infor.result != 0">
     <form action="" class="content-form" [formGroup]="offerForm">
       <div class="content-form-group">
         <div class="err">
-          <label for="">Candidate offer:</label>
-          <input type="text" formControlName="offerDeal" />
+          <label for="">Net salary:</label>
+          <input type="text" formControlName="netSalary" />
         </div>
-        <small *ngIf="offerForm.get('offerDeal')?.hasError('required')"
-          >Please input offer</small
+        <small *ngIf="offerForm.get('netSalary')?.hasError('required')"
+          >Please input net salary</small
         >
-        <small *ngIf="offerForm.get('offerDeal')?.hasError('pattern')"
-          >Offer must be interger</small
+        <small *ngIf="offerForm.get('netSalary')?.hasError('pattern')"
+          >Net salary must be number</small
         >
       </div>
       <div class="content-form-group">
         <div class="err">
-          <label for="">Note offer:</label>
-          <textarea
-            placeholder="write your note"
-            rows="3"
-            formControlName="note"
-          ></textarea>
+          <label for="">Probationary salary:</label>
+          <input type="text" formControlName="internSalary" />
+          <span>(85% net salary in the first 2 months)</span>
+        </div>
+      </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Allowance:</label>
+          <textarea type="text" formControlName="allowance" rows="3">
+          </textarea>
+          <span>(breakfast, lunch, fuel, vehicle ticket)</span>
+        </div>
+      </div>
+      <div class="content-form-group custom1">
+        <label for="">Bonus:</label>
+        <div class="custom2">
+          <div *ngFor="let data of Data; let i = index">
+            <label>
+              <input
+                class="ckb"
+                type="checkbox"
+                [value]="data.value"
+                (change)="onCheckboxChange($event)"
+              />
+              {{ data.name }}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Insurance:</label>
+          <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="insurance"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <mat-radio-button
+              class="example-radio-button"
+              [checked]="'true'"
+              [value]="1"
+            >
+              Yes
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" [value]="0">
+              No
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Work time:</label>
+          <select name="" id="" formControlName="workTime">
+            <option value="Fulltime: 8:00 - 17:00 Mon-Fri">
+              Fulltime: 8:00 - 17:00 Mon-Fri
+            </option>
+            <option value="Morning: 8:00 - 17:00 Mon-Fri">
+              Morning: 8:00 - 17:00 Mon-Fri
+            </option>
+            <option value="Afternoon: 8:00 - 17:00 Mon-Fri">
+              Afternoon: 8:00 - 17:00 Mon-Fri
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Location:</label>
+          <input type="text" formControlName="location" />
+        </div>
+      </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Position:</label>
+          <select name="" id="" formControlName="position">
+            <option
+              [selected]="positionID == position.id"
+              [value]="position.id"
+              *ngFor="let position of listPosition"
+            >
+              {{ position.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="content-form-group">
+        <div class="err">
+          <label for="">Note:</label>
+          <textarea type="text" formControlName="note" [rows]="3"> </textarea>
         </div>
         <small *ngIf="offerForm.get('note')?.hasError('maxlength')"
-          >Please enter less than 100 characters</small
+          >Only enter 150 characters</small
         >
       </div>
     </form>
@@ -32,23 +117,52 @@
       <button (click)="reviewStep4(0)" class="btn btn-danger px-5 mx-3 py-1">
         Fail
       </button>
-      <button [disabled]="offerForm.invalid" (click)="reviewStep4(1)" class="btn btn-success px-5 mx-3 py-1">
+      <button
+        [disabled]="offerForm.invalid"
+        (click)="reviewStep4(1)"
+        class="btn btn-success px-5 mx-3 py-1"
+      >
         Pass
       </button>
     </div>
   </ng-container>
-  <ng-container *ngIf="infor && infor.offer && infor.result != 0">
+  <ng-container *ngIf="infor && infor.luongNet && infor.result != 0">
     <div class="offer">
       <h6 class="text-success">Offer approved</h6>
-      <p>Offer:{{ infor.offer }} VND</p>
-      <p>Note:{{ infor.noteOffer }}</p>
+      <p>
+        Net salary: <span>{{ infor.luongNet }} VND</span>
+      </p>
+      <p>
+        Probationary salary: <span>{{ infor.luongThuViec }} VND</span>
+      </p>
+      <p>
+        Allowance: <span>{{ infor.phuCap }} </span>
+      </p>
+      <p>
+        Bonus: <span> {{ infor.thuong }}</span>
+      </p>
+      <p>
+        Insurance: <span>{{ infor.baoHiem|yesOrNo }}</span>
+      </p>
+      <p>
+        Work time: <span>{{ infor.thoigianlv }}</span>
+      </p>
+      <p>
+        Location: <span>{{ infor.diaDiem }}</span>
+      </p>
+      <p>
+        Position: <span>{{ infor.vitriCv }} </span>
+      </p>
+      <p>
+        Note: <span>{{ infor.noteStep4 }}</span>
+      </p>
     </div>
   </ng-container>
   <ng-container *ngIf="infor && infor.result == 0 && infor.stepNow == 4">
     <div class="offer">
       <h6 class="text-danger">Offer denied</h6>
-      <p>Offer:{{ infor.offer }} VND</p>
-      <p>Note:{{ infor.noteOffer }}</p>
+      <!-- <p>Offer:{{ infor.offer }} VND</p>
+      <p>Note:{{ infor.noteOffer }}</p> -->
     </div>
   </ng-container>
 </div>

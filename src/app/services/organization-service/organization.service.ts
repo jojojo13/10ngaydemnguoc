@@ -262,19 +262,16 @@ export class OrganizationService {
   getEmployeeByOrgID(id: number, index: number, size: number) {
     return this.__http.post(
       `https://localhost:44376/api/ProfileAPI/GetListEmployeeByOrgID?id=${id}&index=${index}&size=${size}`,
-      {},
+      {}
     );
   }
 
   getEmployeeByOrgIDByFilter(obj: any) {
     return this.__http.post(
       `https://localhost:44376/api/ProfileAPI/GetListEmployeeByOrgIDByFilter`,
-      obj,
+      obj
     );
   }
-
-
-
 
   getAllNation(index: number, size: number) {
     let httpOptions1 = {
@@ -289,7 +286,6 @@ export class OrganizationService {
       httpOptions1
     );
   }
-
 
   getAllProvince(index: number, size: number) {
     let httpOptions1 = {
@@ -330,4 +326,5 @@ export class OrganizationService {
       httpOptions1
     );
   }
+
 }

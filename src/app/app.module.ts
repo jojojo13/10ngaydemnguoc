@@ -116,6 +116,7 @@ import { ReportStep1Component } from './components/pages/report-page/report-step
 import { ReportStep3Component } from './components/pages/report-page/report-step3/report-step3.component';
 import { RpNotPassComponent } from './components/pages/report-page/rp-not-pass/rp-not-pass.component';
 import { ReportStep5Component } from './components/pages/report-page/report-step5/report-step5.component';
+import { YesOrNoPipe } from './components/pipes/yes-or-no.pipe';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -214,6 +215,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ReportStep3Component,
     RpNotPassComponent,
     ReportStep5Component,
+    YesOrNoPipe,
     
   ],
   imports: [

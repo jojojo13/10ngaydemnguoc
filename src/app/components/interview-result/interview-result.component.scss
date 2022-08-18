@@ -75,6 +75,7 @@ table {
   margin-right: 40px;
   table-layout: fixed;
   font-family: "Poppins";
+  min-width: 600px;
   border: 1px solid rgb(202, 202, 202);
   thead {
     tr {
@@ -170,4 +171,9 @@ tbody {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
   cursor: pointer;
+}
+td,pre{
+  font-family: 'Poppins';
+  font-weight: 300;
+  font-size: 14px;
 }

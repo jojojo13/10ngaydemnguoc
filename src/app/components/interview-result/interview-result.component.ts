@@ -29,7 +29,7 @@ export class InterviewResultComponent implements OnInit {
     private fb: FormBuilder,
     private candidateS: CandidateService,
     private activatedRoute: ActivatedRoute,
-    private router:Router
+    private router: Router
   ) {}
   favoriteSeason = -1;
   candidateID!: number;
@@ -37,9 +37,8 @@ export class InterviewResultComponent implements OnInit {
 
   isLoaded = true;
   ngOnInit(): void {
-    (
-      document?.querySelector('.overlay') as HTMLElement
-    ).style.display = 'block';
+    (document?.querySelector('.overlay') as HTMLElement).style.display =
+      'block';
     this.isLoaded = false;
     this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
     this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
@@ -56,10 +55,9 @@ export class InterviewResultComponent implements OnInit {
     this.candidateS
       .getAllEventCandidate(this.candidateID, this.requestID)
       .subscribe((response: any) => {
-        (
-          document?.querySelector('.overlay') as HTMLElement
-        ).style.display = 'none';
-        this.isLoaded=true
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'none';
+        this.isLoaded = true;
         this.interviewList = response.data.interview;
         this.testList = response.data.test;
         for (let interview of this.interviewList) {
@@ -84,19 +82,18 @@ export class InterviewResultComponent implements OnInit {
   }
   saveInterviewTest() {
     let list = [];
-    (
-      document?.querySelector('.overlay') as HTMLElement
-    ).style.display = 'block';
-    this.isLoaded=false
+    (document?.querySelector('.overlay') as HTMLElement).style.display =
+      'block';
+    this.isLoaded = false;
     list = this.interviewF
       .get('tests')
       ?.value.concat(this.interviewF.get('interviews')?.value);
 
     this.candidateS.saveResultInterview(list).subscribe((response: any) => {
       this.candidateS.stepBehavior.next(true);
-      (document?.querySelector('.overlay') as HTMLElement
-      ).style.display = 'none';
-      this.isLoaded=true
+      (document?.querySelector('.overlay') as HTMLElement).style.display =
+        'none';
+      this.isLoaded = true;
       this.ngOnInit();
     });
   }
@@ -106,12 +103,11 @@ export class InterviewResultComponent implements OnInit {
   get tests() {
     return this.interviewF.get('tests') as FormArray;
   }
-  navigate(candidateID:number){
+  navigate(candidateID: number) {
     // console.log('a')
     // console.log(candidateID)
     // this.router.navigateByUrl(`/ungvien/xemungvien/applications/request?id=${candidateID}&requestID=${this.requestID}`)
     // this.candidateS.stepBehavior.next(true)
     // this.ngOnInit()
-    
   }
 }

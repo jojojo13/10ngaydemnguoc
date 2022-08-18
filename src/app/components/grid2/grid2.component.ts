@@ -20,7 +20,7 @@ export class Grid2Component implements OnInit {
 
   fn: any;
   requestList!: any;
-  itemsPerPage = 10;
+  itemsPerPage = 20;
   totalItems!: number;
   page: number = 1;
   isLoaded: boolean = false;
@@ -93,7 +93,7 @@ export class Grid2Component implements OnInit {
     });
   }
   navigateEdit(request: any) {
-    this.router.navigate(['yeucautuyendung/xemyeucau', request.id]);
+    this.router.navigate(['yeucautuyendung/xemyeucau', request.id,this.page]);
   }
   loadData() {
     this.checktoFormat();
