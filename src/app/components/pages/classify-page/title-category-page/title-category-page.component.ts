@@ -222,7 +222,7 @@ export class TitleCategoryPageComponent implements OnInit {
       this.commonService.popUpMessage('Choose at least one record!!!');
     } else {
       Swal.fire({
-        text: 'Are you sure to delete?',
+        text: 'Are you sure to active?',
         iconHtml:
           ' <img src="../../../assets/images/icons/ques.jpg" width="100px" alt="">',
         showCancelButton: true,
