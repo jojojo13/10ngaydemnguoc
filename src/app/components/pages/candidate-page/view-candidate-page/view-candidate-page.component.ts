@@ -95,8 +95,11 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
         width: '380px',
       }).then((result) => {
         if (result.isConfirmed) {
+          let newIDS = this.candidateService.listSelectedCandidate.map(
+            (c: any) => c.id
+          );
           this.candidateService
-            .deleteCandidate(this.candidateService.listSelectedCandidate)
+            .deleteCandidate(newIDS)
             .subscribe(
               (res: any) => {
                 if (res.status == true) {
