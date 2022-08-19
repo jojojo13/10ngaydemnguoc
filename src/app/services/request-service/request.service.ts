@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class RequestService {
-  baseUrl = 'https://localhost:44376/api/RequestAPI';
+  baseUrl = 'https://test-api-fpt.herokuapp.com/api/RequestAPI';
   selectedRequest = {
     code: '',
     comment: 'string',
@@ -71,7 +71,7 @@ export class RequestService {
     parentID: number = 0
   ) {
     return this.__http.post(
-      'https://localhost:44376/api/CommonAPI/autoGenCode',
+      'https://test-api-fpt.herokuapp.com/api/CommonAPI/autoGenCode',
       { table, rank, collumName, parentID },
       { responseType: 'text' }
     );
@@ -85,7 +85,7 @@ export class RequestService {
       }),
     };
     return this.__http.post(
-      'https://localhost:44376/api/RequestAPI/InsertRequest',
+      'https://test-api-fpt.herokuapp.com/api/RequestAPI/InsertRequest',
       request, httpOptions1
     );
   }
@@ -166,7 +166,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put('https://localhost:44376/api/RequestAPI/ModifyRequest', request, httpOptions1);
+    return this.__http.put('https://test-api-fpt.herokuapp.com/api/RequestAPI/ModifyRequest', request, httpOptions1);
   }
 
 
@@ -177,7 +177,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put('https://localhost:44376/api/RequestAPI/SendComment', request, httpOptions1);
+    return this.__http.put('https://test-api-fpt.herokuapp.com/api/RequestAPI/SendComment', request, httpOptions1);
   }
 
   setHRID(id: number, hrID: number) {
@@ -187,21 +187,21 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put('https://localhost:44376/api/RequestAPI/setHrInchage', { id, hrID }, httpOptions1)
+    return this.__http.put('https://test-api-fpt.herokuapp.com/api/RequestAPI/setHrInchage', { id, hrID }, httpOptions1)
   }
 
   getRequestByID(id: number) {
-    return this.__http.put(`https://localhost:44376/api/RequestAPI/GetRequestByID?Id=${id}`, {});
+    return this.__http.put(`https://test-api-fpt.herokuapp.com/api/RequestAPI/GetRequestByID?Id=${id}`, {});
   }
   modifyRQbyID(id: number, comment: string) {
-    return this.__http.put(`https://localhost:44376/api/RequestAPI/SendComment`, { id, comment });
+    return this.__http.put(`https://test-api-fpt.herokuapp.com/api/RequestAPI/SendComment`, { id, comment });
   }
 
   checkTotal(id: number, quantity: number) {
-    return this.__http.post(`https://localhost:44376/api/RequestAPI/CheckTotalQuantity?id=${id}&quantity=${quantity}`, {});
+    return this.__http.post(`https://test-api-fpt.herokuapp.com/api/RequestAPI/CheckTotalQuantity?id=${id}&quantity=${quantity}`, {});
   }
   filterRequest(obj:any){
-    return this.__http.post('https://localhost:44376/api/RequestAPI/GetAllRequestByFilter',obj)
+    return this.__http.post('https://test-api-fpt.herokuapp.com/api/RequestAPI/GetAllRequestByFilter',obj)
   }
 
 }
