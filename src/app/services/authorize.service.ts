@@ -16,7 +16,7 @@ export class AuthorizeService {
 
   signIn(account: Account) {
     return this._http
-      .post('https://test-api-fpt.herokuapp.com/api/AccountAPI/GetAccount', account)
+      .post('http://139.99.90.39:3100/api/AccountAPI/GetAccount', account)
       .pipe(
         map((user) => {
           this.userSubject.next(user);
@@ -31,6 +31,6 @@ export class AuthorizeService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this._http.get('https://test-api-fpt.herokuapp.com/api/AccountAPI/GetUserLog',httpOptions1)
+    return this._http.get('http://139.99.90.39:3100/api/AccountAPI/GetUserLog',httpOptions1)
   }
 }

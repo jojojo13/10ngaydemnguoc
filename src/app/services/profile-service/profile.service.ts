@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProfileService {
 
-  baseProfileUrl = 'https://test-api-fpt.herokuapp.com/api/ProfileAPI'
+  baseProfileUrl = 'http://139.99.90.39:3100/api/ProfileAPI'
   constructor(private __http: HttpClient) { }
 
   getNationList() {

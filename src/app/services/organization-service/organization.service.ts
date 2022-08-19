@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class OrganizationService {
-  baseUrl = 'https://test-api-fpt.herokuapp.com/api/OrgnizationAPI';
-  baseCommonUrl = 'https://test-api-fpt.herokuapp.com/api/CommonAPI';
-  baseProfileUrl = 'https://test-api-fpt.herokuapp.com/api/ProfileAPI';
+  baseUrl = 'http://139.99.90.39:3100/api/OrgnizationAPI';
+  baseCommonUrl = 'http://139.99.90.39:3100/api/CommonAPI';
+  baseProfileUrl = 'http://139.99.90.39:3100/api/ProfileAPI';
   constructor(private __http: HttpClient) {}
 
   ngOnInit(): void {}
@@ -261,14 +261,14 @@ export class OrganizationService {
 
   getEmployeeByOrgID(id: number, index: number, size: number) {
     return this.__http.post(
-      `https://test-api-fpt.herokuapp.com/api/ProfileAPI/GetListEmployeeByOrgID?id=${id}&index=${index}&size=${size}`,
+      `http://139.99.90.39:3100/api/ProfileAPI/GetListEmployeeByOrgID?id=${id}&index=${index}&size=${size}`,
       {}
     );
   }
 
   getEmployeeByOrgIDByFilter(obj: any) {
     return this.__http.post(
-      `https://test-api-fpt.herokuapp.com/api/ProfileAPI/GetListEmployeeByOrgIDByFilter`,
+      `http://139.99.90.39:3100/api/ProfileAPI/GetListEmployeeByOrgIDByFilter`,
       obj
     );
   }
