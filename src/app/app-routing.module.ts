@@ -48,9 +48,11 @@ const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
+
     canActivate: [AuthorizeGuard],
-  
+
     children: [
+      { path: '', redirectTo: 'baocao', pathMatch: 'full' },
       { path: 'baocao', component: ReportPageComponent },
       {
         path: 'thietlapnguoidung',

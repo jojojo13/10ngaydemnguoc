@@ -209,6 +209,7 @@ export class GridComponent implements OnInit, OnDestroy {
   process(requestID: number, parent: HTMLElement, $event: MouseEvent) {
     this.requestService.getChildrenByParentID(requestID).subscribe(
       (response: any) => {
+        console.log(response)
         this.createRow(parent, response);
         this.loadingDone($event, parent);
       },

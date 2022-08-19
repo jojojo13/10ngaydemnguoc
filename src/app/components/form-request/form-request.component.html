@@ -1,10 +1,12 @@
 <div class="content">
   <app-loader [isLoaded]="isLoaded"></app-loader>
-  <form novalidate
-        (ngSubmit)="onSubmit()"
-        [formGroup]="requestForm"
-        class="form"
-        action="">
+  <form
+    novalidate
+    (ngSubmit)="onSubmit()"
+    [formGroup]="requestForm"
+    class="form"
+    action=""
+  >
     <div class="left">
       <div class="form-group">
         <label for="requestID">Request Code<span>*</span></label>
@@ -13,39 +15,52 @@
       <div class="form-group">
         <label for="name">Name<span>*</span></label>
         <input type="text" class="form-control" formControlName="name" />
-        <small class="text-danger"
-               *ngIf="
+        <small
+          class="text-danger"
+          *ngIf="
             requestForm.get('name')?.hasError('required') &&
             requestForm.get('name')?.touched
-          ">Please input name</small>
+          "
+          >Please input name</small
+        >
       </div>
       <div class="form-group">
         <label for="name">Type<span>*</span></label>
         <select style="font-family: Poppins" name="dep" formControlName="type">
-          <option [selected]="type.id == requestForm.controls['type'].value"
-                  style="font-family: Poppins"
-                  *ngFor="let type of types"
-                  [ngValue]="type.id">
+          <option
+            [selected]="type.id == requestForm.controls['type'].value"
+            style="font-family: Poppins"
+            *ngFor="let type of types"
+            [ngValue]="type.id"
+          >
             {{ type.name }}
           </option>
         </select>
       </div>
-      <div class="form-group ">
+      <div class="form-group">
         <label for="name">Department<span>*</span></label>
-        <input type="text" id="department" class="form-control" formControlName="dep" />
+        <input
+          type="text"
+          id="department"
+          class="form-control"
+          formControlName="dep"
+        />
         <p (click)="showPopUp()" class="poppup">Choose</p>
-        <small class="text-danger"
-               *ngIf="
-            requestForm.get('dep')?.hasError('required') 
-          ">Please choose department</small>
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('dep')?.hasError('required')"
+          >Please choose department</small
+        >
       </div>
       <div class="form-group">
         <label for="name">Projects</label>
         <select name="dep" formControlName="projects">
           <option value="0"></option>
-          <option [selected]="project.id == requestForm.controls['projects'].value"
-                  *ngFor="let project of projects"
-                  [ngValue]="project.id">
+          <option
+            [selected]="project.id == requestForm.controls['projects'].value"
+            *ngFor="let project of projects"
+            [ngValue]="project.id"
+          >
             {{ project.name }}
           </option>
         </select>
@@ -54,45 +69,60 @@
         <label for="name">Position<span>*</span></label>
         <select name="position" formControlName="position">
           <option value="">Choose position</option>
-          <option [selected]="position.id == requestForm.controls['position'].value"
-                  *ngFor="let position of positions"
-                  [ngValue]="position.id">
+          <option
+            [selected]="position.id == requestForm.controls['position'].value"
+            *ngFor="let position of positions"
+            [ngValue]="position.id"
+          >
             {{ position.name }}
           </option>
         </select>
-        <small class="text-danger"
-               *ngIf="
+        <small
+          class="text-danger"
+          *ngIf="
             requestForm.get('position')?.hasError('required') &&
             requestForm.get('position')?.touched
-          ">Please choose position</small>
+          "
+          >Please choose position</small
+        >
       </div>
       <div class="form-group">
         <label for="name">Quantity<span>*</span></label>
         <input type="text" class="form-control" formControlName="quantity" />
-        <small class="text-danger"
-               *ngIf="
+        <small
+          class="text-danger"
+          *ngIf="
             requestForm.get('quantity')?.hasError('required') &&
             requestForm.get('quantity')?.touched
-          ">Please input quantity</small>
-        <small class="text-danger"
-               *ngIf="
+          "
+          >Please input quantity</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="
             requestForm.get('quantity')?.hasError('pattern') &&
             requestForm.get('quantity')?.touched
-          ">Please input number greater than 0.</small>
+          "
+          >Please input number greater than 0.</small
+        >
       </div>
       <div class="form-group">
         <label for="name">Office</label>
-        <input type="text"
-               class="form-control"
-               [value]=""
-               formControlName="office" />
+        <input
+          type="text"
+          class="form-control"
+          [value]=""
+          formControlName="office"
+        />
       </div>
       <div class="form-group">
         <label for="name">Deadline<span>*</span></label>
-        <input type="date"
-               [min]="today"
-               class="form-control"
-               formControlName="deadline" />
+        <input
+          type="date"
+          [min]="today"
+          class="form-control"
+          formControlName="deadline"
+        />
       </div>
       <div class="form-group">
         <!--<label for="name">Roadmap</label>
@@ -103,27 +133,36 @@
       <div class="form-group">
         <label for="name">Experience</label>
         <input type="text" class="form-control" formControlName="experience" />
+
+        <small
+          class="text-danger"
+          *ngIf="requestForm.get('experience')?.hasError('pattern')"
+          >Please input number greater than 0.</small
+        >
       </div>
       <div class="form-group">
         <label for="name">Level</label>
         <select name="level" formControlName="level">
           <option value="0"></option>
-          <option [selected]="level.id == requestForm.controls['level'].value"
-                  *ngFor="let level of levels"
-                  [ngValue]="level.id">
+          <option
+            [selected]="level.id == requestForm.controls['level'].value"
+            *ngFor="let level of levels"
+            [ngValue]="level.id"
+          >
             {{ level.name }}
           </option>
         </select>
       </div>
 
-
       <div class="form-group">
         <label for="name">Other Skill</label>
         <select name="skill" formControlName="skill">
           <option value="0"></option>
-          <option [selected]="skill.id == requestForm.controls['skill'].value"
-                  *ngFor="let skill of skills"
-                  [ngValue]="skill.id">
+          <option
+            [selected]="skill.id == requestForm.controls['skill'].value"
+            *ngFor="let skill of skills"
+            [ngValue]="skill.id"
+          >
             {{ skill.name }}
           </option>
         </select>
@@ -131,20 +170,24 @@
 
       <div class="form-group">
         <label for="name">Notes</label>
-        <textarea class="form-control"
-                  placeholder="Notes"
-                  rows="4"
-                  formControlName="notes"></textarea>
+        <textarea
+          class="form-control"
+          placeholder="Notes"
+          rows="4"
+          formControlName="notes"
+        ></textarea>
       </div>
     </div>
-    <button [disabled]="
+    <button
+      [disabled]="
         requestForm.invalid ||
         this.request.statusID == 2 ||
         this.request.statusID == 4
       "
-            type="button"
-            (click)="onSubmit()"
-            class="editBtn">
+      type="button"
+      (click)="onSubmit()"
+      class="editBtn"
+    >
       Edit
     </button>
   </form>
@@ -152,6 +195,8 @@
 <div class="overlay"></div>
 <swal #orgPicker title="Choose department" width="500px" tabindex="100">
   <div *swalPortal="swalTargets.content">
-    <app-pop-up-organizations (department)="getDataFromPopup($event)"></app-pop-up-organizations>
+    <app-pop-up-organizations
+      (department)="getDataFromPopup($event)"
+    ></app-pop-up-organizations>
   </div>
 </swal>

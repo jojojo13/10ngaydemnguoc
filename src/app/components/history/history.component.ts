@@ -10,7 +10,7 @@ export class HistoryComponent implements OnInit,OnChanges {
   @Input('req') req:any
   constructor(public requestService:RequestService) { }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.req)
+
   }
 
   ngOnInit(): void {

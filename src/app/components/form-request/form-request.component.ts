@@ -62,7 +62,7 @@ export class FormRequestComponent implements OnInit {
       ],
       office: [{ value: '', disabled: true }],
       deadline: ['', [Validators.required]],
-      experience: [''],
+      experience: ['',[Validators.pattern('^[0-9][0-9]*$')]],
       level: [''],
       skill: [''],
       notes: [''],
@@ -71,7 +71,7 @@ export class FormRequestComponent implements OnInit {
       .getRequestByID(parseInt(id))
       .subscribe((respone: any) => {
         let rq = respone.data;
-        console.log(rq)
+
         this.isLoaded = true;
         this.request = rq;
         this.req.emit(rq);
@@ -100,9 +100,6 @@ export class FormRequestComponent implements OnInit {
     this.loadData();
   }
   onSubmit() {
-    (document?.querySelector('.overlay') as HTMLElement).style.display =
-      'block';
-    this.isLoaded = false;
     let request = {
       id: this.request.id,
       name: this.requestForm.controls['name'].value,
@@ -131,6 +128,9 @@ export class FormRequestComponent implements OnInit {
       updateDate: '2022-06-23T08:45:38.630Z',
       hrInchange: 2,
     };
+    if (this.requestForm.controls['experience'].value == '') {
+      request.yearExperience = 0;
+    }
 
     Swal.fire({
       text: 'Are you sure to edit this request?',
@@ -142,50 +142,54 @@ export class FormRequestComponent implements OnInit {
       confirmButtonText: 'Confirm',
       width: '380px',
     }).then((result) => {
-      this.requestService
-        .checkTotal(
-          this.requestService.selectedRequest.id,
-          this.requestForm.controls['quantity'].value
-        )
-        .subscribe((response: any) => {
-          if (response.status == false) {
-            this.isLoaded = true;
-            Swal.fire(
-              'Total quantity must be less than quantity of request parent'
-            );
-            (document?.querySelector('.overlay') as HTMLElement).style.display =
-              'none';
-          } else {
-            if (result.isConfirmed) {
-              console.log('confirm');
-              this.requestService.editRequest(request).subscribe(
-                (response: any) => {
-                  console.log('call api');
-                  this.isLoaded = true;
-                  if (response.status == true) {
-                    (
-                      document?.querySelector('.overlay') as HTMLElement
-                    ).style.display = 'none';
-                    this.commonService.popUpSuccess();
-                    this.location.back();
-                  } else {
+      if (result.isConfirmed) {
+        (document?.querySelector('.overlay') as HTMLElement).style.display =
+          'block';
+        this.isLoaded = false;
+        this.requestService
+          .checkTotal(
+            this.requestService.selectedRequest.id,
+            this.requestForm.controls['quantity'].value
+          )
+          .subscribe((response: any) => {
+            if (response.status == false) {
+              this.isLoaded = true;
+              Swal.fire(
+                'Total quantity must be less than quantity of request parent'
+              );
+              (
+                document?.querySelector('.overlay') as HTMLElement
+              ).style.display = 'none';
+            } else {
+              if (result.isConfirmed) {
+                this.requestService.editRequest(request).subscribe(
+                  (response: any) => {
+                    this.isLoaded = true;
+                    if (response.status == true) {
+                      (
+                        document?.querySelector('.overlay') as HTMLElement
+                      ).style.display = 'none';
+                      this.commonService.popUpSuccess();
+                      this.ngOnInit();
+                    } else {
+                      (
+                        document?.querySelector('.overlay') as HTMLElement
+                      ).style.display = 'none';
+                      this.commonService.popUpFailed('Something wrong');
+                    }
+                  },
+                  (err: any) => {
                     (
                       document?.querySelector('.overlay') as HTMLElement
                     ).style.display = 'none';
                     this.commonService.popUpFailed('Something wrong');
+                    this.isLoaded = true;
                   }
-                },
-                (err: any) => {
-                  (
-                    document?.querySelector('.overlay') as HTMLElement
-                  ).style.display = 'none';
-                  this.commonService.popUpFailed('Something wrong');
-                  this.isLoaded = true;
-                }
-              );
+                );
+              }
             }
-          }
-        });
+          });
+      }
     });
   }
   loadData() {
@@ -206,7 +210,6 @@ export class FormRequestComponent implements OnInit {
     this.commonService
       .getOtherList('RC_PROJECT', 0, 9999)
       .subscribe((response: any) => {
-        console.log(response);
         this.projects = response.data;
       });
   }
@@ -251,18 +254,16 @@ export class FormRequestComponent implements OnInit {
       this.requestForm.controls['office'].setValue(response.data.office);
       this.managerID = response.data.managerID;
     });
-    console.log(this.requestForm);
   }
   renderPosition(id: number) {
     this.orgService.getPositionByOrgID(id).subscribe(
       (response: any) => {
         this.positions = response.data;
-    
       },
       (err) => {
         Swal.fire('Position for this department is not available ');
         this.requestForm.controls['dep']?.reset();
-        this.requestForm.controls['dep']?.setValue('')
+        this.requestForm.controls['dep']?.setValue('');
       }
     );
   }

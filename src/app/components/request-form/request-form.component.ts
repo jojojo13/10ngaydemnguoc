@@ -235,7 +235,8 @@ export class RequestFormComponent implements OnInit {
     
   extendFromParent() {
     let parentRequest = this.requestService.selectedRequest;
-    // console.log(this.requestService.selectedRequest);
+
+    console.log(this.requestService.selectedRequest);
     if (parentRequest.id > 0) {
       this.isChild = true;
       this.requestForm.controls['dep'].setValue(parentRequest.orgnizationName);
