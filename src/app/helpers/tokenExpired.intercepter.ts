@@ -23,10 +23,7 @@ export class JwtInterceptor implements HttpInterceptor {
       headers: req.headers.set(
         'Authorization',
         'Bearer ' + localStorage.getItem('token'),
-        
-        
       ),
-    
     }
     );
     req.headers.append('ngsw-bypass', 'true')

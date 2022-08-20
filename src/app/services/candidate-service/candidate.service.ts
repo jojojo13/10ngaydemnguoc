@@ -26,51 +26,51 @@ export class CandidateService {
   }
   getAllcandidateByFilter(obj: CandidateFilter) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetAllCandidateByFillter`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetAllCandidateByFillter`,
       obj
     );
   }
   getSkillSheet(code: string) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetSkillSheet?code1=${code}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetSkillSheet?code1=${code}`,
       {}
     );
   }
   getSkillType() {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetTypeSkill?type=2`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetTypeSkill?type=2`,
       {}
     );
   }
 
   insertCandidate(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/InsertRcCandidate',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/InsertRcCandidate',
       obj
     );
   }
   CheckDuplicateCandidate(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/CheckDuplicateCandidate',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/CheckDuplicateCandidate',
       obj
     );
   }
   getCandidateById(id: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetOneInforCandidate?id=${id}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetOneInforCandidate?id=${id}`,
       {}
     );
   }
   matchingCandidate(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/MatchingCandidate',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/MatchingCandidate',
       obj
     );
   }
 
   getCandidateByRequest(obj: any) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetCandidateByRequest`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetCandidateByRequest`,
       obj
       // { responseType: 'text' }
     );
@@ -78,14 +78,14 @@ export class CandidateService {
 
   deleteCandidate(arr: Array<number>) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/DeleteCandidate`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/DeleteCandidate`,
       arr
     );
   }
 
   activeCandidate(arr: Array<number>) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/ActiveCandidate`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/ActiveCandidate`,
       arr
     );
   }
@@ -96,109 +96,109 @@ export class CandidateService {
       lstCandidateID: listCandidateID,
     };
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/DeActiveCandidate`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/DeActiveCandidate`,
       obj
     );
   }
   getRequestInCandidate(candidateID: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetAllRequestByCandidateID?id=${candidateID}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetAllRequestByCandidateID?id=${candidateID}`,
       {}
     );
   }
 
   getCandidateRequestInfor(requestID: number, candidateID: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetCandidateRequestInf?requestId=${requestID}&candidateId=${candidateID}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetCandidateRequestInf?requestId=${requestID}&candidateId=${candidateID}`,
       {}
     );
   }
   setStep1Candidate(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/SetStep1CandidatePV',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/SetStep1CandidatePV',
       obj
     );
   }
   insertScheduleCandidate(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/ScheduleAPI/InsertSchedule',
+      'https://capsum22.herokuapp.com/api/ScheduleAPI/InsertSchedule',
       obj
     );
   }
   getScheduleCandidate(rqID: number, canID: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/ScheduleAPI/GetSchedule?requestId=${rqID}&candidateId=${canID}`,
+      `https://capsum22.herokuapp.com/api/ScheduleAPI/GetSchedule?requestId=${rqID}&candidateId=${canID}`,
       {}
     );
   }
   modifyCandidateSchedule(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/ScheduleAPI/ModifySchedule',
+      'https://capsum22.herokuapp.com/api/ScheduleAPI/ModifySchedule',
       obj
     );
   }
   deleteScheDule(obj: Array<number>) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/ScheduleAPI/DeleteSchedule',
+      'https://capsum22.herokuapp.com/api/ScheduleAPI/DeleteSchedule',
       obj
     );
   }
   getInfEdit(id: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetOneInforCandidateToEdit?id=${id}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetOneInforCandidateToEdit?id=${id}`,
       {}
     );
   }
   editInfoCan(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/EditInforCandidate',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/EditInforCandidate',
       obj
     );
   }
   checkInforCandidateEdit(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/CheckInforCandidateEdit',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/CheckInforCandidateEdit',
       obj
     );
   }
   saveResultInterview(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/SetStep3CandidatePV',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/SetStep3CandidatePV',
       obj
     );
   }
   getAllCandidateStep3(id: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetAllResultStep3?requestID=${id}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetAllResultStep3?requestID=${id}`,
       {}
     );
   }
   pass3tp4(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/PassStep3to4',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/PassStep3to4',
       obj
     );
   }
   getAllEventCandidate(canID: number, rqID: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/ViewStep3RcEvent?candidate=${canID}&request=${rqID}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/ViewStep3RcEvent?candidate=${canID}&request=${rqID}`,
       {}
     );
   }
 
   setStep4(obj: any) {
     return this.__http.post(
-      'http://139.99.90.39:3100/api/CandidateAPI/SetStep4CandidatePV',
+      'https://capsum22.herokuapp.com/api/CandidateAPI/SetStep4CandidatePV',
       obj
     );
   }
 
   setStep5(obj:any){
-    return this.__http.post('http://139.99.90.39:3100/api/CandidateAPI/SetStep5CandidatePV',obj)
+    return this.__http.post('https://capsum22.herokuapp.com/api/CandidateAPI/SetStep5CandidatePV',obj)
   }
   getDDPosition(id: number) {
     return this.__http.post(
-      `http://139.99.90.39:3100/api/CandidateAPI/GetDDPositionStep4?request=${id}`,
+      `https://capsum22.herokuapp.com/api/CandidateAPI/GetDDPositionStep4?request=${id}`,
       {}
     );
   }
