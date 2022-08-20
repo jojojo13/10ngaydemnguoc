@@ -51,7 +51,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.post(
+    return this.__http.put(
       this.baseUrl + `/GetAllRequest?index=${index}&size=${size}`,
       {},
       httpOptions1
@@ -201,7 +201,13 @@ export class RequestService {
     return this.__http.post(`http://139.99.90.39:3100/api/RequestAPI/CheckTotalQuantity?id=${id}&quantity=${quantity}`, {});
   }
   filterRequest(obj:any){
-    return this.__http.post('http://139.99.90.39:3100/api/RequestAPI/GetAllRequestByFilter',obj)
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.put('http://139.99.90.39:3100/api/RequestAPI/GetAllRequestByFilter', obj, httpOptions1);
   }
 
 }

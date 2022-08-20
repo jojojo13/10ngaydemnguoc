@@ -8,29 +8,34 @@ import { Account } from '../models/Account';
 })
 export class AuthorizeService {
   public userSubject: BehaviorSubject<any>;
-  public user:Observable<any>
+  public user: Observable<any>;
   constructor(private _http: HttpClient) {
     this.userSubject = new BehaviorSubject<any>(null);
     this.user = this.userSubject.asObservable();
   }
 
   signIn(account: Account) {
-    return this._http
-      .post('http://139.99.90.39:3100/api/AccountAPI/GetAccount', account)
-      .pipe(
-        map((user) => {
-          this.userSubject.next(user);
-          return user;
-        })
-      );
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    });
+
+    return this._http.post(
+      'http://139.99.90.39:3100/api/AccountAPI/GetAccount',
+      account,
+      { headers: headers}
+    );
   }
-  getUserInfo(){
+  getUserInfo() {
     let httpOptions1 = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this._http.get('http://139.99.90.39:3100/api/AccountAPI/GetUserLog',httpOptions1)
+    return this._http.get(
+      'http://139.99.90.39:3100/api/AccountAPI/GetUserLog',
+      httpOptions1
+    );
   }
 }

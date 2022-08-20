@@ -44,7 +44,7 @@ export class ViewOneRequestPageComponent implements OnInit {
       id: this.request.id,
       comment: this.commentString,
     };
-
+    
     this.requestService.sendComment(obj).subscribe(
       (response: any) => {
         if ((response.status = true)) {

@@ -20,5 +20,4 @@ export class ViewRequestPageComponent implements OnInit {
     })
   }
 
-  
 }
