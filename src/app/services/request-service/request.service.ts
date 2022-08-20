@@ -207,7 +207,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put('https://capsum22.herokuapp.com/api/RequestAPI/GetAllRequestByFilter', obj, httpOptions1);
+    return this.__http.post('https://capsum22.herokuapp.com/api/RequestAPI/GetAllRequestByFilter', obj, httpOptions1);
   }
 
 }
