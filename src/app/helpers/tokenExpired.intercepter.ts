@@ -26,8 +26,10 @@ export class JwtInterceptor implements HttpInterceptor {
         
         
       ),
-    });
-
+    
+    }
+    );
+    req.headers.append('ngsw-bypass', 'true')
     return next.handle(req).pipe(
       catchError((error) => {
         let handled: boolean = false;
