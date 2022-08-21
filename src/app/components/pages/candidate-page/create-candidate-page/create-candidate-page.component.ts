@@ -99,8 +99,12 @@ export class CreateCandidatePageComponent implements OnInit, OnDestroy {
       (this.objForAPI.wardLive = 0),
       (this.objForAPI.major = this.candidate.major),
       (this.objForAPI.school = this.candidate.university),
-      (this.objForAPI.gpa = this.candidate.gpa),
+      // (this.objForAPI.gpa = this.candidate.gpa),
       (this.objForAPI.awards = this.candidate.awards);
+
+    if (this.candidate.gpa != '') {
+      this.objForAPI.gpa =parseFloat(this.candidate.gpa) ;
+    }
     if (this.candidate.graduate != '') {
       this.objForAPI.graduate = this.candidate.graduate;
     }
@@ -209,7 +213,7 @@ export class CreateCandidatePageComponent implements OnInit, OnDestroy {
   getlistExp(arr: any) {
     if (arr) {
       this.objForAPI.listExp = arr;
-      this.isEmpty=this.allAreNull(arr)
+      this.isEmpty = this.allAreNull(arr);
     }
   }
   allAreNull(arr: any) {

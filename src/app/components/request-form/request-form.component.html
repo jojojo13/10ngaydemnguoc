@@ -59,7 +59,7 @@
       <div class="form-group">
         <label for="name">Projects<span>*</span></label>
         <select name="dep" formControlName="projects">
-          <option value="0"></option>
+        
           <option
             [selected]="project.id == requestForm.controls['projects'].value"
             *ngFor="let project of projects"
@@ -148,6 +148,7 @@
       <div class="form-group">
         <label for="name">Level</label>
         <select name="level" formControlName="level">
+          <option value=""></option>
           <option *ngFor="let level of levels" [ngValue]="level.id">
             {{ level.name }}
           </option>
@@ -157,6 +158,7 @@
       <div class="form-group">
         <label for="name">Other Skill</label>
         <select name="skill" formControlName="skill">
+          <option value=""></option>
           <option *ngFor="let skill of skills" [ngValue]="skill.id">
             {{ skill.name }}
           </option>

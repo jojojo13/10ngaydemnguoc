@@ -143,7 +143,7 @@ export class SkillsAndExpComponent implements OnInit {
       let select = this.renderer.createElement('select');
       let trash = this.renderer.createElement('i');
       let value;
-
+      let small = this.renderer.createElement('small');
       this.renderer.setAttribute(input, 'type', 'number');
 
       let result = parent.listSkill.filter(
@@ -163,7 +163,6 @@ export class SkillsAndExpComponent implements OnInit {
       let orig = -1;
       this.renderer.listen(select, 'focus', () => {
         orig = select.options[select.selectedIndex].value;
-       
       });
       this.renderer.listen(select, 'change', () => {
         value = select.options[select.selectedIndex].value;
@@ -203,21 +202,30 @@ export class SkillsAndExpComponent implements OnInit {
         });
         this.candidateService.detectChange.next(true);
       });
-
+      // const re = new RegExp('^[0-9]+.[0-9]{0,1}$');
       this.renderer.listen(input, 'change', () => {
-        a.goal = input.value;
-        obj.goal = input.value;
+        // console.log(re.test(input.value))
+        // if(re.test(input.value)){
+        a.goal = input.value.toString();
+        obj.goal = input.value.toString();
         this.candidateService.detectChange.next(true);
+        // small.innerHTML=''
+        // }else{
+        //   small.innerHTML='Need input number and only one double'
+        // }
       });
       obj.level = select.options[select.selectedIndex].value;
       a.name = select.options[select.selectedIndex].text;
       a.id = select.options[select.selectedIndex].value;
       this.renderer.addClass(main, 'main');
       this.renderer.addClass(trash, 'fa');
+      this.renderer.addClass(small, 'text-danger');
       this.renderer.addClass(trash, 'fa-trash');
 
       this.renderer.appendChild(main, select);
+
       this.renderer.appendChild(main, input);
+      // this.renderer.appendChild(main, small);
       if (this.isFirst == false) {
         this.renderer.appendChild(main, trash);
       }

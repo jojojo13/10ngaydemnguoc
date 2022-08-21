@@ -16,7 +16,7 @@
 
   <div class="language">
     <div class="language-heading">
-      <h5 class="language-heading__ttl">2. SkillSheets</h5>
+      <h5 class="language-heading__ttl">2. Skill Sheet</h5>
       <div class="content">
         <app-combobox-for-candidate (childSkill)="getData($event)">
         </app-combobox-for-candidate>
@@ -124,8 +124,8 @@
                         type="text"
                       />
                     </div>
-                    <small *ngIf="exp.controls['firm']?.errors"
-                      >Must input description</small
+                    <small class="text-danger" *ngIf="exp.controls['firm']?.errors"
+                      >Must input company/project</small
                     >
                   </div>
                   <div class="exp">
@@ -140,8 +140,8 @@
                         type="text"
                       />
                     </div>
-                    <small *ngIf="exp.controls['pos']?.errors"
-                      >Must input description</small
+                    <small class="text-danger" *ngIf="exp.controls['pos']?.errors"
+                      >Must input position</small
                     >
                   </div>
 
@@ -157,7 +157,7 @@
                         type="text"
                       />
                     </div>
-                    <small *ngIf="exp.controls['time']?.errors"
+                    <small class="text-danger" *ngIf="exp.controls['time']?.errors"
                       >Must input description</small
                     >
                   </div>

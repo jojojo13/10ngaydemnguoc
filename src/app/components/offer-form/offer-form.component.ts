@@ -33,7 +33,6 @@ export class OfferFormComponent implements OnInit, OnChanges {
     private orgS: OrganizationService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.infor);
   }
   candidateID!: number;
   requestID!: number;

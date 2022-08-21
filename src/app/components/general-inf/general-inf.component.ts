@@ -70,7 +70,7 @@ export class GeneralInfComponent implements OnInit, OnChanges {
       major: ['', [Validators.maxLength(50)]],
       university: ['', Validators.maxLength(50)],
       graduate: [''],
-      gpa: [0, [Validators.min(0),Validators.max(4)]],
+      gpa: ['', [Validators.min(0),Validators.max(4),Validators.pattern('^[0-9]\\.[0-9]{1}$')]],
       country: ['', [Validators.required]],
       city: ['', [Validators.required]],
       awards: ['', Validators.maxLength(80)],
@@ -80,6 +80,7 @@ export class GeneralInfComponent implements OnInit, OnChanges {
     });
     this.contactForm.valueChanges.subscribe((value) => {
       this.candidate.emit(this.contactForm);
+     
     });
     this.loadCountry();
   }
