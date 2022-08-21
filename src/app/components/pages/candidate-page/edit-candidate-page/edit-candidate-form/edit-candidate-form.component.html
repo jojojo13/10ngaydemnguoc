@@ -190,14 +190,22 @@
         <div class="form-group">
           <label for="twitter">GPA</label>
           <div class="err">
-            <input type="number" class="form-control" formControlName="gpa" />
+            <input type="text" class="form-control" formControlName="gpa" />
             <small
               class="text-danger"
               *ngIf="
                 contactForm.get('gpa')?.hasError('min') ||
                 contactForm.get('gpa')?.hasError('max')
               "
-              >Input range from 0-10</small
+              >Input range from 0-4</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="
+                contactForm.get('gpa')?.hasError('pattern') 
+                
+              "
+              >Input sample: 3.5</small
             >
           </div>
         </div>
