@@ -230,7 +230,7 @@ export class Grid2Component implements OnInit {
     for (let rq of list) {
       let redInRGB = 214;
       let tr = this.renderer.createElement('tr');
-      let td0 = this.renderer.createElement('td');
+      // let td0 = this.renderer.createElement('td');
       let input = this.renderer.createElement('input');
       this.renderer.setAttribute(input, 'type', 'checkbox');
       this.renderer.setAttribute(input, 'value', rq.id);
@@ -245,10 +245,10 @@ export class Grid2Component implements OnInit {
         hrInchange = '';
       }
 
-      this.renderer.appendChild(td0, input);
-      this.renderer.listen(input, 'click', (e) => {
-        this.selectedChange(rq.id, e);
-      });
+      // this.renderer.appendChild(td0, input);
+      // this.renderer.listen(input, 'click', (e) => {
+      //   this.selectedChange(rq.id, e);
+      // });
       let td = this.renderer.createElement('td');
       td.innerHTML = `${rq.code}`;
       let td2 = this.renderer.createElement('td');
@@ -300,7 +300,7 @@ export class Grid2Component implements OnInit {
       this.addClass(i, 'fa');
       this.addClass(i, 'fa-chevron-down');
       td11.appendChild(i);
-      tr.appendChild(td0);
+      // tr.appendChild(td0);
       tr.appendChild(td);
       tr.appendChild(td2);
       tr.appendChild(td3);

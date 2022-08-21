@@ -48,7 +48,7 @@ export class OfferFormComponent implements OnInit, OnChanges {
       netSalary: ['', [Validators.required, Validators.pattern('^[1-9]\\d*$')]],
       internSalary: [{ value: '', disabled: true }],
       allowance: [''],
-      startDate:['',[Validators.required,this.dateValidator]],
+      startDate:['',[Validators.required,this.dateValidator.bind(this)]],
       insurance: [this.insurance],
       workTime: ['Fulltime: 8:00 - 17:00 Mon-Fri'],
       location: [{ value: '', disabled: true }],
@@ -63,13 +63,22 @@ export class OfferFormComponent implements OnInit, OnChanges {
   }
   dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
     if (control?.value) {
-        const today = new Date();
-        const dateToCheck = new Date(control.value);
+        const today = this.handleDate( new Date());
+ 
+        const dateToCheck =control.value;
+        console.log(control.value)
         if ((dateToCheck < today)) {
             return {'invalid': true}
         }
     }
     return null;
+  }
+  handleDate(date: Date) {
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+    let now = yyyy + '-' + mm + '-' + dd;
+    return now;
   }
   reviewStep4(result: number) {
     this.isLoaded = false;

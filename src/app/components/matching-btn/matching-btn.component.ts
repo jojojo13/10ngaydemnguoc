@@ -72,14 +72,14 @@ export class MatchingBtnComponent implements OnInit {
             this.isLoaded = true;
             (document?.querySelector('.overlay') as HTMLElement).style.display =
               'none';
-            this.commonService.popUpFailed('Matching failed');
+            this.commonService.popUpFailed('Request invalid! Only matching child request');
           }
         },
         (err) => {
           this.isLoaded = true;
           (document?.querySelector('.overlay') as HTMLElement).style.display =
             'none';
-          this.commonService.popUpFailed('Matching failed');
+          this.commonService.popUpFailed('Request invalid! Only matching child request');
         }
       );
     } else {
