@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RequestService } from 'src/app/services/request-service/request.service';
@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
   templateUrl: './matching-btn.component.html',
   styleUrls: ['./matching-btn.component.scss'],
 })
-export class MatchingBtnComponent implements OnInit {
+export class MatchingBtnComponent implements OnInit,OnDestroy {
   isLoaded = true;
   @ViewChild('requestPicker') requestPicker!: SwalComponent;
   constructor(
@@ -20,9 +20,13 @@ export class MatchingBtnComponent implements OnInit {
     private candidateService: CandidateService,
     private commonService: CommonService,
   ) {}
+  ngOnDestroy(): void {
+    
+  }
   ngOnInit(): void {}
   popupRequest() {
     this.requestPicker.fire().then((result) => {
+      this.requestService.listSelectedRequest=[]
       if (result.isConfirmed) {
         this.matchingRequest();
       }
@@ -32,7 +36,7 @@ export class MatchingBtnComponent implements OnInit {
     let rs = this.candidateService.listSelectedCandidate.every((c: any) => {
       return c.statusId == 1;
     });
-    console.log(rs);
+ 
     if (rs) {
       if (!this.requestService.selectedRequestForCandidate) {
         this.commonService.popUpFailed('Please choose request!!!');
@@ -85,5 +89,8 @@ export class MatchingBtnComponent implements OnInit {
     } else {
       this.commonService.popUpFailed('Only choose active candidate');
     }
+  }
+  deleteRQ(){
+    console.log(this.requestService.listSelectedRequest)
   }
 }

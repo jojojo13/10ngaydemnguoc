@@ -4,9 +4,12 @@
     <app-back-btn [route]="route"></app-back-btn>
 
     <div class="d-flex" *ngIf="user">
-      <ng-container *ngIf="user.rule == 2||user.rule == 1">
-      
+      <ng-container *ngIf="user.rule == 2 || user.rule == 1">
         <app-add-btn></app-add-btn>
+
+        <div class="icon" (click)="deleteRQ()">
+          <p><i class="fa fa-ban circle-icon"></i>Delete</p>
+        </div>
       </ng-container>
     </div>
   </div>

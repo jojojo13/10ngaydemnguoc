@@ -251,7 +251,7 @@ export class GridComponent implements OnInit, OnDestroy {
 
       this.renderer.appendChild(td0, input);
       this.renderer.listen(input, 'click', (e) => {
-        this.selectedChange(rq.id, e);
+        this.selectedChange(rq, e);
       });
       let td = this.renderer.createElement('td');
       td.innerHTML = `${rq.code}`;
@@ -366,11 +366,18 @@ export class GridComponent implements OnInit, OnDestroy {
   selectedChange(request: any, event: any) {
     if (event.target.checked) {
       this.requestService.listSelectedRequest.push(request);
+      // let wrapper = event.target.parentElement;
+      // let parent = wrapper.parentElement;
+      // console.log(parent)
+      // parent.classList.add('selected');
     } else {
       let index = this.requestService.listSelectedRequest.findIndex(
         (req: any) => req.id == request.id
       );
       this.requestService.listSelectedRequest.splice(index, 1);
+      // let wrapper = event.target.parentElement;
+      // let parent = wrapper.parentElement;
+      // parent.classList.remove('selected');
     }
     // this.requestService.selectedRequestForCandidate = request.id;
   }
