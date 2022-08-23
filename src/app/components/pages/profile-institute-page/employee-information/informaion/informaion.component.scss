@@ -171,3 +171,12 @@ button:disabled {
  input{
      height:40px;
  }
+.img{
+  object-fit: cover;
+  border-radius: 50%;
+  width: 240px;
+  height: 240px;
+}
+label{
+  cursor: pointer;
+}

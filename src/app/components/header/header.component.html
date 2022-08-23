@@ -4,7 +4,8 @@
   </div>
   <div class="content-right">
     <div class="content-right-box">
-      <ngx-avatar size="45" [name]="letter"></ngx-avatar>
+      <ngx-avatar size="45" *ngIf="!url" [name]="letter"></ngx-avatar>
+      <img *ngIf="url" [src]="url" alt="" />
     </div>
     <h5>
       <p style="font-size: 12px">{{ user.positionName }}</p>

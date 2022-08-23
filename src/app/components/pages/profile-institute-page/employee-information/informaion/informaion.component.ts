@@ -6,10 +6,13 @@ import { ProfileService } from 'src/app/services/profile-service/profile.service
 import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { RequestService } from 'src/app/services/request-service/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FileUpload } from 'src/app/models/FileUpload';
 @Component({
   selector: 'app-informaion',
   templateUrl: './informaion.component.html',
-  styleUrls: ['./informaion.component.scss']
+  styleUrls: ['./informaion.component.scss'],
 })
 export class InformaionComponent implements OnInit {
   route = { name: 'Create Orgnization', link: '/thietlaptochuc' };
@@ -36,49 +39,111 @@ export class InformaionComponent implements OnInit {
   department: any;
   emp: any;
   url: any;
+
+  name=''
+  fileUpLoad!: FileUpload;
+  selectedFiles!: FileList;
+  downloadURL = '';
+  pdfSrc: any;
   @ViewChild('orgPicker') orgPicker!: SwalComponent;
   constructor(
     private fb: FormBuilder,
     private requestService: RequestService,
     public readonly swalTargets: SwalPortalTargets,
-    private orgService: OrganizationService,
+
     private commonService: CommonService,
-    private organizationService: OrganizationService,
+
     private profileServices: ProfileService,
-    private router: Router,
+
+   
+    private storage: AngularFireStorage,
     private activatedRoute: ActivatedRoute
-  ) { }
-
-
-
+  ) {}
 
   selectFile(event: any) {
-    var mimeType = event.target.files[0].type;
-
-    if (mimeType.match(/image\/*/) == null) {
-      return;
-    }
-
-    var reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-
-    reader.onload = (_event) => {
-      this.url = reader.result;
-    }
-
+    this.selectedFiles = event.target.files;
+    this.upload();
   }
+  getExtendsionFile(fileName: string) {
+    return fileName.slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2);
+  }
+  upload(): void {
+    const file = this.selectedFiles.item(0) as File;
+    let typeFile = this.getExtendsionFile(file.name).toLowerCase();
 
+    if ((typeFile == 'jpg' || typeFile == 'png') && file.size < 5000000) {
+      var storageRef = this.storage.ref('uploads/' + this.empId);
+      storageRef.listAll().subscribe((result: any) => {
+        if (result.items.length > 0) {
+          this.commonService.deleteFile(this.downloadURL);
+        }
+      });
+      this.fileUpLoad = new FileUpload(file);
+
+      this.commonService
+        .pushFileToStorage(this.fileUpLoad, this.empId.toString())
+        .subscribe(
+          (percentage: any) => {
+            // this.percentage = Math.round(percentage ? percentage : 0);
+            this.loadCV();
+            this.commonService.headerBehavior.next(true)
+          },
+          (error: any) => {}
+        );
+    } else {
+      this.commonService.popUpFailed('Must import pdf file and less than 5mb');
+    }
+  }
+  loadCV() {
+    // this.isLoaded = false;
+
+    var storageRef = this.storage.ref(`uploads/${this.empId}`);
+    // this.uvcode = response.data[0].code;
+
+    storageRef.listAll().subscribe(
+      (result: any) => {
+        if (result.items.length > 0) {
+          result.items.forEach((imageRef: any) => {
+            // And finally display them
+
+            let extendsionFile = imageRef.name.slice(
+              ((imageRef.name.lastIndexOf('.') - 1) >>> 0) + 2
+            );
+
+            if (
+              extendsionFile.toLowerCase() == 'jpg' ||
+              extendsionFile.toLowerCase() == 'png'
+            ) {
+              imageRef.getDownloadURL().then((url: any) => {
+                this.downloadURL = url;
+                this.url = url;
+
+                // this.isLoaded = true;
+              });
+            }
+            // this.isLoaded = true;
+          });
+        } else {
+          // this.isLoaded = true;
+        }
+      },
+      (error) => {
+        // this.isLoaded = true;
+        // this.commonService.popUpFailed('Get CV failed!!!');
+      }
+    );
+  }
 
   renderProvince(change: any) {
     this.provinceList = [];
     this.districtList = [];
     this.wardList = [];
-    let nationId = this.orgForm.controls['noiNation'].value
+    let nationId = this.orgForm.controls['noiNation'].value;
     this.profileServices.getProvinceByNationId(nationId).subscribe(
       (response: any) => {
         this.provinceList = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
@@ -86,84 +151,84 @@ export class InformaionComponent implements OnInit {
     this.provinceResList = [];
     this.districtResList = [];
     this.wardResList = [];
-    let nationId = this.orgForm.controls['resNation'].value
+    let nationId = this.orgForm.controls['resNation'].value;
     this.profileServices.getProvinceByNationId(nationId).subscribe(
       (response: any) => {
         this.provinceResList = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
   renderResDistrict(change: any) {
     this.districtResList = [];
     this.wardResList = [];
-    let nationId = this.orgForm.controls['resProvince'].value
+    let nationId = this.orgForm.controls['resProvince'].value;
     this.profileServices.getDistrictByProvinceId(nationId).subscribe(
       (response: any) => {
         this.districtResList = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
   renderDistrict(change: any) {
     this.districtList = [];
     this.wardList = [];
-    let nationId = this.orgForm.controls['noiProvince'].value
+    let nationId = this.orgForm.controls['noiProvince'].value;
     this.profileServices.getDistrictByProvinceId(nationId).subscribe(
       (response: any) => {
         this.districtList = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
   renderWard(change: any) {
     this.wardList = [];
-    let nationId = this.orgForm.controls['noiDistrict'].value
+    let nationId = this.orgForm.controls['noiDistrict'].value;
     this.profileServices.getWardByDistrictId(nationId).subscribe(
       (response: any) => {
         this.wardList = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
   renderResWard(change: any) {
     this.wardResList = [];
-    let nationId = this.orgForm.controls['resDistrict'].value
+    let nationId = this.orgForm.controls['resDistrict'].value;
     this.profileServices.getWardByDistrictId(nationId).subscribe(
       (response: any) => {
         this.wardResList = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
   renderSkill1(change: any) {
     this.skillList1 = [];
-    let nationId = this.orgForm.controls['language1'].value
+    let nationId = this.orgForm.controls['language1'].value;
     this.commonService.getOtherListByAttribute(nationId).subscribe(
       (response: any) => {
         this.skillList1 = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
   renderSkill2(change: any) {
     this.skillList2 = [];
-    let nationId = this.orgForm.controls['language2'].value
+    let nationId = this.orgForm.controls['language2'].value;
     this.commonService.getOtherListByAttribute(nationId).subscribe(
       (response: any) => {
         this.skillList2 = response.data;
       },
-      (err) => { }
+      (err) => {}
     );
   }
 
   ngOnInit() {
-    this.empId = this.activatedRoute.snapshot.queryParams["id"];
+    this.empId = this.activatedRoute.snapshot.queryParams['id'];
     this.orgForm = this.fb.group({
       empid: [{ value: '', disabled: true }, [Validators.required]],
       orgName: [{ value: '', disabled: true }, [Validators.required]],
@@ -214,43 +279,43 @@ export class InformaionComponent implements OnInit {
     this.commonService
       .getOtherList('EMPSTS', 0, 9999)
       .subscribe((response: any) => {
-        console.log(response)
+        console.log(response);
         this.statusList = response.data;
       });
-
 
     this.commonService
       .getOtherList('LEARN_LV', 0, 9999)
       .subscribe((response: any) => {
-        console.log(response)
+        console.log(response);
         this.learLevel = response.data;
       });
-    
 
     this.commonService
       .getOtherList('INF_MATIC', 0, 9999)
       .subscribe((response: any) => {
-        console.log(response)
+        console.log(response);
         this.informaticList = response.data;
       });
 
     this.commonService
       .getOtherList('LANGUAGE', 0, 9999)
       .subscribe((response: any) => {
-        console.log(response)
+        console.log(response);
         this.languageList = response.data;
       });
 
     this.commonService
       .getOtherList('ETHNIC', 0, 9999)
       .subscribe((response: any) => {
-        console.log(response)
+        console.log(response);
         this.ethnicList = response.data;
       });
 
-    this.url = "https://www.pphfoundation.ca/wp-content/uploads/2018/05/default-avatar.png";
+    // this.url =
+    //   'https://www.pphfoundation.ca/wp-content/uploads/2018/05/default-avatar.png';
 
-    this.getEmpInformation()
+    this.getEmpInformation();
+    this.loadCV()
   }
   onSubmit() {
     let obj = {
@@ -282,21 +347,21 @@ export class InformaionComponent implements OnInit {
       skill1: this.orgForm.controls['skill1'].value,
       skill2: this.orgForm.controls['skill2'].value,
       score1: this.orgForm.controls['score1'].value,
-      score2: this.orgForm.controls['score2'].value
-    }
+      score2: this.orgForm.controls['score2'].value,
+    };
 
-    this.profileServices.modifyEmployee(obj).subscribe((response: any) => {
-      if (response.data == true) {
-        this.commonService.popUpSuccess()
-      } else {
-        this.commonService.popUpFailed('Modify Failed')
+    this.profileServices.modifyEmployee(obj).subscribe(
+      (response: any) => {
+        if (response.data == true) {
+          this.commonService.popUpSuccess();
+        } else {
+          this.commonService.popUpFailed('Modify Failed');
+        }
+      },
+      (err) => {
+        this.commonService.popUpFailed('Modify Failed');
       }
-    }, (err) => {
-      this.commonService.popUpFailed('Modify Failed')
-    })
-
-
-
+    );
   }
 
   clearInputField() {
@@ -305,12 +370,13 @@ export class InformaionComponent implements OnInit {
     }
   }
 
-
-
   getEmpInformation() {
     this.profileServices
       .getProfileOfEmployee(this.empId)
       .subscribe((res: any) => {
+        let nameSplit=res.data.lastName.split(' ')
+        this.name=nameSplit[nameSplit.length-1].charAt(0)
+        
         this.orgForm.controls['orgName'].setValue(res.data.orgnizationName);
         this.orgForm.controls['empFullName'].setValue(res.data.fullName);
         this.orgForm.controls['empid'].setValue(res.data.code);
@@ -329,7 +395,6 @@ export class InformaionComponent implements OnInit {
         this.orgForm.controls['cmnd'].setValue(res.data.cmnd);
         this.orgForm.controls['cmndPlace'].setValue(res.data.cmnD_Place);
 
-
         this.orgForm.controls['hokhau'].setValue(res.data.hoKhau);
         this.orgForm.controls['resNation'].setValue(res.data.nationHK);
         this.renderResProvince(1);
@@ -339,7 +404,6 @@ export class InformaionComponent implements OnInit {
         this.renderResWard(1);
         this.orgForm.controls['resWard'].setValue(res.data.wardHK);
 
-
         this.orgForm.controls['noio'].setValue(res.data.noiO);
         this.orgForm.controls['noiNation'].setValue(res.data.nationNoiO);
         this.renderProvince(1);
@@ -348,8 +412,6 @@ export class InformaionComponent implements OnInit {
         this.orgForm.controls['noiDistrict'].setValue(res.data.districtNoiO);
         this.renderWard(1);
         this.orgForm.controls['noiWard'].setValue(res.data.wardNoiO);
-
-
 
         this.orgForm.controls['llvel'].setValue(res.data.learningLV);
         this.orgForm.controls['school'].setValue(res.data.school);
@@ -367,9 +429,10 @@ export class InformaionComponent implements OnInit {
         this.orgForm.controls['score1'].setValue(res.data.score1);
         this.orgForm.controls['score2'].setValue(res.data.score2);
 
-        this.orgForm.controls['joinDate'].setValue(res.data.joinDate.slice(0, 10));
+        this.orgForm.controls['joinDate'].setValue(
+          res.data.joinDate.slice(0, 10)
+        );
         this.orgForm.controls['dob'].setValue(res.data.dob.slice(0, 10));
       });
   }
 }
-

@@ -7,7 +7,7 @@ import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 @Component({
   selector: 'app-view-employee-pages',
   templateUrl: './view-employee-pages.component.html',
-  styleUrls: ['./view-employee-pages.component.scss']
+  styleUrls: ['./view-employee-pages.component.scss'],
 })
 export class ViewEmployeePagesComponent implements OnInit {
   @ViewChild('orgPicker') orgPicker!: SwalComponent;
@@ -26,15 +26,14 @@ export class ViewEmployeePagesComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public readonly swalTargets: SwalPortalTargets
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.initForm();
     this.isLoaded = false;
     this.page = this.activatedRoute.snapshot.queryParams['index'];
     this.itemsPerPage = this.activatedRoute.snapshot.queryParams['size'];
     this.loadData(this.departmentID);
-    this.popupForm.controls['dep'].setValue("Công ty Capstone Project");
-
+    this.popupForm.controls['dep'].setValue('Công ty Capstone Project');
   }
   loadData(orgId: number) {
     this.clearData();
@@ -45,7 +44,6 @@ export class ViewEmployeePagesComponent implements OnInit {
           this.isLoaded = true;
           this.listemployee = response.data;
           this.totalItems = response.totalItem;
-
         },
         (err) => {
           this.isLoaded = true;
@@ -61,7 +59,7 @@ export class ViewEmployeePagesComponent implements OnInit {
     this.loadData(this.departmentID);
   }
   clearData() {
-    this.isLoaded = false
+    this.isLoaded = false;
     this.listemployee = null;
   }
 
@@ -77,7 +75,7 @@ export class ViewEmployeePagesComponent implements OnInit {
   }
   initForm() {
     this.popupForm = this.fb.group({
-      dep: ['']
+      dep: [''],
     });
 
     this.employeeForm = this.fb.group({
@@ -87,7 +85,7 @@ export class ViewEmployeePagesComponent implements OnInit {
       title: [''],
       position: [''],
       joinDate: [''],
-      status: ['']
+      status: [''],
     });
     this.employeeForm.valueChanges
       .pipe(debounceTime(2000))
@@ -100,35 +98,34 @@ export class ViewEmployeePagesComponent implements OnInit {
           positionName: this.employeeForm.controls['position'].value,
           joinDate: this.employeeForm.controls['joinDate'].value,
           status: this.employeeForm.controls['status'].value,
-          index: this.page-1,
+          index: this.page - 1,
           size: this.itemsPerPage,
-          orgID: this.departmentID
-        }
+          orgID: this.departmentID,
+        };
 
         if (this.employeeForm.controls['joinDate'].value != '') {
           obj.joinDate = this.employeeForm.controls['joinDate'].value;
         }
         if (this.employeeForm.controls['joinDate'].value == '') {
-          obj.joinDate = "1000-07-26T04:51:14.030Z";
+          obj.joinDate = '1000-07-26T04:51:14.030Z';
         }
 
         this.clearData();
-        this.orgService
-          .getEmployeeByOrgIDByFilter(obj)
-          .subscribe(
-            (response: any) => {
-              this.isLoaded = true;
-              this.listemployee = response.data;
-              this.totalItems = response.totalItem;
-
-            },
-            (err) => {
-              this.isLoaded = true;
-            }
-          );
+        this.orgService.getEmployeeByOrgIDByFilter(obj).subscribe(
+          (response: any) => {
+            this.isLoaded = true;
+            this.listemployee = response.data;
+            this.totalItems = response.totalItem;
+          },
+          (err) => {
+            this.isLoaded = true;
+          }
+        );
       });
   }
   navigateToView(employee: any) {
-    this.router.navigateByUrl(`/thietlaphoso/chitietnhanvien/info?id=${employee.id}`);
+    this.router.navigateByUrl(
+      `/thietlaphoso/chitietnhanvien/info?id=${employee.id}`
+    );
   }
 }

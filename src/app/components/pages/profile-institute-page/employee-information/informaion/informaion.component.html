@@ -9,6 +9,12 @@
         <div style="text-align:center; margin-top:20px;">
           <div>
             <label>
+              <ngx-avatar
+              *ngIf="!url"
+              class="img"
+              size="240"
+              [name]="name"
+            ></ngx-avatar>
               <img [src]="url" *ngIf="url" style="width:240px; height:240px; border-radius:100%;" />
               <input type="file" (change)="selectFile($event)" style="display:none">
             </label>
@@ -79,7 +85,7 @@
         <label for="name">Address<span>*</span></label>
         <input type="text" class="form-control" formControlName="noio" />
         <small class="text-danger"
-               *ngIf="orgForm.get('noio')?.hasError('required')">Please input nơi ở</small>
+               *ngIf="orgForm.get('noio')?.hasError('required')">Please input address</small>
       </div>
       <div class="form-group">
         <label for="name">District <span>*</span></label>

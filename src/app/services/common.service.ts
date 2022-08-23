@@ -45,6 +45,8 @@ export class CommonService {
   imgBehavior: BehaviorSubject<boolean>;
   fileUrl = '';
   imgURL=''
+
+  headerBehavior: BehaviorSubject<boolean>;
   constructor(
     private __http: HttpClient,
     private router: Router,
@@ -58,6 +60,7 @@ export class CommonService {
     this.dataChange = new BehaviorSubject<any>(null);
     this.emitBahavior = new BehaviorSubject<any>(null);
     this.httpClient = new HttpClient(httpBackend);
+    this.headerBehavior=new BehaviorSubject<any>(null);
   }
 
   getOtherList(code: string, index: number, size: number) {
