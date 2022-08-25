@@ -9,9 +9,7 @@ h5 {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 900;
-  font-size: 18px;
-  margin-left: 9px;
-  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 h2 {
@@ -49,8 +47,8 @@ h2 {
 }
 
 .form {
-  padding: 0 60px 40px 60px;
-  width: 950px;
+  padding: 20px;
+  width: 100%;
   display: flex;
   font-family: "Poppins";
   font-style: normal;
@@ -58,7 +56,7 @@ h2 {
   position: relative;
 
   .left {
-    margin-right: 30px;
+    margin-right: 10px;
   }
 
   &-buttons {
@@ -78,10 +76,11 @@ h2 {
       font-family: "Inter";
       font-style: normal;
       font-weight: 600;
-      font-size: 14px;
-
+      font-size: 13px;
+    
       &--clear {
         background-color: #dc3545;
+        margin-left: 20px;
       }
 
       &--draft {
@@ -100,7 +99,7 @@ h2 {
     margin-bottom: 15px;
     align-items: center;
     flex-wrap: wrap;
-    width: 430px;
+    width: 370px;
     height: 55px;
 
     .poppup {
@@ -109,7 +108,7 @@ h2 {
       top: 8px;
       color: #4057f9;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     &:last-of-type {
@@ -118,13 +117,13 @@ h2 {
     }
 
     small {
-      margin-left: 140px;
+      margin-left: 107px;
       margin-top: 5px;
     }
 
     select {
       cursor: pointer;
-      width: 280px;
+      width: 250px;
       padding: 8px 0 8px 10px;
       border-radius: 10px;
       border: 1px solid rgb(197, 197, 197);
@@ -141,9 +140,9 @@ h2 {
       font-family: "Poppins";
       font-style: normal;
       font-weight: 600;
-      font-size: 15px;
-      margin-right: 20px;
-      width: 120px;
+      font-size: 13px;
+      margin-right: 15px;
+      width: 92px;
     }
 
     span {
@@ -152,7 +151,7 @@ h2 {
   }
 
   &-control {
-    width: 280px;
+    width: 250px;
     border-radius: 10px;
     padding: 5px 0 5px 15px;
   }
@@ -166,7 +165,7 @@ select option {
 }
 
 button:disabled {
-  background-color: #565656;
+  background-color: #504f4f;
 }
  input{
      height:40px;
