@@ -1,5 +1,5 @@
 import { Account } from '../../../models/Account';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { AuthorizeService } from 'src/app/services/authorize.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-login-page',
@@ -14,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
+  @ViewChild('requestPicker') requestPicker!: SwalComponent;
   loginForm: UntypedFormGroup;
   account: Account;
   msg = '';
@@ -23,7 +25,8 @@ export class LoginPageComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private auth: AuthorizeService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public readonly swalTargets: SwalPortalTargets,
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -74,5 +77,8 @@ export class LoginPageComponent implements OnInit {
           'none';
       }
     );
+  }
+  popupForm(){
+    this.requestPicker.fire()
   }
 }

@@ -38,7 +38,7 @@
             <span>Remember me</span>
           </div> -->
           <div class="form-under-forgot">
-            <span><a routerLink="/forgot">Forgot password?</a></span>
+            <span><a class="text-primary" (click)="popupForm()">Forgot password?</a></span>
           </div>
         </div>
         <small class="text-danger err">{{msg}}</small>
@@ -49,3 +49,15 @@
   </div>
   <div class="overlay"></div>
 </div>
+<swal
+  class="confirm"
+  #requestPicker
+  title="Forgot password"
+  width="500px"
+  tabindex="100"
+>
+  <div *swalPortal="swalTargets.content">
+    <!-- <app-confirm-matching></app-confirm-matching> -->
+   <app-forgot-form></app-forgot-form>
+  </div>
+</swal>

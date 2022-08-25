@@ -15,7 +15,7 @@ export class ForgotFormComponent implements OnInit {
     private common: CommonService,
     private router: Router
   ) {}
-
+    msg=''
   ngOnInit(): void {
     this.forgotForm = this.fb.group({
       username: [
@@ -27,6 +27,7 @@ export class ForgotFormComponent implements OnInit {
   }
 
   reset() {
+    this.msg=''
     let obj = {
       username: this.forgotForm.get('username')?.value,
       email: this.forgotForm.get('email')?.value,
@@ -36,8 +37,10 @@ export class ForgotFormComponent implements OnInit {
       if (response.status == true) {
         this.common.popUpSuccess();
         this.router.navigateByUrl('/login');
+        this.msg='Reset password successfully'
       } else {
-        this.common.popUpFailed('Username and email do not match');
+        // this.common.popUpFailed('Username and email do not match');
+        this.msg='Username and email do not match'
       }
     });
   }

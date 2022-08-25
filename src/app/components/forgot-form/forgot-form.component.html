@@ -54,6 +54,8 @@
           <button (click)="reset()" [disabled]="forgotForm.invalid" type="submit" class="btn btn-primary btn-block">
             Send password reset email
           </button>
+          <p *ngIf="msg=='Reset password successfully'" class="text-sucess">{{msg}}</p>
+          <p *ngIf="msg=='Username and email do not match'" class="text-danger">{{msg}}</p>
         </form>
       </div>
     </div>
