@@ -4,21 +4,21 @@
     <form action="" class="content-form" [formGroup]="offerForm">
       <div class="content-form-group">
         <div class="err">
-          <label for="">Net salary:</label>
+          <label for="">Gross salary:</label>
           <input type="text" formControlName="netSalary" />
         </div>
         <small *ngIf="offerForm.get('netSalary')?.hasError('required')"
-          >Please input net salary</small
+          >Please input gross salary</small
         >
         <small *ngIf="offerForm.get('netSalary')?.hasError('pattern')"
-          >Net salary must be number</small
+          >Gross salary must be number</small
         >
       </div>
       <div class="content-form-group">
         <div class="err">
           <label for="">Probationary salary:</label>
           <input type="text" formControlName="internSalary" />
-          <span>(85% net salary in the first 2 months)</span>
+          <span>(85% Gross salary in the first 2 months)</span>
         </div>
       </div>
       <div class="content-form-group">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="content-form-group">
-        <div class="err">
+        <div class="err"> 
           <label for="">Start date:</label>
           <input type="date" formControlName="startDate" />
         </div>
@@ -125,7 +125,7 @@
     <div class="offer">
       <h6 class="text-success">Offer approved</h6>
       <p>
-        Net salary: <span>{{ infor.luongNet }} VND</span>
+        Gross salary: <span>{{ infor.luongNet }} VND</span>
       </p>
       <p>
         Probationary salary: <span>{{ infor.luongThuViec }} VND</span>

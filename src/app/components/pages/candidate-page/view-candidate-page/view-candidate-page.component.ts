@@ -255,7 +255,7 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
         if (this.candidateForm.controls['yob'].value == '') {
           this.candidateFilter.yob = 0;
         }
-        console.log('subcribe');
+    
         this.candidateFilter.phone = this.candidateForm.controls['phone'].value;
         this.candidateFilter.email = this.candidateForm.controls['email'].value;
         this.candidateFilter.location =
@@ -263,8 +263,10 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
         this.candidateFilter.position =
           this.candidateForm.controls['position'].value;
         this.candidateFilter.yearExp = this.candidateForm.controls['exp'].value;
+        // this.candidateFilter.yearExp = '';
         this.candidateFilter.language =
           this.candidateForm.controls['languages'].value;
+       
         this.loadData();
       });
   }

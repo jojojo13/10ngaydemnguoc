@@ -31,14 +31,14 @@
         <thead>
           <tr>
             <th></th>
-            <th>ID</th>
+            <!-- <th>ID</th> -->
             <th>Name</th>
             <th>YOB</th>
             <th>Phone</th>
             <th>Email</th>
             <th>Location</th>
             <th>Lastest position</th>
-            <th>Description</th>
+            <!-- <th>Description</th> -->
             <th>Language</th>
             <th>Status</th>
           </tr>
@@ -107,7 +107,7 @@
                 />
               </mat-form-field>
             </td>
-            <td>
+            <!-- <td>
               <mat-form-field>
                 <input
                   matInput
@@ -116,7 +116,7 @@
                   formControlName="exp"
                 />
               </mat-form-field>
-            </td>
+            </td> -->
             <td>
               <mat-form-field>
                 <input
@@ -150,14 +150,14 @@
                 (change)="selectedChange(candidate, $event)"
               />
             </td>
-            <td>{{ candidate.code }}</td>
+            <!-- <td>{{ candidate.code }}</td> -->
             <td>{{ candidate.name }}</td>
             <td>{{ candidate.yob }}</td>
             <td>{{ candidate.phoneNumber }}</td>
             <td class="px-2">{{ candidate.email }}</td>
             <td class="px-2">{{ candidate.location }}</td>
             <td>{{ candidate.lastestPosition }}</td>
-            <td>{{ candidate.experience }}</td>
+            <!-- <td>{{ candidate.experience }}</td> -->
             <td>{{ candidate.language }}</td>
             <td
               [ngClass]="{
