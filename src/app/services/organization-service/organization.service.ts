@@ -171,6 +171,21 @@ export class OrganizationService {
     );
   }
 
+  deleteOrg(orgId: number) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseUrl +
+      `/DeleteOrg?ID=${orgId}`,
+      {},
+      httpOptions1
+    );
+  }
+
   checkPositionExist(orgId: number, positionId: number) {
     let httpOptions1 = {
       headers: new HttpHeaders({
@@ -186,7 +201,7 @@ export class OrganizationService {
     );
   }
 
-  getAllPositionOrg(index: number, size: number) {
+  getAllPositionOrg(index: number, size: number, orgid:number) {
     let httpOptions1 = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -194,7 +209,7 @@ export class OrganizationService {
       }),
     };
     return this.__http.post(
-      this.baseUrl + `/GetAllPositionOrg?index=${index}&size=${size}`,
+      this.baseUrl + `/GetAllPositionOrg?index=${index}&size=${size}&orgId=${orgid}`,
       {},
       httpOptions1
     );

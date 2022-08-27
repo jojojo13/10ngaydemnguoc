@@ -193,11 +193,8 @@ export class CandidateService {
     );
   }
 
-  setStep5(obj: any) {
-    return this.__http.post(
-      'https://localhost:44376/api/CandidateAPI/SetStep5CandidatePV',
-      obj
-    );
+  setStep5(obj:any){
+    return this.__http.post('https://localhost:44376/api/CandidateAPI/SetStep5CandidatePV',obj)
   }
   getDDPosition(id: number) {
     return this.__http.post(
