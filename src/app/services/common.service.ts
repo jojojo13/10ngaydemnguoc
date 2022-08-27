@@ -38,7 +38,7 @@ export class CommonService {
     FileSaver.saveAs(data, fileName + this.fileExtension);
   }
 
-  baseUrl = 'https://capsum22.herokuapp.com/api/CommonAPI/GetOtherList';
+  baseUrl = 'https://localhost:44376/api/CommonAPI/GetOtherList';
   dataChange: BehaviorSubject<boolean>;
   pdfSrc = '';
   emitBahavior: BehaviorSubject<boolean>;
@@ -65,67 +65,67 @@ export class CommonService {
 
   getOtherList(code: string, index: number, size: number) {
     return this.__http.post(
-      `https://capsum22.herokuapp.com/api/CommonAPI/GetOtherList?code=${code}&index=${index}&size=${size}`,
+      `https://localhost:44376/api/CommonAPI/GetOtherList?code=${code}&index=${index}&size=${size}`,
       { code, index, size }
     );
   }
 
   getOtherListByAttribute(id: number) {
     return this.__http.post(
-      `https://capsum22.herokuapp.com/api/CommonAPI/GetOtherListByAttribute?id=${id}`,
+      `https://localhost:44376/api/CommonAPI/GetOtherListByAttribute?id=${id}`,
       { id }
     );
   }
 
   getAllOtherList(code: string, index: number, size: number) {
     return this.__http.post(
-      `https://capsum22.herokuapp.com/api/CommonAPI/GetAllOtherList?code=${code}&index=${index}&size=${size}`,
+      `https://localhost:44376/api/CommonAPI/GetAllOtherList?code=${code}&index=${index}&size=${size}`,
       { code, index, size }
     );
   }
 
   insertOtherList(obj: any) {
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/CommonAPI/InsertOtherList',
+      'https://localhost:44376/api/CommonAPI/InsertOtherList',
       obj
     );
   }
   autoGencode3Char(table: string, code: string) {
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/CommonAPI/autoGenCode3character',
+      'https://localhost:44376/api/CommonAPI/autoGenCode3character',
       { table, code },
       { responseType: 'text' }
     );
   }
   editOtherList(obj: any) {
     return this.__http.put(
-      'https://capsum22.herokuapp.com/api/CommonAPI/ModifyOtherList',
+      'https://localhost:44376/api/CommonAPI/ModifyOtherList',
       obj
     );
   }
   deleteOtherList(arr: Array<number>) {
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/CommonAPI/DeleteOtherList',
+      'https://localhost:44376/api/CommonAPI/DeleteOtherList',
       arr
     );
   }
 
   activeOtherList(arr: Array<number>) {
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/CommonAPI/ActiveOtherList',
+      'https://localhost:44376/api/CommonAPI/ActiveOtherList',
       arr
     );
   }
 
   deactiveOtherList(arr: Array<number>) {
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/CommonAPI/DeactiveOtherList',
+      'https://localhost:44376/api/CommonAPI/DeactiveOtherList',
       arr
     );
   }
   checkQuantityCandidate(obj: any) {
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/CandidateAPI/CheckQuantity',
+      'https://localhost:44376/api/CandidateAPI/CheckQuantity',
       obj
     );
   }
@@ -231,25 +231,25 @@ export class CommonService {
   }
 
   resetPWD(obj:any){
-    return this.httpClient.post('https://capsum22.herokuapp.com/api/AccountAPI/ResetpassWord',obj)
+    return this.httpClient.post('https://localhost:44376/api/AccountAPI/ResetpassWord',obj)
   }
   changePass(obj:any){
-    return this.__http.post('https://capsum22.herokuapp.com/api/AccountAPI/ChangePass',obj)
+    return this.__http.post('https://localhost:44376/api/AccountAPI/ChangePass',obj)
   }
 
   getReportByYear(year:number){
-    return this.__http.post(`https://capsum22.herokuapp.com/api/CandidateAPI/ReportByYear?year=${year}`,{})
+    return this.__http.post(`https://localhost:44376/api/CandidateAPI/ReportByYear?year=${year}`,{})
   }
   getSucessStep1(){
-    return this.__http.get('https://capsum22.herokuapp.com/api/CandidateAPI/ReportStep1')
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportStep1')
   }
   getInStep3(){
-    return this.__http.get('https://capsum22.herokuapp.com/api/CandidateAPI/ReportStep3')
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportStep3')
   }
   getInStep5(){
-    return this.__http.get('https://capsum22.herokuapp.com/api/CandidateAPI/ReportPassStep5')
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportPassStep5')
   }
   getRpNotPass(){
-    return this.__http.get('https://capsum22.herokuapp.com/api/CandidateAPI/ReportNotPass')
+    return this.__http.get('https://localhost:44376/api/CandidateAPI/ReportNotPass')
   }
 }

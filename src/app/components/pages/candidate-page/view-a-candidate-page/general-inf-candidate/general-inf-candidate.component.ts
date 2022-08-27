@@ -42,6 +42,7 @@ export class GeneralInfCandidateComponent implements OnInit {
           this.loadCV();
           this.candidate = response.data[0];
           let words = this.candidate.fullName.trim().split(' ');
+ 
           this.letter = words[words.length - 1].charAt(0);
           if (response.data[0].language.length > 0) {
             this.languageList = response.data[0].language[0].child;

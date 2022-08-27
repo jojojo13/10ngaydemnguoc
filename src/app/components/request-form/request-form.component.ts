@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
+import { AuthorizeService } from 'src/app/services/authorize.service';
 import { CommonService } from 'src/app/services/common.service';
 import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { RequestService } from 'src/app/services/request-service/request.service';
@@ -34,6 +35,8 @@ export class RequestFormComponent implements OnInit {
   managerID!: number;
   isLoaded = false;
   isChild = false;
+  user: any;
+
   @ViewChild('orgPicker') orgPicker!: SwalComponent;
   constructor(
     private fb: UntypedFormBuilder,
@@ -41,7 +44,8 @@ export class RequestFormComponent implements OnInit {
     public readonly swalTargets: SwalPortalTargets,
     private orgService: OrganizationService,
     private commonService: CommonService,
-    private router: Router
+    private router: Router,
+    private auth: AuthorizeService
   ) {}
 
   ngOnInit() {
@@ -58,13 +62,12 @@ export class RequestFormComponent implements OnInit {
         [Validators.pattern('^[1-9][0-9]*$'), Validators.required],
       ],
       office: [{ value: '', disabled: true }],
-      deadline: ['', [Validators.required,this.dateValidator]],
+      deadline: ['', [Validators.required, this.dateValidator]],
       experience: ['', [Validators.pattern('^[1-9][0-9]*$')]],
       level: [''],
       skill: [''],
       notes: [''],
     });
-    console.log(this.requestForm);
     this.commonService
       .getOtherList('RC_TYPE', 0, 9999)
       .subscribe((response: any) => {
@@ -96,10 +99,22 @@ export class RequestFormComponent implements OnInit {
       .subscribe((response: any) => {
         this.skills = response.data;
       });
+
+    this.auth.userSubject.subscribe((data) => {
+      if (data != null) {
+        this.user = data;
+        if (data.rule != 1) {
+          this.requestForm.controls['dep'].setValue(data.departmentName);
+          this.departmentID = data.departmentId;
+
+          this.renderPosition(this.departmentID);
+        }
+      }
+    });
     this.extendFromParent();
   }
-  get deadline(){
-    return this.requestForm.controls['deadline']
+  get deadline() {
+    return this.requestForm.controls['deadline'];
   }
   onSubmit(status: number) {
     (document?.querySelector('.overlay') as HTMLElement).style.display =
@@ -165,8 +180,9 @@ export class RequestFormComponent implements OnInit {
                 (
                   document?.querySelector('.overlay') as HTMLElement
                 ).style.display = 'none';
-                this.router.navigateByUrl('/yeucautuyendung/xemyeucau?index=1&size=20')
-                
+                this.router.navigateByUrl(
+                  '/yeucautuyendung/xemyeucau?index=1&size=20'
+                );
               } else {
                 this.isLoaded = true;
 
@@ -209,7 +225,7 @@ export class RequestFormComponent implements OnInit {
       (err) => {
         Swal.fire('Position for this department is not available ');
         this.requestForm.controls['dep']?.reset();
-        this.requestForm.controls['dep']?.setValue('')
+        this.requestForm.controls['dep']?.setValue('');
         this.requestForm.controls['office']?.reset();
       }
     );
@@ -224,72 +240,34 @@ export class RequestFormComponent implements OnInit {
   }
   dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
     if (control?.value) {
-        const today = new Date();
-        const dateToCheck = new Date(control.value);
-        if (dateToCheck <= today) {
-            return {'invalid': true}
-        }
+      const today = new Date();
+      const dateToCheck = new Date(control.value);
+      if (dateToCheck <= today) {
+        return { invalid: true };
+      }
     }
-    return null
+    return null;
   }
-    
+
   extendFromParent() {
     let parentRequest = this.requestService.selectedRequest;
 
     console.log(this.requestService.selectedRequest);
     if (parentRequest.id > 0) {
       this.isChild = true;
-      this.requestForm.controls['dep'].setValue(parentRequest.orgnizationName);
-      this.departmentID = parentRequest.orgnizationID;
+      // this.requestForm.controls['dep'].setValue(parentRequest.orgnizationName);
+      // this.departmentID = parentRequest.orgnizationID;
       this.requestForm.controls['projects'].setValue(parentRequest.projectID);
-      this.renderPosition(this.departmentID);
-      this.orgService
-        .getOrgByID(this.departmentID)
-        .subscribe((response: any) => {
-          this.requestForm.controls['office'].setValue(response.data.office);
-          this.managerID = response.data.managerID;
-          // this.requestForm.controls['dep'].disable();
-          this.requestForm.controls['projects'].disable();
-        });
+      this.requestForm.controls['projects'].disable();
+      // this.renderPosition(this.departmentID);
+      // this.orgService
+      //   .getOrgByID(this.departmentID)
+      //   .subscribe((response: any) => {
+      //     this.requestForm.controls['office'].setValue(response.data.office);
+      //     this.managerID = response.data.managerID;
+      //     // this.requestForm.controls['dep'].disable();
+      //
+      //   });
     }
   }
-  showw() {
-    let request = {
-      id: 0,
-      name: this.requestForm.controls['name'].value,
-      code: this.requestForm.controls['requestCode'].value,
-      requestLevel: this.requestForm.controls['type'].value,
-      orgnizationId: this.departmentID,
-      positionID: this.requestForm.controls['position'].value,
-      number: this.requestForm.controls['quantity'].value,
-      signId: this.managerID,
-      effectDate: this.today,
-      expireDate: this.requestForm.controls['deadline'].value,
-      yearExperience:
-        this.requestForm.controls['experience'].value == ''
-          ? 0
-          : this.requestForm.controls['experience'].value,
-      level:
-        this.requestForm.controls['level'].value == ''
-          ? 0
-          : this.requestForm.controls['level'].value,
-      type: this.requestForm.controls['type'].value,
-      project: this.requestForm.controls['projects'].value,
-      budget: 0,
-      note: this.requestForm.controls['notes'].value,
-      comment: '',
-      status: status,
-      parentID: this.requestService.selectedRequest.id,
-      rank: 0,
-      createBy: 'HUNGNX',
-      createDate: this.today,
-      updateBy: 'HUNGNX',
-      updateDate: this.today,
-      otherSkill:
-        this.requestForm.controls['skill'].value == ''
-          ? 0
-          : this.requestForm.controls['skill'].value,
-    };
-  }
-  
 }

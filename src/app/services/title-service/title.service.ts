@@ -15,7 +15,7 @@ export class TitleService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.http.post(`https://capsum22.herokuapp.com/api/OrgnizationAPI/GetAllTitle?index=${index}&size=${size}`, {}, httpOptions1)
+    return this.http.post(`https://localhost:44376/api/OrgnizationAPI/GetAllTitle?index=${index}&size=${size}`, {}, httpOptions1)
   }
 
   getAllTitle(index: number, size: number) {
@@ -25,7 +25,7 @@ export class TitleService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.http.post(`https://capsum22.herokuapp.com/api/OrgnizationAPI/GetAllOfTitle?index=${index}&size=${size}`, {}, httpOptions1)
+    return this.http.post(`https://localhost:44376/api/OrgnizationAPI/GetAllOfTitle?index=${index}&size=${size}`, {}, httpOptions1)
   }
 
   insertTitle(request: any) {
@@ -36,7 +36,7 @@ export class TitleService {
       }),
     };
     return this.http.post(
-      'https://capsum22.herokuapp.com/api/OrgnizationAPI/InsertTitle',
+      'https://localhost:44376/api/OrgnizationAPI/InsertTitle',
       request, httpOptions1
     );
   }
@@ -48,7 +48,7 @@ export class TitleService {
       }),
     };
     return this.http.post(
-      'https://capsum22.herokuapp.com/api/OrgnizationAPI/ModifyTitle',
+      'https://localhost:44376/api/OrgnizationAPI/ModifyTitle',
       request, httpOptions1
     );
   }
@@ -61,7 +61,7 @@ export class TitleService {
       }),
     };
     return this.http.post(
-      'https://capsum22.herokuapp.com/api/OrgnizationAPI/DeleteTitle',
+      'https://localhost:44376/api/OrgnizationAPI/DeleteTitle',
       arr, httpOptions1
     );
   }
@@ -74,7 +74,7 @@ export class TitleService {
       }),
     };
     return this.http.post(
-      'https://capsum22.herokuapp.com/api/OrgnizationAPI/ActiveTitle',
+      'https://localhost:44376/api/OrgnizationAPI/ActiveTitle',
       arr, httpOptions1
     );
   }
@@ -87,7 +87,7 @@ export class TitleService {
       }),
     };
     return this.http.post(
-      'https://capsum22.herokuapp.com/api/OrgnizationAPI/DeActiveTitle',
+      'https://localhost:44376/api/OrgnizationAPI/DeActiveTitle',
       arr, httpOptions1
     );
   }

@@ -7,15 +7,17 @@
         <th></th>
         <th>Code</th>
         <th>Name</th>
-        <th>Other skill(optional)</th>
+        <th>Other skill</th>
         <th>Department</th>
         <th>Position</th>
         <th>Quantity</th>
+        <th>Recruited</th>
+
         <th>Created on</th>
         <th>Deadline</th>
         <th>HR in charge</th>
         <th>Status</th>
-        <th>Recruited</th>
+
         <th></th>
       </tr>
     </thead>
@@ -73,6 +75,7 @@
             />
           </mat-form-field>
         </td>
+        <td></td>
         <td>
           <mat-form-field appearance="fill" class="example-form-field custom">
             <mat-label>Choose a date</mat-label>
@@ -111,15 +114,28 @@
             />
           </mat-form-field>
         </td>
+      
         <td>
-          <mat-form-field>
+          <mat-form-field appearance="fill" class="css">
+            <mat-label>Status</mat-label>
+            <mat-select [(value)]="selectedStatus" formControlName="status">
+              <mat-option value=""></mat-option>
+              <mat-option value="draft">Draft</mat-option>
+              <mat-option value="approved">Approved</mat-option>
+              <mat-option value="submited">Sumitted</mat-option>
+              <mat-option value="rejected">Rejected</mat-option>
+              <mat-option value="cancel">Cancel</mat-option>
+              <mat-option value="done">Done</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- <mat-form-field>
             <input
               matInput
               type="text"
               placeholder="Filter"
               formControlName="status"
             />
-          </mat-form-field>
+          </mat-form-field> -->
         </td>
       </tr>
     </tbody>
@@ -156,23 +172,26 @@
             <td level="1">{{ request.department }}</td>
             <td level="1">{{ request.position }}</td>
             <td level="1">{{ request.quantity }}</td>
+            <td>{{ request.sluv }}</td>
+
             <td level="1">{{ request.createdOnString }}</td>
             <td level="1">{{ request.deadlineString }}</td>
             <td level="1">{{ request.hrInchange }}</td>
+
             <td level="1">
               <p
                 [ngClass]="{
-                  draft: request.statusID === 1,
-                  submitted: request.statusID === 2,
-                  cancel: request.statusID === 3,
-                  approved: request.statusID === 4,
-                  reject: request.statusID === 5 || 0
+                  draft: request.statusID == 1,
+                  submitted: request.statusID == 2,
+                  cancel: request.statusID == 3,
+                  approved: request.statusID == 4,
+                  reject: request.statusID == 5 || 0,
+                  done:request.statusID == 6
                 }"
               >
-                {{ request.status | lowercase }}
+                {{ request.status |lowercase  }}
               </p>
             </td>
-            <td>6</td>
             <td>
               <i
               #i

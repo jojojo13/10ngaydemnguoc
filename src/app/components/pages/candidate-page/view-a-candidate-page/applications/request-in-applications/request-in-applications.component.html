@@ -5,7 +5,8 @@
  
   <div class="application-heading">
     <div class="application-heading-img">
-      <ngx-avatar class="img" size="100" [name]="'letter'"></ngx-avatar>
+      <ngx-avatar  *ngIf="!imgURL" class="img" size="100" [name]="letter"></ngx-avatar>
+      <img *ngIf="imgURL" [src]="imgURL" alt="" />
     </div>
     <div class="application-heading-contact">
       <p  class="">{{candidateInfor.name}}</p>

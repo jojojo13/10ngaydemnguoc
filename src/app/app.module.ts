@@ -117,6 +117,8 @@ import { ReportStep3Component } from './components/pages/report-page/report-step
 import { RpNotPassComponent } from './components/pages/report-page/rp-not-pass/rp-not-pass.component';
 import { ReportStep5Component } from './components/pages/report-page/report-step5/report-step5.component';
 import { YesOrNoPipe } from './components/pipes/yes-or-no.pipe';
+import { StatusPipePipe } from './components/pipes/status-pipe.pipe';
+import {MatSelectModule} from '@angular/material/select';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -216,6 +218,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     RpNotPassComponent,
     ReportStep5Component,
     YesOrNoPipe,
+    StatusPipePipe,
     
   ],
   imports: [
@@ -239,6 +242,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MatTableModule,
     MatInputModule,
     MatRadioModule,
+    MatSelectModule,
     AvatarModule,
     FullCalendarModule,
     HighchartsChartModule

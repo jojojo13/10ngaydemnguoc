@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.common.headerBehavior.subscribe((change)=>{
       this.auth.getUserInfo().subscribe((res: any) => {
-        // console.log(res)
         this.auth.user = res.data;
         let words = res.data.name.trim().split(' ');
         this.letter = words[words.length - 1].charAt(0);

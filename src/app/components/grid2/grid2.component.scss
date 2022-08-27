@@ -71,13 +71,14 @@ table {
   right: 20px;
 }
 .submitted {
-  background-color: #668a62;
+  background-color: #557251;
   border-radius: 10px;
   color: #fff;
   margin: auto;
   padding: 0;
-  width: 91px;
-  height: 22px;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
 }
 .approved {
   background-color: #36ca68;
@@ -85,8 +86,9 @@ table {
   color: #fff;
   margin: auto;
   padding: 0;
-  width: 91px;
-  height: 22px;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
 }
 .cancel {
   background-color: #ffaa01;
@@ -94,8 +96,9 @@ table {
   color: #fff;
   padding: 0;
   margin: auto;
-  width: 91px;
-  height: 22px;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
 }
 
 .reject {
@@ -104,8 +107,9 @@ table {
   color: #fff;
   margin: auto;
   padding: 0;
-  width: 91px;
-  height: 22px;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
 }
 .draft {
   background-color: #4057f9;
@@ -113,8 +117,20 @@ table {
   color: #fff;
   margin: auto;
   padding: 0;
-  width: 91px;
-  height: 22px;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}
+.done{
+ 
+  background-color: #079436;
+  border-radius: 10px;
+  color: #fff;
+  margin: auto;
+  padding: 0;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
 }
 .children {
   display: table-row;

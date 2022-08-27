@@ -270,6 +270,9 @@ export class Grid2Component implements OnInit {
       let td10 = this.renderer.createElement('td');
       let p = this.renderer.createElement('p');
       let text = rq.status.toLowerCase();
+
+      let td12 = this.renderer.createElement('td');
+      td12.innerHTML = `${rq.sluv}`;
       if (rq.rank > 2) {
         redInRGB += rq.rank * 8;
       }
@@ -291,6 +294,14 @@ export class Grid2Component implements OnInit {
       if (rq.statusID == 3) {
         this.addClass(p, 'cancel');
       }
+      if (rq.statusID == 6) {
+        this.addClass(p, 'done');
+        p.innerHTML='done'
+      }
+      if (rq.statusID == 6) {
+        this.addClass(p, 'done');
+        p.innerHTML='done'
+      }
       td10.appendChild(p);
       let td11 = this.renderer.createElement('td');
       let i = this.renderer.createElement('i');
@@ -310,6 +321,8 @@ export class Grid2Component implements OnInit {
       tr.appendChild(td7);
       tr.appendChild(td8);
       tr.appendChild(td9);
+      tr.appendChild(td12);
+
       tr.appendChild(td10);
       tr.appendChild(td11);
       nodeArr.push(tr);
@@ -338,7 +351,7 @@ export class Grid2Component implements OnInit {
     this.requestService.selectedRequest = request;
     this.clearClass();
     clicked.classList.add('selected');
-    this.requestService.selectedRequestForCandidate = request.id;
+    this.requestService.selectedRequestForCandidate = request;
   }
   clearClass() {
     let tr: any = document.querySelectorAll('tbody tr');

@@ -49,7 +49,13 @@
           class="form-control"
           formControlName="dep"
         />
-        <p (click)="showPopUp()" class="poppup">Choose</p>
+        <ng-container *ngIf="user &&user.rule==1 ">
+          <p (click)="showPopUp()" class="poppup" >Choose</p>
+        </ng-container>
+        <ng-container *ngIf="user &&user.rule!=1 ">
+          <p class="poppup disable" >Choose</p>
+
+        </ng-container>
         <small
           class="text-danger"
           *ngIf="requestForm.get('dep')?.value==''"

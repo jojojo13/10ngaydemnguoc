@@ -60,7 +60,7 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
             this.isLoaded = true;
 
             this.listCandidate = response.data;
-
+            console.log(this.listCandidate)
             this.totalItems = response.totalItem;
             this.listCandidate.forEach((e: any) => {
               this.candidateService.listSelectedCandidate.forEach((c: any) => {

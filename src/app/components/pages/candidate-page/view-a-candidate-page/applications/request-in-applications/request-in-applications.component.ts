@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CandidateService } from 'src/app/services/candidate-service/candidate.service';
 import { CommonService } from 'src/app/services/common.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-request-in-applications',
@@ -13,9 +14,10 @@ export class RequestInApplicationsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private candidateService: CandidateService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private storage: AngularFireStorage,
   ) {}
-
+  letter = '';
   index = -1;
   stepNow = -1;
   candidateID!: number;
@@ -23,11 +25,11 @@ export class RequestInApplicationsComponent implements OnInit {
   candidateInfor: any;
   isLoaded = true;
   srcPDF = '';
+  imgURL=''
+  uvCode=''
   ngOnInit(): void {
     this.isLoaded = false;
     this.candidateService.stepBehavior.subscribe((change) => {
-     
-
       this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
       this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
       this.candidateService
@@ -35,10 +37,15 @@ export class RequestInApplicationsComponent implements OnInit {
         .subscribe(
           (response: any) => {
             this.candidateInfor = response.data;
+            console.log(this.candidateInfor)
+            this.uvCode = this.candidateInfor.code;
+            let words = this.candidateInfor.name.trim().split(' ');
+            this.letter = words[words.length - 1].charAt(0);
             this.stepNow = this.candidateInfor.stepNow;
             this.index = this.stepNow;
-            console.log(this.candidateInfor);
+         
             this.isLoaded = true;
+            this.loadCV()
           },
           (err) => {
             this.isLoaded = true;
@@ -102,6 +109,39 @@ export class RequestInApplicationsComponent implements OnInit {
           'none';
         this.isLoaded = true;
         this.ngOnInit();
+      }
+    );
+  }
+  loadCV() {
+    var storageRef = this.storage.ref('uploads/' + this.uvCode);
+    console.log(this.uvCode)
+
+    storageRef.listAll().subscribe(
+      (result: any) => {
+        if (result.items.length > 0) {
+          result.items.forEach((imageRef: any) => {
+            // And finally display them
+            let extendsionFile = imageRef.name.slice(
+              ((imageRef.name.lastIndexOf('.') - 1) >>> 0) + 2
+            );
+
+            if (
+              extendsionFile.toLowerCase() == 'jpg' ||
+              extendsionFile.toLowerCase() == 'png'
+            ) {
+              imageRef.getDownloadURL().then((url: any) => {
+                this.imgURL = url;
+                this.isLoaded = true;
+              });
+            }
+          });
+        } else {
+          this.isLoaded = true;
+        }
+      },
+      (error) => {
+        this.isLoaded = true;
+        this.commonService.popUpFailed('Get CV failed!!!');
       }
     );
   }

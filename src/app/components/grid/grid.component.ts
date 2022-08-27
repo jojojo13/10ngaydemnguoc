@@ -27,6 +27,7 @@ export class GridComponent implements OnInit, OnDestroy {
   filterForm!: FormGroup;
   filterObj!: RequestFilter;
   @ViewChild('containList') containList!: HTMLElement;
+  selectedStatus=''
   constructor(
     public requestService: RequestService,
     private renderer: Renderer2,
@@ -74,7 +75,7 @@ export class GridComponent implements OnInit, OnDestroy {
         this.filterObj.deadLine = this.filterForm.controls['deadLine'].value;
         this.filterObj.hrInchange =
           this.filterForm.controls['hrInchange'].value;
-        this.filterObj.status = this.filterForm.controls['status'].value;
+        this.filterObj.status = this.selectedStatus;
         this.filterObj.otherSkill =
           this.filterForm.controls['otherSkill'].value;
         this.clearData();
@@ -232,7 +233,7 @@ export class GridComponent implements OnInit, OnDestroy {
     let list = response.data;
     let nodeArr = [];
     for (let rq of list) {
-      let redInRGB = 214;
+      let redInRGB = 233;
       let tr = this.renderer.createElement('tr');
       let td0 = this.renderer.createElement('td');
       let input = this.renderer.createElement('input');
@@ -273,13 +274,16 @@ export class GridComponent implements OnInit, OnDestroy {
       td9.innerHTML = `${hrInchange}`;
       let td10 = this.renderer.createElement('td');
       let td12 = this.renderer.createElement('td');
-      td12.innerHTML = 2;
+      td12.innerHTML = `${rq.sluv}`;
       let p = this.renderer.createElement('p');
       let text = rq.status.toLowerCase();
-      if (rq.rank > 2) {
-        redInRGB += rq.rank * 8;
+      if (rq.rank == 2) {
+        tr.style.backgroundColor = `rgb(246, 252, 252)`;
       }
-      tr.style.backgroundColor = `rgb(${redInRGB},249,213)`;
+      if (rq.rank == 3) {
+        tr.style.backgroundColor = `rgb(232, 250, 250)`;
+      }
+   
 
       p.innerHTML = `${text}`;
       if (rq.statusID == 1) {
@@ -296,6 +300,10 @@ export class GridComponent implements OnInit, OnDestroy {
       }
       if (rq.statusID == 3) {
         this.addClass(p, 'cancel');
+      }
+      if (rq.statusID == 6) {
+        this.addClass(p, 'done');
+        p.innerHTML='done'
       }
       td10.appendChild(p);
       let td11 = this.renderer.createElement('td');
@@ -314,11 +322,13 @@ export class GridComponent implements OnInit, OnDestroy {
       tr.appendChild(td4);
       tr.appendChild(td5);
       tr.appendChild(td6);
+      tr.appendChild(td12);
+
       tr.appendChild(td7);
       tr.appendChild(td8);
       tr.appendChild(td9);
+
       tr.appendChild(td10);
-      tr.appendChild(td12);
       tr.appendChild(td11);
 
       nodeArr.push(tr);
@@ -347,7 +357,7 @@ export class GridComponent implements OnInit, OnDestroy {
     this.requestService.selectedRequest = request;
     this.clearClass();
     clicked.classList.add('selected');
-    this.requestService.selectedRequestForCandidate = request.id;
+    this.requestService.selectedRequestForCandidate = request;
   }
   clearClass() {
     let tr: any = document.querySelectorAll('tbody tr');

@@ -40,6 +40,7 @@
             <th>Lastest position</th>
             <!-- <th>Description</th> -->
             <th>Language</th>
+            <th>Stage</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -158,6 +159,7 @@
             <td>{{ candidate.lastestPosition }}</td>
             <!-- <td>{{ candidate.experience }}</td> -->
             <td>{{ candidate.language }}</td>
+            <td>{{candidate.statusht|statusPipe}}</td>
             <td
               [ngClass]="{
                 draft: candidate.statusId == 0,

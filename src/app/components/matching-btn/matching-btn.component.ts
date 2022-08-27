@@ -34,7 +34,7 @@ export class MatchingBtnComponent implements OnInit,OnDestroy {
   }
   matchingRequest() {
     let rs = this.candidateService.listSelectedCandidate.every((c: any) => {
-      return c.statusId == 1;
+      return c.statusId == 1 && c.statusht<5;
     });
  
     if (rs) {
@@ -48,12 +48,18 @@ export class MatchingBtnComponent implements OnInit,OnDestroy {
         );
         return;
       }
+      if(this.requestService.selectedRequestForCandidate.statusID!=4){
+        this.commonService.popUpFailed(
+          'Only choose approved request'
+        );
+        return;
+      }
       let newIDs = this.candidateService.listSelectedCandidate.map(
         (c: any) => c.id
       );
 
       let obj = {
-        requestID: this.requestService.selectedRequestForCandidate,
+        requestID: this.requestService.selectedRequestForCandidate.id,
         lstCandidateID: newIDs,
       };
 
@@ -87,7 +93,7 @@ export class MatchingBtnComponent implements OnInit,OnDestroy {
         }
       );
     } else {
-      this.commonService.popUpFailed('Only choose active candidate');
+      this.commonService.popUpFailed('Only choose active and unrecruited candidate');
     }
   }
   deleteRQ(){

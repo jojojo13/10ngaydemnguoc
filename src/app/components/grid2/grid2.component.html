@@ -7,13 +7,14 @@
         <th></th>
         <th>Code</th>
         <th>Name</th>
-        <th>Other skill(optional)</th>
+        <th>Other skill</th>
         <th>Department</th>
         <th>Position</th>
         <th>Quantity</th>
         <th>Created on</th>
         <th>Deadline</th>
         <th>HR in charge</th>
+        <th>Recruited</th>
         <th>Status</th>
         <th></th>
       </tr>
@@ -158,6 +159,7 @@
             <td level="1">{{ request.createdOnString }}</td>
             <td level="1">{{ request.deadlineString }}</td>
             <td level="1">{{ request.hrInchange }}</td>
+            <td>{{ request.sluv }}</td>
             <td level="1">
               <p
                 [ngClass]="{
@@ -165,7 +167,8 @@
                   submitted: request.statusID === 2,
                   cancel: request.statusID === 3,
                   approved: request.statusID === 4,
-                  reject: request.statusID === 5 || 0
+                  reject: request.statusID === 5 || 0,
+                  done:request.statusID == 6
                 }"
               >
                 {{ request.status | lowercase }}
