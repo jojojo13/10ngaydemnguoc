@@ -170,6 +170,17 @@ export class RequestService {
   }
 
 
+  deleteRequest(list: Array<number>) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.put(this.baseUrl + '/DeleteRequest', list, httpOptions1);
+  }
+
+
   sendComment(request: any) {
     let httpOptions1 = {
       headers: new HttpHeaders({
