@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class OrganizationService {
-  baseUrl = 'https://capsum22.herokuapp.com/api/OrgnizationAPI';
-  baseCommonUrl = 'https://capsum22.herokuapp.com/api/CommonAPI';
-  baseProfileUrl = 'https://capsum22.herokuapp.com/api/ProfileAPI';
+  baseUrl = 'https://localhost:44376/api/OrgnizationAPI';
+  baseCommonUrl = 'https://localhost:44376/api/CommonAPI';
+  baseProfileUrl = 'https://localhost:44376/api/ProfileAPI';
   constructor(private __http: HttpClient) {}
 
   ngOnInit(): void {}
@@ -171,6 +171,21 @@ export class OrganizationService {
     );
   }
 
+  deleteOrg(orgId: number) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseUrl +
+      `/DeleteOrg?ID=${orgId}`,
+      {},
+      httpOptions1
+    );
+  }
+
   checkPositionExist(orgId: number, positionId: number) {
     let httpOptions1 = {
       headers: new HttpHeaders({
@@ -186,7 +201,7 @@ export class OrganizationService {
     );
   }
 
-  getAllPositionOrg(index: number, size: number) {
+  getAllPositionOrg(index: number, size: number, orgid:number) {
     let httpOptions1 = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -194,7 +209,7 @@ export class OrganizationService {
       }),
     };
     return this.__http.post(
-      this.baseUrl + `/GetAllPositionOrg?index=${index}&size=${size}`,
+      this.baseUrl + `/GetAllPositionOrg?index=${index}&size=${size}&orgId=${orgid}`,
       {},
       httpOptions1
     );
@@ -261,14 +276,14 @@ export class OrganizationService {
 
   getEmployeeByOrgID(id: number, index: number, size: number) {
     return this.__http.post(
-      `https://capsum22.herokuapp.com/api/ProfileAPI/GetListEmployeeByOrgID?id=${id}&index=${index}&size=${size}`,
+      `https://localhost:44376/api/ProfileAPI/GetListEmployeeByOrgID?id=${id}&index=${index}&size=${size}`,
       {}
     );
   }
 
   getEmployeeByOrgIDByFilter(obj: any) {
     return this.__http.post(
-      `https://capsum22.herokuapp.com/api/ProfileAPI/GetListEmployeeByOrgIDByFilter`,
+      `https://localhost:44376/api/ProfileAPI/GetListEmployeeByOrgIDByFilter`,
       obj
     );
   }

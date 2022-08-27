@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class RequestService {
-  baseUrl = 'https://capsum22.herokuapp.com/api/RequestAPI';
+  baseUrl = 'https://localhost:44376/api/RequestAPI';
   selectedRequest = {
     code: '',
     comment: 'string',
@@ -71,7 +71,7 @@ export class RequestService {
     parentID: number = 0
   ) {
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/CommonAPI/autoGenCode',
+      'https://localhost:44376/api/CommonAPI/autoGenCode',
       { table, rank, collumName, parentID },
       { responseType: 'text' }
     );
@@ -85,7 +85,7 @@ export class RequestService {
       }),
     };
     return this.__http.post(
-      'https://capsum22.herokuapp.com/api/RequestAPI/InsertRequest',
+      'https://localhost:44376/api/RequestAPI/InsertRequest',
       request, httpOptions1
     );
   }
@@ -166,7 +166,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put('https://capsum22.herokuapp.com/api/RequestAPI/ModifyRequest', request, httpOptions1);
+    return this.__http.put('https://localhost:44376/api/RequestAPI/ModifyRequest', request, httpOptions1);
   }
 
 
@@ -177,7 +177,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put(this.baseUrl + '/DeleteRequest', list, httpOptions1);
+    return this.__http.post(this.baseUrl + '/DeleteRequest', list, httpOptions1);
   }
 
 
@@ -188,7 +188,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put('https://capsum22.herokuapp.com/api/RequestAPI/SendComment', request, httpOptions1);
+    return this.__http.put('https://localhost:44376/api/RequestAPI/SendComment', request, httpOptions1);
   }
 
   setHRID(id: number, hrID: number) {
@@ -198,18 +198,18 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.put('https://capsum22.herokuapp.com/api/RequestAPI/setHrInchage', { id, hrID }, httpOptions1)
+    return this.__http.put('https://localhost:44376/api/RequestAPI/setHrInchage', { id, hrID }, httpOptions1)
   }
 
   getRequestByID(id: number) {
-    return this.__http.put(`https://capsum22.herokuapp.com/api/RequestAPI/GetRequestByID?Id=${id}`, {});
+    return this.__http.put(`https://localhost:44376/api/RequestAPI/GetRequestByID?Id=${id}`, {});
   }
   modifyRQbyID(id: number, comment: string) {
-    return this.__http.put(`https://capsum22.herokuapp.com/api/RequestAPI/SendComment`, { id, comment });
+    return this.__http.put(`https://localhost:44376/api/RequestAPI/SendComment`, { id, comment });
   }
 
   checkTotal(id: number, quantity: number) {
-    return this.__http.post(`https://capsum22.herokuapp.com/api/RequestAPI/CheckTotalQuantity?id=${id}&quantity=${quantity}`, {});
+    return this.__http.post(`https://localhost:44376/api/RequestAPI/CheckTotalQuantity?id=${id}&quantity=${quantity}`, {});
   }
   filterRequest(obj:any){
     let httpOptions1 = {
@@ -218,7 +218,7 @@ export class RequestService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
     };
-    return this.__http.post('https://capsum22.herokuapp.com/api/RequestAPI/GetAllRequestByFilter', obj, httpOptions1);
+    return this.__http.post('https://localhost:44376/api/RequestAPI/GetAllRequestByFilter', obj, httpOptions1);
   }
 
 }

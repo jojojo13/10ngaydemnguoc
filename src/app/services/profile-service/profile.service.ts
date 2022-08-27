@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProfileService {
 
-  baseProfileUrl = 'https://capsum22.herokuapp.com/api/ProfileAPI'
+  baseProfileUrl = 'https://localhost:44376/api/ProfileAPI'
   constructor(private __http: HttpClient) { }
 
   getNationList() {
@@ -422,6 +422,19 @@ export class ProfileService {
     };
     return this.__http.post(
       this.baseProfileUrl + `/GetContractEmployeeByFilter`,
+      request, httpOptions1
+    );
+  }
+
+  GetContractEmployeeByFilter2(request: any) {
+    let httpOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.__http.post(
+      this.baseProfileUrl + `/GetContractEmployeeByFilter2`,
       request, httpOptions1
     );
   }
