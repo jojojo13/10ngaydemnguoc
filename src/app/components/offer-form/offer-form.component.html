@@ -25,22 +25,23 @@
         <div class="err">
           <label for="">Allowance:</label>
           <mat-radio-group
-          aria-labelledby="example-radio-group-label"
-          class="example-radio-group"
-          [(ngModel)]="allowance" [ngModelOptions]="{standalone: true}">
-
-          <mat-radio-button class="example-radio-button" value="1" >
-            Yes
-          </mat-radio-button>
-          <mat-radio-button class="example-radio-button" value="0">
-            No
-          </mat-radio-button>
-        </mat-radio-group>
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="allowance"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <mat-radio-button class="example-radio-button" value="1">
+              Yes
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button" value="0">
+              No
+            </mat-radio-button>
+          </mat-radio-group>
           <span>(breakfast, lunch, fuel, vehicle ticket)</span>
         </div>
       </div>
       <div class="content-form-group">
-        <div class="err"> 
+        <div class="err">
           <label for="">Start date:</label>
           <input type="date" formControlName="startDate" />
         </div>
@@ -140,12 +141,9 @@
       <p>
         Probationary salary: <span>{{ infor.luongThuViec }} VND</span>
       </p>
-      <p *ngIf="infor.phuCap==1">
-        Allowance: <span >Included </span>
-      </p>
-      <p *ngIf="infor.phuCap==0">
-        Allowance: <span >Not Included </span>
-      </p>
+
+      Allowance: <span>{{ infor.phuCap }}  </span>
+
       <p>
         Start Date: <span> {{ infor.ngayLamViec }}</span>
       </p>

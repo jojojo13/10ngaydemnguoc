@@ -8,10 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-contract-category-page',
   templateUrl: './contract-category-page.component.html',
-  styleUrls: ['./contract-category-page.component.scss']
+  styleUrls: ['./contract-category-page.component.scss'],
 })
 export class ContractCategoryPageComponent implements OnInit {
-
   disable = true;
   idSelected: any;
   route = { name: 'Contract categories', link: 'danhmuchoso' };
@@ -27,25 +26,31 @@ export class ContractCategoryPageComponent implements OnInit {
   contractList: any;
   tableData: any = [];
 
-  constructor(private fb: FormBuilder, private ProfileService: ProfileService,
+  constructor(
+    private fb: FormBuilder,
+    private ProfileService: ProfileService,
     private commonService: CommonService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.page = this.activatedRoute.snapshot.queryParams["index"];
-    this.itemsPerPage = this.activatedRoute.snapshot.queryParams["size"];
+    this.page = this.activatedRoute.snapshot.queryParams['index'];
+    this.itemsPerPage = this.activatedRoute.snapshot.queryParams['size'];
     this.contractForm = this.fb.group({
       name: [{ value: '', disabled: true }, [Validators.required]],
       code: [{ value: '', disabled: true }, [Validators.required]],
       note: [{ value: '', disabled: true }],
       term: [{ value: '', disabled: true }, [Validators.required]],
     });
-    this.listSelected = []
-    this.ProfileService.getAllContractType(this.page - 1, this.itemsPerPage).subscribe((response: any) => {
-      this.contractList = response.data
-      this.totalItems = response.totalItem
-    })
+    this.listSelected = [];
+    this.ProfileService.getAllContractType(
+      this.page - 1,
+      this.itemsPerPage
+    ).subscribe((response: any) => {
+      this.contractList = response.data;
+      this.totalItems = response.totalItem;
+    });
   }
 
   addNewContract() {
@@ -86,7 +91,7 @@ export class ContractCategoryPageComponent implements OnInit {
       name: this.contractForm.controls['name'].value,
       note: this.contractForm.controls['note'].value,
       term: this.contractForm.controls['term'].value,
-      status: -1
+      status: -1,
     };
     if (this.action == 'Add new') {
       this.ProfileService.insertContractType(obj).subscribe(
@@ -143,12 +148,13 @@ export class ContractCategoryPageComponent implements OnInit {
     this.disableControl();
   }
   loadData(pageIndex: number) {
-    this.ProfileService
-      .getAllContractType(pageIndex, this.itemsPerPage)
-      .subscribe((res: any) => {
-        this.contractList = res.data;
-        this.totalItems = res.totalItem;
-      });
+    this.ProfileService.getAllContractType(
+      pageIndex,
+      this.itemsPerPage
+    ).subscribe((res: any) => {
+      this.contractList = res.data;
+      this.totalItems = res.totalItem;
+    });
   }
   chooseItem(item: any, i: number) {
     this.selectedIndexInTable = i;
@@ -158,9 +164,9 @@ export class ContractCategoryPageComponent implements OnInit {
     this.idSelected = item.id;
     this.contractForm.controls['name'].setValue(item.name);
     this.contractForm.controls['note'].setValue(item.note);
+    this.contractForm.controls['term'].setValue(item.term);
     this.contractForm.controls['code'].setValue(item.code);
   }
-
 
   resetSelectedList() {
     this.listSelected = [];
@@ -173,10 +179,11 @@ export class ContractCategoryPageComponent implements OnInit {
       let index = this.listSelected.findIndex((idObject) => idObject == id);
       this.listSelected.splice(index, 1);
     }
-    console.log(this.listSelected);
   }
   gty(page: number) {
-    this.router.navigateByUrl(`/phanloaitochuc/danhmuchucdanh?index=${page}&size=${this.itemsPerPage}`);
+    this.router.navigateByUrl(
+      `/phanloaitochuc/danhmuchucdanh?index=${page}&size=${this.itemsPerPage}`
+    );
     this.resetValue();
     this.selectedIndexInTable = null;
     this.loadData(page - 1);
@@ -204,9 +211,10 @@ export class ContractCategoryPageComponent implements OnInit {
                 this.listSelected = [];
                 this.resetValue();
                 this.disableControl();
-
               } else {
-                this.commonService.popUpFailed('Some records have been appplied');
+                this.commonService.popUpFailed(
+                  'Some records have been appplied'
+                );
               }
             },
             (err) => {
@@ -242,7 +250,9 @@ export class ContractCategoryPageComponent implements OnInit {
                 this.resetValue();
                 this.disableControl();
               } else {
-                this.commonService.popUpFailed('Some records have been appplied');
+                this.commonService.popUpFailed(
+                  'Some records have been appplied'
+                );
               }
             },
             (err) => {
@@ -254,7 +264,7 @@ export class ContractCategoryPageComponent implements OnInit {
     }
   }
   exportExcel() {
-    this.commonService.exportExcel(this.contractList, "ContractType");
+    this.commonService.exportExcel(this.contractList, 'ContractType');
   }
 
   deactiveContract() {
@@ -281,7 +291,9 @@ export class ContractCategoryPageComponent implements OnInit {
                 this.resetValue();
                 this.disableControl();
               } else {
-                this.commonService.popUpFailed('Some records have been appplied');
+                this.commonService.popUpFailed(
+                  'Some records have been appplied'
+                );
               }
             },
             (err) => {

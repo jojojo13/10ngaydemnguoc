@@ -21,7 +21,7 @@ export class AuthorizeService {
     });
 
     return this._http.post(
-      'https://localhost:44376/api/AccountAPI/GetAccount',
+      'https://capsum22.herokuapp.com/api/AccountAPI/GetAccount',
       account,
       { headers: headers}
     );
@@ -34,7 +34,7 @@ export class AuthorizeService {
       }),
     };
     return this._http.get(
-      'https://localhost:44376/api/AccountAPI/GetUserLog',
+      'https://capsum22.herokuapp.com/api/AccountAPI/GetUserLog',
       httpOptions1
     );
   }
