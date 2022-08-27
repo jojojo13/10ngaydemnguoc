@@ -25,7 +25,7 @@ export class PositionInOrgComponent implements OnInit {
   totalItems!: number;
   page: number = 1;
   selectedIndexInTable: any;
-  departmentID!: number;
+  departmentID!: 0;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +34,7 @@ export class PositionInOrgComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public readonly swalTargets: SwalPortalTargets,
     private router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.page = this.activatedRoute.snapshot.queryParams['index'];
     this.itemsPerPage = this.activatedRoute.snapshot.queryParams['size'];
@@ -46,7 +46,7 @@ export class PositionInOrgComponent implements OnInit {
     });
 
     this.organizationService
-      .getAllPositionOrg(this.page - 1, this.itemsPerPage)
+      .getAllPositionOrg(this.page - 1, this.itemsPerPage, 0)
       .subscribe((response: any) => {
         this.positionOrgList = response.data;
         this.totalItems = response.totalItem;
@@ -72,11 +72,11 @@ export class PositionInOrgComponent implements OnInit {
     );
     this.resetValue();
     this.selectedIndexInTable = null;
-    this.loadData(page - 1);
+    this.loadData(page - 1, this.departmentID);
   }
-  loadData(pageIndex: number) {
+  loadData(pageIndex: number, orgid: number) {
     this.organizationService
-      .getAllPositionOrg(pageIndex, this.itemsPerPage)
+      .getAllPositionOrg(pageIndex, this.itemsPerPage, orgid)
       .subscribe((res: any) => {
         this.positionOrgList = res.data;
         this.totalItems = res.totalItem;
@@ -110,7 +110,7 @@ export class PositionInOrgComponent implements OnInit {
             .subscribe(
               (res: any) => {
                 if (res.status == true) {
-                  this.loadData(this.page - 1);
+                  this.loadData(this.page - 1,this.departmentID);
                   this.resetValue();
                   this.commonService.popUpSuccess();
                   this.listSelected = [];
@@ -170,6 +170,8 @@ export class PositionInOrgComponent implements OnInit {
     this.positionOrgForm.controls['dep']?.setValue(department.name);
     this.orgPicker.close();
     this.departmentID = department.id;
+
+    this.loadData(this.page - 1, this.departmentID);
   }
   onSubmit() {
     let obj = {
@@ -190,7 +192,7 @@ export class PositionInOrgComponent implements OnInit {
             this.organizationService.insertPositionOrg(obj).subscribe(
               (res: any) => {
                 if (res.status == true) {
-                  this.loadData(this.page - 1);
+                  this.loadData(this.page - 1, this.departmentID);
                   this.resetValue();
                   this.disableControl();
                   this.commonService.popUpSuccess();
@@ -219,7 +221,7 @@ export class PositionInOrgComponent implements OnInit {
         (res: any) => {
           console.log(res);
           if (res.status == true) {
-            this.loadData(this.page - 1);
+            this.loadData(this.page - 1, this.departmentID);
             this.resetValue();
             this.disableControl();
             this.commonService.popUpSuccess();
