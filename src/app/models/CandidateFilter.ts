@@ -9,7 +9,8 @@ export class CandidateFilter {
   language: string | undefined;
   index?: number | undefined;
   size: number | undefined;
-  status: number | undefined;
+  status: string | undefined;
+  stage:string |undefined
   constructor(
     name: string = '',
     yob: number = 0,
@@ -21,7 +22,8 @@ export class CandidateFilter {
     language: string = '',
     index: number = 0,
     size: number = 10,
-    status: number = 1
+    status: string = '',
+    stage: string = ''
   ) {
     (this.name = name),
       (this.yob = yob),
@@ -34,5 +36,6 @@ export class CandidateFilter {
       (this.index = index),
       (this.size = size),
       (this.status = status);
+      (this.stage = stage);
   }
 }

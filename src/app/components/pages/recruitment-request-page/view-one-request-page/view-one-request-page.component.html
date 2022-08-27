@@ -16,11 +16,12 @@
       <p
         *ngIf="request"
         [ngClass]="{
-          draft: request.statusID === 1,
-          submitted: request.statusID === 2,
-          cancel: request.statusID === 3,
-          approved: request.statusID === 4,
-          reject: request.statusID === 5 || 0
+          draft: request.statusID == 1,
+          submitted: request.statusID == 2,
+          cancel: request.statusID == 3,
+          approved: request.statusID == 4,
+          reject: request.statusID == 5 || 0,
+          done:request.statusID == 6
         }"
       >
         {{ request.status | lowercase }}

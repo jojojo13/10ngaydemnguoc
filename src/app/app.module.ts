@@ -119,6 +119,7 @@ import { ReportStep5Component } from './components/pages/report-page/report-step
 import { YesOrNoPipe } from './components/pipes/yes-or-no.pipe';
 import { StatusPipePipe } from './components/pipes/status-pipe.pipe';
 import {MatSelectModule} from '@angular/material/select';
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,

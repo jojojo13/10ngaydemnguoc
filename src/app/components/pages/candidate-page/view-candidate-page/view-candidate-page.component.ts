@@ -22,6 +22,8 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
   candidateFilter!: CandidateFilter;
   candidateForm!: FormGroup;
   role!: number;
+  selectedStatus=""
+  selectedStage=""
   constructor(
     private activatedRoute: ActivatedRoute,
     public candidateService: CandidateService,
@@ -244,6 +246,9 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
       position: [''],
       exp: [''],
       languages: [''],
+      status:[''],
+      stage:['']
+
     });
     this.candidateForm.valueChanges
       .pipe(debounceTime(2000))
@@ -266,7 +271,8 @@ export class ViewCandidatePageComponent implements OnInit, OnDestroy {
         // this.candidateFilter.yearExp = '';
         this.candidateFilter.language =
           this.candidateForm.controls['languages'].value;
-       
+       this.candidateFilter.status=this.selectedStatus
+       this.candidateFilter.stage=this.selectedStage
         this.loadData();
       });
   }

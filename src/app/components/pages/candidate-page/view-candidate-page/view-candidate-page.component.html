@@ -127,11 +127,40 @@
                 />
               </mat-form-field>
             </td>
+            <td>
+              <mat-form-field appearance="fill" class="css">
+                <mat-label>Stage</mat-label>
+                <mat-select [(value)]="selectedStage" formControlName="stage">
+                  <mat-option value=""></mat-option>
+                  <mat-option value="0">Queueing</mat-option>
+                  <mat-option value="1">CV Review</mat-option>
+                  <mat-option value="2">Scheduling</mat-option>
+                  <mat-option value="3">Interviewing</mat-option>
+                  <mat-option value="4">Offering</mat-option>
+                  <mat-option value="5">Onboarding</mat-option>
+                  <mat-option value="6">Recruited</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill" class="css">
+                <mat-label>Status</mat-label>
+                <mat-select [(value)]="selectedStatus" formControlName="status" >
+                  <mat-option value=""></mat-option>
+                  <mat-option value="1" style="color: #36ca68; font-weight: 600"
+                    >Active</mat-option
+                  >
+                  <mat-option value="0" style="color: #eb5757; font-weight: 600"
+                    >Draft</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </td>
           </tr>
         </tbody>
         <tbody *ngIf="listCandidate">
           <tr
-            [ngClass]="{selected:candidate.isSelected==true}"
+            [ngClass]="{ selected: candidate.isSelected == true }"
             (dblclick)="navigateToView(candidate)"
             *ngFor="
               let candidate of listCandidate
@@ -145,7 +174,7 @@
           >
             <td>
               <input
-              [checked]="candidate.isSelected==true"
+                [checked]="candidate.isSelected == true"
                 type="checkbox"
                 (change)="selectedChange(candidate, $event)"
               />
@@ -159,7 +188,7 @@
             <td>{{ candidate.lastestPosition }}</td>
             <!-- <td>{{ candidate.experience }}</td> -->
             <td>{{ candidate.language }}</td>
-            <td>{{candidate.statusht|statusPipe}}</td>
+            <td>{{ candidate.statusht | statusPipe }}</td>
             <td
               [ngClass]="{
                 draft: candidate.statusId == 0,

@@ -31,7 +31,7 @@
             [selected]="type.id == requestForm.controls['type'].value"
             style="font-family: Poppins"
             *ngFor="let type of types"
-            [ngValue]="type.id"
+            [value]="type.id"
           >
             {{ type.name }}
           </option>
@@ -45,7 +45,14 @@
           class="form-control"
           formControlName="dep"
         />
-        <p (click)="showPopUp()" class="poppup">Choose</p>
+        <ng-container *ngIf="user && user.rule==1">
+          <p (click)="showPopUp()" class="poppup">Choose</p>
+
+        </ng-container>
+        <ng-container *ngIf="user && user.rule!=1">
+          <p  class="poppup" style="color: gray;">Choose</p>
+
+        </ng-container>
         <small
           class="text-danger"
           *ngIf="requestForm.get('dep')?.hasError('required')"
@@ -55,7 +62,7 @@
       <div class="form-group">
         <label for="name">Projects</label>
         <select name="dep" formControlName="projects">
-          <option value="0"></option>
+         
           <option
             [selected]="project.id == requestForm.controls['projects'].value"
             *ngFor="let project of projects"
@@ -68,7 +75,7 @@
       <div class="form-group">
         <label for="name">Position<span>*</span></label>
         <select name="position" formControlName="position">
-          <option value="">Choose position</option>
+       
           <option
             [selected]="position.id == requestForm.controls['position'].value"
             *ngFor="let position of positions"

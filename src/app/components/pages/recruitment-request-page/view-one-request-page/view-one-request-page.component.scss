@@ -148,4 +148,65 @@
 .history {
   width: 180px;
 }
+.submitted {
+  background-color: #557251;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}
+.approved {
+  background-color: #36ca68;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}
+.cancel {
+  background-color: #ffaa01;
+  border-radius: 10px;
+  color: #fff;
+  padding: 0;
+  text-align: center;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}
 
+.reject {
+  background-color: #eb4962;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}
+.draft {
+  background-color: #4057f9;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}
+.done{
+ 
+  background-color: #079436;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  padding: 0;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}

@@ -7,7 +7,7 @@ export class StatusPipePipe implements PipeTransform {
   transform(value: unknown, ...args: unknown[]): string {
     let status = '';
     if(value==0){
-      status=''
+      status='Queueing'
     }
     if (value == 1) {
       status = 'CV Review';

@@ -33,12 +33,13 @@ export class OfferFormComponent implements OnInit, OnChanges {
     private orgS: OrganizationService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.infor)
   }
   candidateID!: number;
   requestID!: number;
   isLoaded = true;
   insurance = 1;
-
+  allowance='1';
 
   ngOnInit(): void {
     this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
@@ -88,7 +89,7 @@ export class OfferFormComponent implements OnInit, OnChanges {
       requestId: this.requestID,
       luongNet: this.offerForm.get('netSalary')?.value,
       luongThuViec: this.offerForm.get('internSalary')?.value.toString(),
-      phuCap: this.offerForm.get('allowance')?.value,
+      phuCap: this.allowance.toString(),
       baoHiem: this.insurance.toString(),
       thoigianlv: this.offerForm.get('workTime')?.value,
       diaDiem: this.offerForm.get('location')?.value,
@@ -100,6 +101,7 @@ export class OfferFormComponent implements OnInit, OnChanges {
     if(this.offerForm.get('startDate')?.value==''){
       obj.ngayLamViec='2022-08-18T17:15:23.797Z'
     }
+   
     this.candidateS.setStep4(obj).subscribe(
       (response: any) => {
         this.isLoaded = true;

@@ -13,6 +13,7 @@ import { OrganizationService } from 'src/app/services/organization-service/organ
 import { RequestService } from 'src/app/services/request-service/request.service';
 import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
+import { AuthorizeService } from 'src/app/services/authorize.service';
 
 @Component({
   selector: 'app-form-request',
@@ -34,13 +35,14 @@ export class FormRequestComponent implements OnInit {
   managerID!: number;
   request: any;
   isLoaded = false;
+  user: any;
   constructor(
     private fb: FormBuilder,
     public requestService: RequestService,
     public readonly swalTargets: SwalPortalTargets,
     private orgService: OrganizationService,
     private commonService: CommonService,
-    private location: Location,
+    private auth: AuthorizeService,
     private route: ActivatedRoute
   ) {}
 
@@ -53,7 +55,7 @@ export class FormRequestComponent implements OnInit {
       requestCode: [{ value: '', disabled: true }],
       name: ['', [Validators.required]],
       type: [''],
-      dep: ['', [Validators.required]],
+      dep: [{value:'',disabled:true}, [Validators.required]],
       projects: [''],
       position: ['', [Validators.required]],
       quantity: [
@@ -62,7 +64,7 @@ export class FormRequestComponent implements OnInit {
       ],
       office: [{ value: '', disabled: true }],
       deadline: ['', [Validators.required]],
-      experience: ['',[Validators.pattern('^[0-9][0-9]*$')]],
+      experience: ['', [Validators.pattern('^[0-9][0-9]*$')]],
       level: [''],
       skill: [''],
       notes: [''],
@@ -96,101 +98,113 @@ export class FormRequestComponent implements OnInit {
         this.disableALL();
       });
 
+    this.auth.userSubject.subscribe((data) => {
+      if (data != null) {
+        this.user = data;
+      }
+    });
+
     (document?.querySelector('.overlay') as HTMLElement).style.display = 'none';
     this.loadData();
   }
   onSubmit() {
-    let request = {
-      id: this.request.id,
-      name: this.requestForm.controls['name'].value,
-      code: this.requestForm.controls['requestCode'].value,
-      requestLevel: this.requestForm.controls['type'].value,
-      orgnizationId: this.departmentID,
-      positionID: this.requestForm.controls['position'].value,
-      number: this.requestForm.controls['quantity'].value,
-      signId: this.managerID,
-      effectDate: '2022-06-23T08:45:38.630Z',
-      expireDate: this.requestForm.controls['deadline'].value,
-      yearExperience: this.requestForm.controls['experience'].value,
-      level: this.requestForm.controls['level'].value,
-      otherSkill: this.requestForm.controls['skill'].value,
-      type: this.requestForm.controls['type'].value,
-      project: this.requestForm.controls['projects'].value,
-      budget: 0,
-      note: this.requestForm.controls['notes'].value,
-      comment: this.request.comment,
-      status: this.request.statusID,
-      parentID: this.request.parentId,
-      rank: this.request.rank,
-      createBy: 'HUNGNX',
-      createDate: '2022-06-23T08:45:38.630Z',
-      updateBy: 'HUNGNX',
-      updateDate: '2022-06-23T08:45:38.630Z',
-      hrInchange: 2,
-    };
-    if (this.requestForm.controls['experience'].value == '') {
-      request.yearExperience = 0;
-    }
+    if (this.request.statusID == 2 || this.request.statusID == 4 || this.request.statusID == 6){
 
-    Swal.fire({
-      text: 'Are you sure to edit this request?',
-      iconHtml:
-        ' <img src="../../../assets/images/icons/ques.jpg" width="100px" alt="">',
-      showCancelButton: true,
-      confirmButtonColor: '#309EFC',
-      cancelButtonColor: '#8B94B2',
-      confirmButtonText: 'Confirm',
-      width: '380px',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        (document?.querySelector('.overlay') as HTMLElement).style.display =
-          'block';
-        this.isLoaded = false;
-        this.requestService
-          .checkTotal(
-            this.requestService.selectedRequest.id,
-            this.requestForm.controls['quantity'].value
-          )
-          .subscribe((response: any) => {
-            if (response.status == false) {
-              this.isLoaded = true;
-              Swal.fire(
-                'Total quantity must be less than quantity of request parent'
-              );
-              (
-                document?.querySelector('.overlay') as HTMLElement
-              ).style.display = 'none';
-            } else {
-              if (result.isConfirmed) {
-                this.requestService.editRequest(request).subscribe(
-                  (response: any) => {
-                    this.isLoaded = true;
-                    if (response.status == true) {
-                      (
-                        document?.querySelector('.overlay') as HTMLElement
-                      ).style.display = 'none';
-                      this.commonService.popUpSuccess();
-                      this.ngOnInit();
-                    } else {
+    }else{
+      let request = {
+        id: this.request.id,
+        name: this.requestForm.controls['name'].value,
+        code: this.requestForm.controls['requestCode'].value,
+        requestLevel: this.requestForm.controls['type'].value,
+        orgnizationId: this.departmentID,
+        positionID: this.requestForm.controls['position'].value,
+        number: this.requestForm.controls['quantity'].value,
+        signId: this.managerID,
+        effectDate: '2022-06-23T08:45:38.630Z',
+        expireDate: this.requestForm.controls['deadline'].value,
+        yearExperience: this.requestForm.controls['experience'].value,
+        level: this.requestForm.controls['level'].value,
+        otherSkill: this.requestForm.controls['skill'].value,
+        type:parseInt(this.requestForm.controls['type'].value) ,
+        project: this.requestForm.controls['projects'].value,
+        budget: 0,
+        note: this.requestForm.controls['notes'].value,
+        comment: this.request.comment,
+        status: this.request.statusID,
+        parentID: this.request.parentId,
+        rank: this.request.rank,
+        createBy: 'HUNGNX',
+        createDate: '2022-06-23T08:45:38.630Z',
+        updateBy: 'HUNGNX',
+        updateDate: '2022-06-23T08:45:38.630Z',
+        hrInchange: 2,
+      };
+      if (this.requestForm.controls['experience'].value == '') {
+        request.yearExperience = 0;
+      }
+  
+      Swal.fire({
+        text: 'Are you sure to edit this request?',
+        iconHtml:
+          ' <img src="../../../assets/images/icons/ques.jpg" width="100px" alt="">',
+        showCancelButton: true,
+        confirmButtonColor: '#309EFC',
+        cancelButtonColor: '#8B94B2',
+        confirmButtonText: 'Confirm',
+        width: '380px',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          (document?.querySelector('.overlay') as HTMLElement).style.display =
+            'block';
+          this.isLoaded = false;
+          this.requestService
+            .checkTotal(
+              this.requestService.selectedRequest.id,
+              this.requestForm.controls['quantity'].value
+            )
+            .subscribe((response: any) => {
+              if (response.status == false) {
+                this.isLoaded = true;
+                Swal.fire(
+                  'Total quantity must be less than quantity of request parent'
+                );
+                (
+                  document?.querySelector('.overlay') as HTMLElement
+                ).style.display = 'none';
+              } else {
+                if (result.isConfirmed) {
+                  this.requestService.editRequest(request).subscribe(
+                    (response: any) => {
+                      console.log(request)
+                      this.isLoaded = true;
+                      if (response.status == true) {
+                        (
+                          document?.querySelector('.overlay') as HTMLElement
+                        ).style.display = 'none';
+                        this.commonService.popUpSuccess();
+                        this.ngOnInit();
+                      } else {
+                        (
+                          document?.querySelector('.overlay') as HTMLElement
+                        ).style.display = 'none';
+                        this.commonService.popUpFailed('Something wrong');
+                      }
+                    },
+                    (err: any) => {
                       (
                         document?.querySelector('.overlay') as HTMLElement
                       ).style.display = 'none';
                       this.commonService.popUpFailed('Something wrong');
+                      this.isLoaded = true;
                     }
-                  },
-                  (err: any) => {
-                    (
-                      document?.querySelector('.overlay') as HTMLElement
-                    ).style.display = 'none';
-                    this.commonService.popUpFailed('Something wrong');
-                    this.isLoaded = true;
-                  }
-                );
+                  );
+                }
               }
-            }
-          });
-      }
-    });
+            });
+        }
+      });
+    }
+  
   }
   loadData() {
     this.loadListOfLevel();
@@ -279,7 +293,7 @@ export class FormRequestComponent implements OnInit {
     return dateStr.slice(0, 10);
   }
   disableALL() {
-    if (this.request.statusID == 2 || this.request.statusID == 4) {
+    if (this.request.statusID == 2 || this.request.statusID == 4 || this.request.statusID == 6) {
       this.requestForm.disable();
       this.requestForm.controls['dep'].setErrors({ incorrect: true });
     }
