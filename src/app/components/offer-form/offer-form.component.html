@@ -110,14 +110,14 @@
     </form>
     <div class="action">
       <button (click)="reviewStep4(0)" class="btn btn-danger px-5 mx-3 py-1">
-        Fail
+        Reject
       </button>
       <button
         [disabled]="offerForm.invalid"
         (click)="reviewStep4(1)"
         class="btn btn-success px-5 mx-3 py-1"
       >
-        Pass
+        Confirm
       </button>
     </div>
   </ng-container>

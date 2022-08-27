@@ -94,15 +94,15 @@
 <div style="position: relative;" *ngIf="index==1">
 <app-cv-candidate (src)="getPDFsrc($event)" [noAttach]="true"></app-cv-candidate>
 <div class="action" *ngIf="(stepNow==1 && srcPDF) &&candidateInfor.result==null ">
-  <button (click)="reviewStep1(0)" class="btn btn-danger px-5 mx-3">Fail</button>
-  <button (click)="reviewStep1(1)" class="btn btn-success px-5 mx-3">Pass</button>
+  <button (click)="reviewStep1(0)" class="btn btn-danger px-5 mx-3">Reject</button>
+  <button (click)="reviewStep1(1)" class="btn btn-success px-5 mx-3">Confirm</button>
 </div>
 </div>
 <ng-container  *ngIf="index==3 ">
   <app-interview-result [result]="candidateInfor.result"></app-interview-result>
   <div class="action" *ngIf="(stepNow==3) &&candidateInfor.result!=0 ">
-    <button (click)="reviewStep3(0)" class="btn btn-danger px-5 mx-3">Fail</button>
-    <button (click)="reviewStep3(1)" class="btn btn-success px-5 mx-3">Pass</button>
+    <button (click)="reviewStep3(0)" class="btn btn-danger px-5 mx-3">Reject</button>
+    <button (click)="reviewStep3(1)" class="btn btn-success px-5 mx-3">Confirm</button>
   </div>
 </ng-container>
 <ng-container  *ngIf="index==4 ">

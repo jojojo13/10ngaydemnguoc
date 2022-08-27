@@ -272,6 +272,8 @@ export class GridComponent implements OnInit, OnDestroy {
       let td9 = this.renderer.createElement('td');
       td9.innerHTML = `${hrInchange}`;
       let td10 = this.renderer.createElement('td');
+      let td12 = this.renderer.createElement('td');
+      td12.innerHTML = 2;
       let p = this.renderer.createElement('p');
       let text = rq.status.toLowerCase();
       if (rq.rank > 2) {
@@ -316,7 +318,9 @@ export class GridComponent implements OnInit, OnDestroy {
       tr.appendChild(td8);
       tr.appendChild(td9);
       tr.appendChild(td10);
+      tr.appendChild(td12);
       tr.appendChild(td11);
+
       nodeArr.push(tr);
       this.renderer.listen(tr, 'click', (evt) => {
         this.getSelectedRQ(rq, tr);
