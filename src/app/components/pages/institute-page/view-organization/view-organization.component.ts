@@ -2,7 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrganizationService } from 'src/app/services/organization-service/organization.service';
-
+import { CommonService } from 'src/app/services/common.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-view-organization',
   templateUrl: './view-organization.component.html',
@@ -12,12 +13,14 @@ export class ViewOrganizationComponent implements OnInit {
   route = { name: 'View Organization', link: '/thietlaptochuc' };
   isLoaded = false;
   organizationList!: any;
+  chooseId = 0;
   url = '/thietlaptochuc/tochuc?orgId=0';
   constructor(
     private orgService: OrganizationService,
     private renderer: Renderer2,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private commonService: CommonService,
   ) {}
 
   ngOnInit(): void {
@@ -124,7 +127,8 @@ export class ViewOrganizationComponent implements OnInit {
           if (evt.target.classList.contains('isSelected')) {
             evt.target.classList.remove('isSelected');
             this.location.replaceState(`/thietlaptochuc/tochuc?orgId=0`);
-            this.url=`/thietlaptochuc/tochuc?orgId=0`
+            this.url = `/thietlaptochuc/tochuc?orgId=0`
+            this.chooseId = 0;
           } else {
             let list = document.querySelectorAll('p');
             list.forEach((item) => {
@@ -134,7 +138,8 @@ export class ViewOrganizationComponent implements OnInit {
             this.location.replaceState(
               `/thietlaptochuc/tochuc?orgId=${child.id}`
             );
-            this.url= `/thietlaptochuc/tochuc?orgId=${child.id}`
+            this.url = `/thietlaptochuc/tochuc?orgId=${child.id}`
+            this.chooseId = child.id;
           }
         });
         this.renderer.appendChild(p, text);
@@ -151,5 +156,46 @@ export class ViewOrganizationComponent implements OnInit {
   }
   edit(){
     this.router.navigateByUrl(`${this.url}`+'&mode=edit')
+  }
+
+  delete() {
+    if (this.chooseId == 0) {
+      this.commonService.popUpMessage('Choose at least one record!!!');
+    }
+    else {
+      Swal.fire({
+        text: 'Are you sure to delete Orgnization',
+        iconHtml:
+          ' <img src="../../../assets/images/icons/ques.jpg" width="100px" alt="">',
+        showCancelButton: true,
+        confirmButtonColor: '#309EFC',
+        cancelButtonColor: '#8B94B2',
+        confirmButtonText: 'Confirm',
+        width: '380px',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.orgService
+            .deleteOrg(this.chooseId)
+            .subscribe(
+              (res: any) => {
+                if (res.status == true) {
+                  this.generateElement();
+                  this.commonService.popUpSuccess();
+                  this.chooseId = 0;
+                } else {
+                  this.commonService.popUpFailed(
+                    'Some records have been appplied'
+                  );
+                }
+              },
+              (err) => {
+                this.commonService.popUpFailed(
+                  'Some records have been appplied'
+                );
+              }
+            );
+        }
+      });
+    }
   }
 }
