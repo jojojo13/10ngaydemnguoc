@@ -25,7 +25,7 @@ export class EditBtnComponent implements OnInit {
     list.push(this.request.id);
     if (this.request.statusID == 2) {
       Swal.fire({
-        text: 'Are you sure to approve?',
+        text: 'Please select HR after approving the request!',
         iconHtml:
           ' <img src="../../../assets/images/icons/ques.jpg" width="100px" alt="">',
         showCancelButton: true,
