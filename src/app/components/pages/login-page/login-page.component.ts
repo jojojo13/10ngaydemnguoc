@@ -57,10 +57,10 @@ export class LoginPageComponent implements OnInit {
           if (this.redirectURL) {
             this.router
               .navigateByUrl(this.redirectURL)
-              .catch(() => this.router.navigate(['/yeucautuyendung']));
+              .catch(() => this.router.navigate(['/baocao']));
           } else {
          
-            this.router.navigate(['/yeucautuyendung']);
+            this.router.navigate(['/baocao']);
           }
         } else {
           this.msg = obj.mess;
