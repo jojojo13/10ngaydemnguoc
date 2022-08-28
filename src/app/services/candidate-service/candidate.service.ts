@@ -202,4 +202,11 @@ export class CandidateService {
       {}
     );
   }
+
+  onboard(candidateId: number, requestId: Number) {
+    return this.__http.post(
+      `https://capsum22.herokuapp.com/api/CandidateAPI/Onboard?candidateId=${candidateId}&requestId=${requestId}`,
+      {}
+    );
+  }
 }
