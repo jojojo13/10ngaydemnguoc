@@ -149,3 +149,6 @@ body {
 // .confirm {
 //   min-height: 300px !important;
 // }
+.cdk-overlay-container{
+  z-index:2000 !important;
+}

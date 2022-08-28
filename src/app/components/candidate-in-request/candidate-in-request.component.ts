@@ -21,7 +21,7 @@ export class CandidateInRequestComponent implements OnInit {
   page: number = 1;
   idRequest = 0;
   isLoaded: boolean = false;
-  isNull=false;
+  isNull = false;
   candidateFilter = {
     name: '',
     yob: 0,
@@ -33,9 +33,12 @@ export class CandidateInRequestComponent implements OnInit {
     language: '',
     index: 0,
     size: this.itemsPerPage,
-    status: 0,
+    status: '',
     requestID: 0,
+    stage: '',
   };
+  selectedStatus = '';
+  selectedStage = '';
   constructor(
     private commonService: CommonService,
     public auth: AuthorizeService,
@@ -62,14 +65,14 @@ export class CandidateInRequestComponent implements OnInit {
         this.isLoaded = true;
         this.listCandidate = response.data;
         this.totalItems = response.totalItem;
+       this.isNull=false
       },
       (err) => {
         this.isLoaded = true;
 
         // this.commonService.popUpFailed('Failed');
-        if(err.status==200){
-          this.isNull=true
-
+        if (err.status == 200) {
+          this.isNull = true;
         }
       }
     );
@@ -84,9 +87,7 @@ export class CandidateInRequestComponent implements OnInit {
     this.candidateFilter.index = page - 1;
     this.loadData();
   }
-  navigateToView(a: any) {
-    
-  }
+  navigateToView(a: any) {}
   clearData() {
     this.isLoaded = false;
     this.listCandidate = null;
@@ -102,16 +103,20 @@ export class CandidateInRequestComponent implements OnInit {
       position: [''],
       exp: [''],
       languages: [''],
+      status: [''],
+      stage: [''],
     });
     this.candidateForm.valueChanges
-      .pipe(debounceTime(1500))
+      .pipe(debounceTime(2000))
       .subscribe((selectedValue) => {
         this.candidateFilter.name = this.candidateForm.controls['name'].value;
-        if (this.candidateForm.controls['yob'].value == '') {
-          this.candidateFilter.yob = 0;
-        } else {
+        if (this.candidateForm.controls['yob'].value != '') {
           this.candidateFilter.yob = this.candidateForm.controls['yob'].value;
         }
+        if (this.candidateForm.controls['yob'].value == '') {
+          this.candidateFilter.yob = 0;
+        }
+
         this.candidateFilter.phone = this.candidateForm.controls['phone'].value;
         this.candidateFilter.email = this.candidateForm.controls['email'].value;
         this.candidateFilter.location =
@@ -119,9 +124,11 @@ export class CandidateInRequestComponent implements OnInit {
         this.candidateFilter.position =
           this.candidateForm.controls['position'].value;
         this.candidateFilter.yearExp = this.candidateForm.controls['exp'].value;
+        // this.candidateFilter.yearExp = '';
         this.candidateFilter.language =
           this.candidateForm.controls['languages'].value;
-
+        this.candidateFilter.status = this.selectedStatus;
+        this.candidateFilter.stage = this.selectedStage;
         this.loadData();
       });
   }

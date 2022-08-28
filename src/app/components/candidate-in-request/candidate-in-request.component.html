@@ -12,21 +12,23 @@
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <!-- <th></th> -->
+            <!-- <th>ID</th> -->
             <th>Name</th>
             <th>YOB</th>
             <th>Phone</th>
             <th>Email</th>
             <th>Location</th>
-            <th>Position</th>
-            <th>Experiences</th>
+            <th>Lastest position</th>
+            <!-- <th>Description</th> -->
             <th>Language</th>
+            <th>Stage</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr [formGroup]="candidateForm">
-            <td></td>
+            <!-- <td></td> -->
             <td>
               <mat-form-field>
                 <input
@@ -87,7 +89,7 @@
                 />
               </mat-form-field>
             </td>
-            <td>
+            <!-- <td>
               <mat-form-field>
                 <input
                   matInput
@@ -96,7 +98,7 @@
                   formControlName="exp"
                 />
               </mat-form-field>
-            </td>
+            </td> -->
             <td>
               <mat-form-field>
                 <input
@@ -105,6 +107,39 @@
                   placeholder="Filter"
                   formControlName="languages"
                 />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field
+                style="z-index: 2000"
+                appearance="fill"
+                class="css"
+              >
+                <mat-label>Stage</mat-label>
+                <mat-select [(value)]="selectedStage" formControlName="stage">
+                  <mat-option value=""></mat-option>
+                  <mat-option value="0">Queueing</mat-option>
+                  <mat-option value="1">CV Review</mat-option>
+                  <mat-option value="2">Scheduling</mat-option>
+                  <mat-option value="3">Interviewing</mat-option>
+                  <mat-option value="4">Offering</mat-option>
+                  <mat-option value="5">Onboarding</mat-option>
+                  <mat-option value="6">Recruited</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="fill" class="css">
+                <mat-label>Status</mat-label>
+                <mat-select [(value)]="selectedStatus" formControlName="status">
+                  <mat-option value=""></mat-option>
+                  <mat-option value="1" style="color: #36ca68; font-weight: 600"
+                    >Active</mat-option
+                  >
+                  <mat-option value="0" style="color: #eb5757; font-weight: 600"
+                    >Draft</mat-option
+                  >
+                </mat-select>
               </mat-form-field>
             </td>
           </tr>
@@ -124,22 +159,23 @@
                       }
               "
             >
-              <td>{{ candidate.code }}</td>
+              <!-- <td>{{ candidate.code }}</td> -->
               <td>{{ candidate.name }}</td>
               <td>{{ candidate.yob }}</td>
               <td>{{ candidate.phoneNumber }}</td>
               <td class="px-2">{{ candidate.email }}</td>
               <td class="px-2">{{ candidate.location }}</td>
               <td>{{ candidate.lastestPosition }}</td>
-              <td>{{ candidate.experience }}</td>
               <td>{{ candidate.language }}</td>
+              <td>{{ candidate.statusht }}</td>
               <td>{{ candidate.statusName }}</td>
             </tr>
           </ng-container>
-          <tr style="width: 100%; position: relative;" *ngIf="isNull">
-            <td > 
-            <p style="width: 100%; position: absolute; margin: 0;" >NO CANDIDATE</p>
-
+          <tr style="width: 100%; position: relative" *ngIf="isNull">
+            <td>
+              <p style="width: 100%; position: absolute; margin: 0">
+                NO CANDIDATE
+              </p>
             </td>
           </tr>
         </tbody>
