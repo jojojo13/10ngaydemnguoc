@@ -15,7 +15,7 @@ export class AddBtnComponent implements OnInit {
   ngOnInit(): void {
   }
   navigateToForm(){
-    if(this.request.selectedRequestForCandidate.rank==3){
+    if(this.request.selectedRequest.rank==3){
       this.common.popUpFailed('Only create request to the 3rd level')
     }else{
       this.router.navigateByUrl('yeucautuyendung/taoyeucau')
