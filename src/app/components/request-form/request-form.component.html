@@ -10,6 +10,10 @@
     action=""
   >
     <div class="left">
+      <div class="form-group" *ngIf="requestService.selectedRequest.name">
+        <label for="requestID">Parent request</label>
+        <span style="font-family: 'Poppins';font-weight: 600;">{{requestService.selectedRequest.name}}</span>
+      </div>
       <div class="form-group">
         <label for="requestID">Request Code<span>*</span></label>
         <input type="text" class="form-control" formControlName="requestCode" />

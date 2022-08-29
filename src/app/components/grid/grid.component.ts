@@ -354,6 +354,7 @@ export class GridComponent implements OnInit, OnDestroy {
     }
   }
   getSelectedRQ(request: any, clicked: any) {
+ 
     this.requestService.selectedRequest = request;
     this.clearClass();
     clicked.classList.add('selected');
