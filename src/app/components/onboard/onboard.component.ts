@@ -11,32 +11,42 @@ export class OnboardComponent implements OnInit {
   constructor(
     private candidateS: CandidateService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
   candidateID!: number;
   requestID!: number;
-  isLoaded=true
+  isLoaded = true
   ngOnInit(): void {
     this.candidateID = this.activatedRoute.snapshot.queryParams['id'];
     this.requestID = this.activatedRoute.snapshot.queryParams['requestID'];
   }
   reviewStep5(result: number) {
-    this.isLoaded=false;
+    this.isLoaded = false;
     (document?.querySelector('.overlay') as HTMLElement).style.display =
-    'block';
+      'block';
     let obj = {
       candidateId: this.candidateID,
       requestId: this.requestID,
       step5Result: result,
     };
     this.candidateS.setStep5(obj).subscribe((response: any) => {
-      this.isLoaded=true;
+      this.isLoaded = true;
       (document?.querySelector('.overlay') as HTMLElement).style.display =
-      'none';
+        'none';
       this.candidateS.stepBehavior.next(true)
-    },err=>{
-      this.isLoaded=true;
-    (document?.querySelector('.overlay') as HTMLElement).style.display =
-    'none';
+      if (obj.step5Result > 0) {
+        this.candidateS.onboard(this.candidateID, this.requestID).subscribe((response: any) => {
+
+        }
+          , err => {
+            this.isLoaded = true;
+            (document?.querySelector('.overlay') as HTMLElement).style.display =
+              'none';
+          });
+      }
+    }, err => {
+      this.isLoaded = true;
+      (document?.querySelector('.overlay') as HTMLElement).style.display =
+        'none';
     });
   }
 }

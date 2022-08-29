@@ -65,7 +65,7 @@ export class CreateContractComponent implements OnInit {
       orgName: [{ value: '', disabled: true }],
       position: [{ value: '', disabled: true }],
       mngName: [{ value: '', disabled: true }],
-      no: ['', [Validators.required]],
+      no: [{ value: '', disabled: true }, [Validators.required]],
       type: ['', [Validators.required]],
       emp: [{ value: '', disabled: true }],
       effectdate: ['', [Validators.required]],
@@ -79,7 +79,7 @@ export class CreateContractComponent implements OnInit {
 
 
     if (this.mode == "New") {
-
+      this.innitCode();
     }
     else if (this.mode == "Edit") {
       this.getInfoById(this.contractEId);
@@ -149,6 +149,13 @@ export class CreateContractComponent implements OnInit {
 
   }
 
+  innitCode() {
+    this.commonService
+      .autoGencode3Char('EmployeeContract', 'HDLD_')
+      .subscribe((res: any) => {
+        this.orgForm.controls['no'].setValue(res);
+      });
+  }
 
   clearInputField() {
     if (this.requestService.selectedRequest.id != 0) {
