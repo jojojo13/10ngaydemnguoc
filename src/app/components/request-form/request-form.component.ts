@@ -40,7 +40,7 @@ export class RequestFormComponent implements OnInit {
   @ViewChild('orgPicker') orgPicker!: SwalComponent;
   constructor(
     private fb: UntypedFormBuilder,
-    private requestService: RequestService,
+    public requestService: RequestService,
     public readonly swalTargets: SwalPortalTargets,
     private orgService: OrganizationService,
     private commonService: CommonService,
@@ -49,6 +49,7 @@ export class RequestFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.requestService.selectedRequest)
     this.isLoaded = true;
     this.requestForm = this.fb.group({
       requestCode: [{ value: '', disabled: true }],

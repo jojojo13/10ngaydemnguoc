@@ -1,7 +1,7 @@
 import { debounceTime } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SwalComponent, SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import { AuthorizeService } from 'src/app/services/authorize.service';
 import { CandidateService } from 'src/app/services/candidate-service/candidate.service';
@@ -45,7 +45,8 @@ export class CandidateInRequestComponent implements OnInit {
     public readonly swalTargets: SwalPortalTargets,
     private candidateService: CandidateService,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router:Router
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +88,9 @@ export class CandidateInRequestComponent implements OnInit {
     this.candidateFilter.index = page - 1;
     this.loadData();
   }
-  navigateToView(a: any) {}
+  navigateToView(a: any) {
+    this.router.navigateByUrl(`ungvien/xemungvien/info?id=${a.id}&prePage=1`)
+  }
   clearData() {
     this.isLoaded = false;
     this.listCandidate = null;
