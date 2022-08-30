@@ -20,7 +20,7 @@ export class CancelBtnComponent implements OnInit {
   ngOnInit(): void {}
   editStatus() {
     console.log(this.request)
-    if (this.request.statusID == 2) {
+    if (this.request.statusID == 2 ||this.request.statusID==7 ) {
       Swal.fire({
         text: 'Are you sure to cancel?',
         iconHtml:

@@ -21,7 +21,8 @@
           cancel: request.statusID == 3,
           approved: request.statusID == 4,
           reject: request.statusID == 5 || 0,
-          done:request.statusID == 6
+          done:request.statusID == 6,
+          expired:request.statusID == 7
         }"
       >
         {{ request.status | lowercase }}
