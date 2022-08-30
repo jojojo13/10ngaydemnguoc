@@ -8,12 +8,12 @@
     <div class="action-item" (click)="deleteCategory()">
       <p><i class="fa fa-trash"></i>Delete</p>
     </div>
-    <div class="action-item" (click)="activeCategory()">
+    <!-- <div class="action-item" (click)="activeCategory()">
       <p><i class="fa fa-check"></i>Active</p>
     </div>
     <div class="action-item" (click)="deactiveCategory()">
       <p><i class="fa fa-ban"></i>Deactive</p>
-    </div>
+    </div> -->
     <div class="action-item" (click)="exportExcel()">
       <p><i class="fa fa-download"></i>Export Excel</p>
     </div>
@@ -78,7 +78,7 @@
               <td>Name</td>
               <td>Code</td>
               <td>Note</td>
-              <td>Status</td>
+              <!-- <td>Status</td> -->
             </tr>
           </thead>
           <tbody>
@@ -101,7 +101,7 @@
               <td>{{ item.name }}</td>
               <td>{{ item.code }}</td>
               <td>{{ item.note }}</td>
-              <td>{{ item.statusName }}</td>
+              <!-- <td>{{ item.statusName }}</td> -->
             </tr>
           </tbody>
         </table>
