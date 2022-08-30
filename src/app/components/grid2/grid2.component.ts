@@ -302,6 +302,10 @@ export class Grid2Component implements OnInit {
         this.addClass(p, 'done');
         p.innerHTML='done'
       }
+      if (rq.statusID == 7) {
+        this.addClass(p, 'expired');
+       
+      }
       td10.appendChild(p);
       let td11 = this.renderer.createElement('td');
       let i = this.renderer.createElement('i');

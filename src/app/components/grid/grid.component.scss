@@ -71,7 +71,7 @@ table {
   right: 20px;
 }
 .submitted {
-  background-color: #557251;
+  background-color: #668a61;
   border-radius: 10px;
   color: #fff;
   margin: auto;
@@ -124,6 +124,16 @@ table {
 .done{
  
   background-color: #079436;
+  border-radius: 10px;
+  color: #fff;
+  margin: auto;
+  padding: 0;
+  width: 86px;
+  height: 20px;
+  font-size: 12px;
+}
+.expired{
+  background-color: #4b4a4a;
   border-radius: 10px;
   color: #fff;
   margin: auto;

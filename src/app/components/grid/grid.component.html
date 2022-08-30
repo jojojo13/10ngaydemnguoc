@@ -126,6 +126,7 @@
               <mat-option value="rejected">Rejected</mat-option>
               <mat-option value="cancel">Cancel</mat-option>
               <mat-option value="done">Done</mat-option>
+              <mat-option value="expired">Expired</mat-option>
             </mat-select>
           </mat-form-field>
           <!-- <mat-form-field>
@@ -186,7 +187,8 @@
                   cancel: request.statusID == 3,
                   approved: request.statusID == 4,
                   reject: request.statusID == 5 || 0,
-                  done:request.statusID == 6
+                  done:request.statusID == 6,
+                  expired:request.statusID == 7
                 }"
               >
                 {{ request.status |lowercase  }}

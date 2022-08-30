@@ -303,7 +303,11 @@ export class GridComponent implements OnInit, OnDestroy {
       }
       if (rq.statusID == 6) {
         this.addClass(p, 'done');
-        p.innerHTML='done'
+       
+      }
+      if (rq.statusID == 7) {
+        this.addClass(p, 'expired');
+       
       }
       td10.appendChild(p);
       let td11 = this.renderer.createElement('td');
